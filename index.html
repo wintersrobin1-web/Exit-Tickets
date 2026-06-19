@@ -728,16 +728,16 @@
             top: 50%;
         }
         .open-concept-map-area .empty-core-box {
-            min-width: 7.1rem;
-            min-height: 2.55rem;
+            min-width: 8.4rem;
+            min-height: 3.05rem;
         }
         .layout-4 .open-concept-map-area .empty-core-box {
-            min-width: 5.3rem;
-            min-height: 1.95rem;
+            min-width: 6.2rem;
+            min-height: 2.25rem;
         }
         .layout-9 .open-concept-map-area .empty-core-box {
-            min-width: 3.9rem;
-            min-height: 1.42rem;
+            min-width: 4.55rem;
+            min-height: 1.7rem;
         }
         .open-concept-hint {
             position: absolute;
@@ -749,8 +749,13 @@
             text-align: center;
         }
         .layout-4 .open-concept-map-area { min-height: 6.8rem; }
-        .layout-9 .open-concept-map-area { min-height: 4.8rem; }
-        .layout-9 .open-concept-hint { display: none; }
+        .layout-9 .open-concept-map-area { min-height: 5.25rem; }
+        .layout-9 .open-concept-hint {
+            display: block;
+            inset: auto 0.28rem 0.28rem 0.28rem;
+            font-size: 0.36rem;
+            line-height: 0.44rem;
+        }
         .digital-concept-simple {
             border: 1px solid #334155;
             border-radius: 1rem;
@@ -859,7 +864,6 @@
                         <h1 class="text-xl font-bold text-emerald-900 flex items-center gap-2">
                             BioTicket <span class="text-xs bg-emerald-200 text-emerald-800 px-2 py-0.5 rounded-full font-semibold">Premium Pro</span>
                         </h1>
-                        <p class="text-xs text-slate-500">Zwei-Spalten-Generator & Live-Klassenzimmer für den Biologieunterricht</p>
                     </div>
                 </div>
                 <div class="flex items-center flex-wrap gap-2">
@@ -1342,7 +1346,7 @@
                 icon: 'share-2',
                 prompts: [
                     'Trage in die Mitte einen zentralen Begriff der Stunde ein.',
-                    'Ergänze selbst weitere passende Fachbegriffe und verbinde sie mit Linien.',
+                    'Ergänze außen weitere passende Fachbegriffe.',
                     'Nutze die freie Fläche für dein eigenes Begriffsnetz.'
                 ]
             },
@@ -1407,7 +1411,7 @@
                 icon: 'share-2',
                 prompts: [
                     'Trage einen zentralen Begriff in die Mitte ein.',
-                    'Ergänze passende Fachbegriffe und verbinde sie selbst sinnvoll.',
+                    'Ergänze außen weitere passende Fachbegriffe.',
                     'Formuliere den wichtigsten Zusammenhang in einem Satz.'
                 ]
             },
@@ -1513,6 +1517,15 @@
                     }
                 });
             }
+
+            // Alte gespeicherte Standardformulierungen auf die aktuelle, kompaktere Begriffsnetz-Version migrieren.
+            const oldConceptHintA = 'Ergänze selbst weitere passende Fachbegriffe und verbinde sie mit Linien.';
+            const oldConceptHintB = 'Ergänze passende Fachbegriffe und verbinde sie selbst sinnvoll.';
+            ['begriffsnetz', 'combo_begriffsnetz_zusammenhang'].forEach(id => {
+                if (merged.questions[id] && (merged.questions[id][1] === oldConceptHintA || merged.questions[id][1] === oldConceptHintB)) {
+                    merged.questions[id][1] = DEFAULT_STATE.questions[id][1];
+                }
+            });
 
             // Meta-Felder übernehmen, aber fehlende neue Felder aus dem Standard ergänzen.
             if (saved.meta && typeof saved.meta === 'object') {
@@ -1921,7 +1934,9 @@
         window.updateMetaText = updateMetaText;
 
         // Kurz vor dem Drucken sicherheitshalber noch einmal aus dem aktuellen State rendern.
+        // Ausnahme: Beim Live-Report darf #print-output nicht mit leeren Tickets überschrieben werden.
         window.addEventListener('beforeprint', () => {
+            if (document.documentElement.classList.contains('report-print-mode')) return;
             renderPreview();
         });
 
