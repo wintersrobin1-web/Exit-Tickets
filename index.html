@@ -727,6 +727,18 @@
             left: 50%;
             top: 50%;
         }
+        .open-concept-map-area .empty-core-box {
+            min-width: 7.1rem;
+            min-height: 2.55rem;
+        }
+        .layout-4 .open-concept-map-area .empty-core-box {
+            min-width: 5.3rem;
+            min-height: 1.95rem;
+        }
+        .layout-9 .open-concept-map-area .empty-core-box {
+            min-width: 3.9rem;
+            min-height: 1.42rem;
+        }
         .open-concept-hint {
             position: absolute;
             inset: auto 0.7rem 0.55rem 0.7rem;
@@ -2106,7 +2118,7 @@
                     <div class="concept-ticket text-xs">
                         <p class="concept-instruction ${textBrandClass}">${q[0]}</p>
                         <div class="open-concept-map-area border ${accentLineClass} bg-white">
-                            <div class="concept-box concept-center ${isColor ? accent.badge : ''}">Kernbegriff</div>
+                            <div class="concept-box concept-center empty-core-box ${isColor ? accent.badge : ''}"></div>
                             <div class="open-concept-hint">${q[1]}</div>
                         </div>
                     </div>`;
@@ -2115,7 +2127,7 @@
                     <div class="concept-ticket text-xs">
                         <p class="concept-instruction ${textBrandClass}">${q[0]}</p>
                         <div class="open-concept-map-area border ${accentLineClass} bg-white">
-                            <div class="concept-box concept-center ${isColor ? accent.badge : ''}">Kernbegriff</div>
+                            <div class="concept-box concept-center empty-core-box ${isColor ? accent.badge : ''}"></div>
                             <div class="open-concept-hint">${q[1]}</div>
                         </div>
                         <div class="border ${accentLineClass} rounded-xl p-2 bg-slate-50 flex-none">
