@@ -76,16 +76,17 @@
             border-radius: 0.55rem !important;
             overflow: hidden !important;
         }
-        img.bioticket-logo-mini,
+        img.bioticket-logo-mini {
+            border-radius: 0.38rem !important;
+            overflow: hidden !important;
+        }
         img.ticket-logo {
-            border-radius: 0.42rem !important;
+            border-radius: 0.22rem !important;
             overflow: hidden !important;
         }
         @media print {
-            img.bioticket-logo,
-            img.bioticket-logo-mini,
             img.ticket-logo {
-                border-radius: 0.42rem !important;
+                border-radius: 0.22rem !important;
                 overflow: hidden !important;
             }
         }
@@ -1186,7 +1187,7 @@
                 <div class="bg-white border border-slate-200 border-b-0 rounded-t-2xl px-5 py-3 flex items-center justify-between">
                     <span class="text-xs font-bold text-slate-500 flex items-center gap-2">
                         <span class="theme-status-dot w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        Echtzeit-Vorschau (WYSIWYG)
+                        Echtzeit-Vorschau
                     </span>
                     <span class="text-xs bg-slate-100 px-2 py-0.5 rounded font-mono text-slate-500" id="preview-badge">A4-Format</span>
                 </div>
@@ -1636,6 +1637,7 @@
             layout: '2', // '1' | '2' | '4' | '9'
             accentColor: 'emerald', // Ticket-Akzentfarbe
             hiddenPrompts: {}, // ausgeblendete Teilaufgaben pro Methode
+            hiddenTerms: {}, // ausgeblendete Fachbegriffe pro Methode
             questions: {
                 '321': [...methods['321'].prompts],
                 'fachbegriffe': [...methods['fachbegriffe'].prompts],
@@ -1695,6 +1697,15 @@
                         .filter(value => Number.isInteger(value) && value >= 0 && value < max);
                     if (cleaned.length) merged.hiddenPrompts[id] = Array.from(new Set(cleaned));
                 });
+            }
+            if (saved.hiddenTerms && typeof saved.hiddenTerms === 'object') {
+                merged.hiddenTerms = {};
+                const termMax = DEFAULT_STATE.meta.terms.length;
+                const rawList = Array.isArray(saved.hiddenTerms.fachbegriffe) ? saved.hiddenTerms.fachbegriffe : [];
+                const cleaned = rawList
+                    .map(value => parseInt(value, 10))
+                    .filter(value => Number.isInteger(value) && value >= 0 && value < termMax);
+                if (cleaned.length) merged.hiddenTerms.fachbegriffe = Array.from(new Set(cleaned));
             }
 
             // Fragen/Impulse pro Methode übernehmen, aber neue Methoden aus dem Standard erhalten.
@@ -1776,6 +1787,8 @@
             window.state.questions[id] = clonePlain(DEFAULT_STATE.questions[id]);
             if (!window.state.hiddenPrompts) window.state.hiddenPrompts = {};
             delete window.state.hiddenPrompts[id];
+            if (!window.state.hiddenTerms) window.state.hiddenTerms = {};
+            delete window.state.hiddenTerms[id];
 
             // Zusatzfelder gehören fachlich zu bestimmten Karten und werden dort mit zurückgesetzt.
             if (id === 'fachbegriffe') {
@@ -1947,6 +1960,61 @@
             container.innerHTML = q.map((prompt, i) => renderTeacherInputRow(i, labels[i] || `Impuls ${i + 1}`, prompt)).join('');
             lucide.createIcons();
         }
+
+
+        function getHiddenTermList(methodId = 'fachbegriffe') {
+            if (!window.state.hiddenTerms || typeof window.state.hiddenTerms !== 'object') {
+                window.state.hiddenTerms = {};
+            }
+            if (!Array.isArray(window.state.hiddenTerms[methodId])) {
+                window.state.hiddenTerms[methodId] = [];
+            }
+            return window.state.hiddenTerms[methodId];
+        }
+
+        function isTermHidden(index, methodId = 'fachbegriffe') {
+            return getHiddenTermList(methodId).includes(index);
+        }
+
+        window.toggleTermVisibility = function(index) {
+            const id = 'fachbegriffe';
+            const list = getHiddenTermList(id);
+            const pos = list.indexOf(index);
+            if (pos >= 0) {
+                list.splice(pos, 1);
+            } else {
+                const visibleCount = (window.state.meta.terms || []).length - list.length;
+                if (visibleCount <= 1) {
+                    showToast('Mindestens ein Fachbegriff muss sichtbar bleiben.', 'alert-triangle');
+                    return;
+                }
+                list.push(index);
+                list.sort((a, b) => a - b);
+            }
+            if (!list.length) delete window.state.hiddenTerms[id];
+            saveTeacherStateToBrowser();
+            renderDynamicInputs();
+            renderPreview();
+            updateControlsUI();
+        };
+
+        function renderTermInputRow(index) {
+            const hidden = isTermHidden(index);
+            return `
+                <div class="bt-prompt-editor-row ${hidden ? 'is-hidden' : ''} border border-slate-100 rounded-xl p-2">
+                    <div class="flex items-center justify-between gap-2 mb-1">
+                        <label class="block text-[11px] font-bold ${hidden ? 'text-slate-400 line-through' : 'text-slate-600'}">Begriff ${index + 1}</label>
+                        <button type="button" onclick="toggleTermVisibility(${index})" class="shrink-0 inline-flex items-center gap-1 px-2 py-1 rounded-lg border ${hidden ? 'border-emerald-200 text-emerald-700 bg-emerald-50 hover:bg-emerald-100' : 'border-slate-200 text-slate-500 bg-white hover:bg-slate-50'} text-[10px] font-bold transition-all">
+                            <i data-lucide="${hidden ? 'plus' : 'trash-2'}" class="w-3 h-3"></i>
+                            ${hidden ? 'wieder einblenden' : 'ausblenden'}
+                        </button>
+                    </div>
+                    <input type="text" value="${escapeAttribute(window.state.meta.terms[index] || '')}" oninput="updateMetaTerm(${index}, this.value)" class="w-full px-2 py-1.5 border border-slate-300 rounded-lg text-xs font-medium" placeholder="Begriff ${index + 1}" ${hidden ? 'disabled' : ''}>
+                    ${hidden ? '<p class="text-[10px] text-slate-400 mt-1">Dieser Fachbegriff wird nicht abgefragt.</p>' : ''}
+                </div>
+            `;
+        }
+
 
         // Baut die Schüler-URL ausschließlich aus der tatsächlich veröffentlichten App-Adresse.
         // Wichtig: Firestore verbindet nur die Datenbank. Der QR-Code braucht zusätzlich eine öffentlich erreichbare Webseite.
@@ -2171,10 +2239,8 @@
                     ${renderTeacherInputRow(0, 'Arbeitsanweisung', q[0] || '')}
                     <div class="space-y-2 mt-3">
                         <label class="block text-[11px] font-bold text-slate-600">Begriffe definieren:</label>
-                        <div class="grid grid-cols-3 gap-2">
-                            <input type="text" value="${escapeAttribute(window.state.meta.terms[0])}" oninput="updateMetaTerm(0, this.value)" class="px-2 py-1.5 border border-slate-300 rounded-lg text-xs font-medium" placeholder="Begriff 1">
-                            <input type="text" value="${escapeAttribute(window.state.meta.terms[1])}" oninput="updateMetaTerm(1, this.value)" class="px-2 py-1.5 border border-slate-300 rounded-lg text-xs font-medium" placeholder="Begriff 2">
-                            <input type="text" value="${escapeAttribute(window.state.meta.terms[2])}" oninput="updateMetaTerm(2, this.value)" class="px-2 py-1.5 border border-slate-300 rounded-lg text-xs font-medium" placeholder="Begriff 3">
+                        <div class="grid grid-cols-1 gap-2">
+                            ${[0,1,2].map(i => renderTermInputRow(i)).join('')}
                         </div>
                     </div>`;
             } else if (isAmpelScaleTicket()) {
@@ -2219,6 +2285,7 @@
         window.updateMetaTerm = updateMetaTerm;
         window.updateMetaText = updateMetaText;
         window.togglePromptVisibility = window.togglePromptVisibility;
+        window.toggleTermVisibility = window.toggleTermVisibility;
 
         // Kurz vor dem Drucken sicherheitshalber noch einmal aus dem aktuellen State rendern.
         // Ausnahme: Beim Live-Report darf #print-output nicht mit leeren Tickets überschrieben werden.
@@ -2281,7 +2348,7 @@
                     <div class="bio-fill-stack text-xs fachbegriffe-print-ticket">
                         <p class="font-semibold text-slate-700 bio-fill-fixed ${hiddenClass(0)}">${q[0]}</p>
                         <div class="bio-fill-stack bio-fill-grow">
-                            ${terms.map((term, i) => `
+                            ${terms.map((term, i) => isTermHidden(i) ? '' : `
                                 <div class="bio-fill-card border ${accentLineClass} rounded-xl p-3 bg-slate-50/50">
                                     <span class="font-bold ${textBrandClass} text-[11px] uppercase tracking-wider bio-fill-fixed">${term || `Begriff ${i+1}`}</span>
                                     <div class="${writingLinesClass} w-full mt-1.5"></div>
@@ -2604,6 +2671,7 @@
                     ticketType: window.state.ticketType,
                     questions: window.state.questions[window.state.ticketType],
                     hiddenPrompts: (window.state.hiddenPrompts && window.state.hiddenPrompts[window.state.ticketType]) ? window.state.hiddenPrompts[window.state.ticketType] : [],
+                    hiddenTerms: (window.state.hiddenTerms && window.state.hiddenTerms.fachbegriffe) ? window.state.hiddenTerms.fachbegriffe : [],
                     meta: window.state.meta,
                     nameOption: window.state.nameOption,
                     accentColor: window.state.accentColor,
@@ -2795,7 +2863,7 @@
                 } else if (window.state.ticketType === 'fachbegriffe') {
                     bodyHTML = `
                         <div class="space-y-2 text-xs">
-                            ${window.state.meta.terms.map((term, i) => `
+                            ${window.state.meta.terms.map((term, i) => isTermHidden(i) ? '' : `
                                 <div class="bg-slate-900/60 p-2 rounded-lg">
                                     <strong class="text-emerald-400 uppercase tracking-wide text-[9px]">${term}</strong>
                                     <p class="text-slate-200 mt-0.5">${sub.answers[i] || '-'}</p>
@@ -3040,6 +3108,8 @@
                     window.state.questions[data.ticketType] = data.questions;
                     window.state.hiddenPrompts = {};
                     if (Array.isArray(data.hiddenPrompts)) window.state.hiddenPrompts[data.ticketType] = data.hiddenPrompts;
+                    window.state.hiddenTerms = {};
+                    if (Array.isArray(data.hiddenTerms)) window.state.hiddenTerms.fachbegriffe = data.hiddenTerms;
                     if (data.meta) window.state.meta = data.meta;
                     window.state.nameOption = data.nameOption || 'named';
                     window.state.accentColor = data.accentColor || 'emerald';
@@ -3108,7 +3178,7 @@
                 container.innerHTML = `
                     <div class="space-y-4">
                         ${active(0) ? `<p class="text-xs text-slate-400 italic">${q[0]}</p>` : ''}
-                        ${window.state.meta.terms.map((term, i) => `
+                        ${window.state.meta.terms.map((term, i) => isTermHidden(i) ? '' : `
                             <div>
                                 <label class="block text-xs text-slate-300 font-bold mb-1 text-emerald-400 uppercase tracking-wider">${term}</label>
                                 <textarea id="ans-${i}" rows="2" placeholder="Deine Definition..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500" required></textarea>
@@ -3217,7 +3287,7 @@
                     if (lies[i].checked) { lieIndex = parseInt(lies[i].value); break; }
                 }
             } else if (type === 'fachbegriffe') {
-                for (let i = 0; i < (window.state.meta.terms || []).length; i++) answers[i] = valueOf(i);
+                for (let i = 0; i < (window.state.meta.terms || []).length; i++) answers[i] = isTermHidden(i) ? '' : valueOf(i);
             } else if (type === 'begriffsnetz') {
                 answers[0] = valueOf(0).trim();
                 answers[1] = valueOf(1).trim();
@@ -3239,6 +3309,7 @@
                     answers: answers,
                     lieIndex: lieIndex,
                     hiddenPrompts: (window.state.hiddenPrompts && window.state.hiddenPrompts[type]) ? window.state.hiddenPrompts[type] : [],
+                    hiddenTerms: (window.state.hiddenTerms && window.state.hiddenTerms.fachbegriffe) ? window.state.hiddenTerms.fachbegriffe : [],
                     timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
                 });
 
@@ -3347,7 +3418,7 @@
                 return [0, 1, 2].map(i => `<strong>Aussage ${i + 1}${String(sub.lieIndex) === String(i) ? ' (Lüge)' : ''}:</strong> ${escapeHTML(answers[i] || '-')}`).join('<br>');
             }
             if (window.state.ticketType === 'fachbegriffe') {
-                return (window.state.meta.terms || []).map((term, i) => `<strong>${escapeHTML(term || `Begriff ${i+1}`)}:</strong> ${escapeHTML(answers[i] || '-')}`).join('<br>');
+                return (window.state.meta.terms || []).map((term, i) => isTermHidden(i) ? '' : `<strong>${escapeHTML(term || `Begriff ${i+1}`)}:</strong> ${escapeHTML(answers[i] || '-')}`).filter(Boolean).join('<br>');
             }
             if (window.state.ticketType === 'begriffsnetz') {
                 const terms = String(answers[1] || '').split(/[\n,;]+| · /).map(t => t.trim()).filter(Boolean).join(', ');
