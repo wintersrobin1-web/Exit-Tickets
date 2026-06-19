@@ -1274,6 +1274,92 @@
                     'Verbinde Begriffe mit Linien und beschrifte die Verbindung kurz fachlich.'
                 ]
             },
+            'combo_emoji_irrtum': {
+                id: 'combo_emoji_irrtum',
+                title: 'Kombi: Emoji + Irrtum',
+                description: 'Selbsteinschätzung plus Fehlvorstellung korrigieren',
+                icon: 'sparkles',
+                prompts: [
+                    'Wie sicher fühlst du dich beim Thema?',
+                    'Nenne einen möglichen Irrtum oder eine typische Fehlvorstellung zum Thema:',
+                    'Korrigiere diesen Irrtum fachlich richtig:'
+                ]
+            },
+            'combo_ampel_frage': {
+                id: 'combo_ampel_frage',
+                title: 'Kombi: Ampel + Frage',
+                description: 'Verständnisstand plus konkrete offene Frage',
+                icon: 'traffic-light',
+                prompts: [
+                    'Wie klar ist dir das Thema insgesamt?',
+                    'Welche Frage oder Unsicherheit bleibt noch offen?'
+                ]
+            },
+            'combo_aha_frage': {
+                id: 'combo_aha_frage',
+                title: 'Kombi: Aha + Frage',
+                description: 'Erkenntnis sichern und Klärungsbedarf sammeln',
+                icon: 'lightbulb',
+                prompts: [
+                    'Was war heute deine wichtigste Erkenntnis?',
+                    'Welche Frage hast du noch zum Thema?'
+                ]
+            },
+            'combo_schema_irrtum': {
+                id: 'combo_schema_irrtum',
+                title: 'Kombi: Schema + Irrtum',
+                description: 'Struktur/Funktion plus Fehlvorstellung',
+                icon: 'workflow',
+                prompts: [
+                    'Welche Struktur oder welchen Bestandteil hast du heute betrachtet?',
+                    'Welche Funktion oder Bedeutung hat diese Struktur?',
+                    'Welcher Irrtum könnte dazu entstehen?',
+                    'Wie lautet die fachlich richtige Korrektur?'
+                ]
+            },
+            'combo_hypothese_pruefung': {
+                id: 'combo_hypothese_pruefung',
+                title: 'Kombi: Hypothese + Prüfung',
+                description: 'Wenn-dann-weil und Prüfbarkeit sichern',
+                icon: 'flask-conical',
+                prompts: [
+                    'Formuliere eine Wenn-dann-Hypothese zum Thema:',
+                    'Begründe sie biologisch mit „weil ...“:',
+                    'Wie könnte man diese Hypothese überprüfen?'
+                ]
+            },
+            'combo_begriffsnetz_zusammenhang': {
+                id: 'combo_begriffsnetz_zusammenhang',
+                title: 'Kombi: Begriffsnetz + Zusammenhang',
+                description: 'Vernetzen und einen Kernzusammenhang ausformulieren',
+                icon: 'share-2',
+                prompts: [
+                    'Trage einen zentralen Begriff in die Mitte ein.',
+                    'Ergänze außen passende Fachbegriffe und verbinde sie.',
+                    'Beschrifte wichtige Linien mit kurzen Fachwörtern.',
+                    'Formuliere den wichtigsten Zusammenhang in einem Satz.'
+                ]
+            },
+            'combo_tweet_aha': {
+                id: 'combo_tweet_aha',
+                title: 'Kombi: Bio-Tweet + Aha',
+                description: 'Sehr kurze Zusammenfassung plus Erkenntnis',
+                icon: 'message-circle',
+                prompts: [
+                    'Fasse die Stunde in maximal 150 Zeichen zusammen:',
+                    'Was war dein Aha-Moment?'
+                ]
+            },
+            'combo_emoji_lernfrage': {
+                id: 'combo_emoji_lernfrage',
+                title: 'Kombi: Emoji + Lernfrage',
+                description: 'Schnelle Skala plus nächste Lernfrage',
+                icon: 'smile-plus',
+                prompts: [
+                    'Wie sicher fühlst du dich beim Thema?',
+                    'Welche nächste Lernfrage ergibt sich für dich?'
+                ]
+            },
             'frei': {
                 id: 'frei',
                 title: 'Freie Gestaltung',
@@ -1309,6 +1395,14 @@
                 'schema': [...methods['schema'].prompts],
                 'kurz': [...methods['kurz'].prompts],
                 'begriffsnetz': [...methods['begriffsnetz'].prompts],
+                'combo_emoji_irrtum': [...methods['combo_emoji_irrtum'].prompts],
+                'combo_ampel_frage': [...methods['combo_ampel_frage'].prompts],
+                'combo_aha_frage': [...methods['combo_aha_frage'].prompts],
+                'combo_schema_irrtum': [...methods['combo_schema_irrtum'].prompts],
+                'combo_hypothese_pruefung': [...methods['combo_hypothese_pruefung'].prompts],
+                'combo_begriffsnetz_zusammenhang': [...methods['combo_begriffsnetz_zusammenhang'].prompts],
+                'combo_tweet_aha': [...methods['combo_tweet_aha'].prompts],
+                'combo_emoji_lernfrage': [...methods['combo_emoji_lernfrage'].prompts],
                 'frei': [...methods['frei'].prompts]
             },
             meta: {
@@ -1407,13 +1501,26 @@
         let unsubscribeSubmissions = null;
         let isZoomed = false;
 
-        const threeFieldTickets = ['321', 'fachbegriffe', 'wahrheit', 'kette', 'hypothese', 'schema', 'kurz', 'begriffsnetz'];
-        const twoFieldTickets = ['tweet', 'irrtum'];
+        const fourFieldTickets = ['combo_schema_irrtum', 'combo_begriffsnetz_zusammenhang'];
+        const threeFieldTickets = ['321', 'fachbegriffe', 'wahrheit', 'kette', 'hypothese', 'schema', 'kurz', 'begriffsnetz', 'combo_emoji_irrtum', 'combo_hypothese_pruefung'];
+        const twoFieldTickets = ['tweet', 'irrtum', 'combo_aha_frage', 'combo_tweet_aha'];
         const oneFieldTickets = ['aha', 'transfer', 'frei'];
+        const ampelScaleTickets = ['ampel', 'combo_ampel_frage'];
+        const emojiScaleTickets = ['emoji', 'combo_emoji_irrtum', 'combo_emoji_lernfrage'];
+        const genericTextTickets = ['kette', 'hypothese', 'schema', 'kurz', 'combo_aha_frage', 'combo_schema_irrtum', 'combo_hypothese_pruefung', 'combo_begriffsnetz_zusammenhang', 'combo_tweet_aha'];
+
+        function isAmpelScaleTicket(ticketType = window.state.ticketType) {
+            return ampelScaleTickets.includes(ticketType);
+        }
+
+        function isEmojiScaleTicket(ticketType = window.state.ticketType) {
+            return emojiScaleTickets.includes(ticketType);
+        }
 
         function getAnswerCount(ticketType = window.state.ticketType) {
+            if (fourFieldTickets.includes(ticketType)) return 4;
             if (threeFieldTickets.includes(ticketType)) return 3;
-            if (twoFieldTickets.includes(ticketType) || ticketType === 'ampel' || ticketType === 'emoji') return 2;
+            if (twoFieldTickets.includes(ticketType) || isAmpelScaleTicket(ticketType) || ticketType === 'emoji' || ticketType === 'combo_emoji_lernfrage') return 2;
             return 1;
         }
 
@@ -1427,6 +1534,14 @@
                 schema: ['Struktur', 'Funktion', 'Zusammenhang'],
                 kurz: ['Verstanden', 'Noch unklar', 'Hilfebedarf'],
                 begriffsnetz: ['Kernbegriff', 'weitere Begriffe', 'Verbindungen'],
+                combo_emoji_irrtum: ['Emoji-Skala', 'Irrtum', 'Korrektur'],
+                combo_ampel_frage: ['Ampel', 'Offene Frage'],
+                combo_aha_frage: ['Aha-Moment', 'Offene Frage'],
+                combo_schema_irrtum: ['Struktur', 'Funktion', 'Irrtum', 'Korrektur'],
+                combo_hypothese_pruefung: ['Hypothese', 'Begründung', 'Prüfung'],
+                combo_begriffsnetz_zusammenhang: ['Kernbegriff', 'Begriffe/Linien', 'Beschriftungen', 'Kernzusammenhang'],
+                combo_tweet_aha: ['Bio-Tweet', 'Aha-Moment'],
+                combo_emoji_lernfrage: ['Emoji-Skala', 'Lernfrage'],
                 frei: ['Antwort']
             };
             return (labelSets[ticketType] && labelSets[ticketType][index]) || `Antwort ${index + 1}`;
@@ -1691,7 +1806,7 @@
                             <input type="text" value="${window.state.meta.terms[2]}" oninput="updateMetaTerm(2, this.value)" class="px-2 py-1.5 border border-slate-300 rounded-lg text-xs font-medium" placeholder="Begriff 3">
                         </div>
                     </div>`;
-            } else if (window.state.ticketType === 'ampel') {
+            } else if (isAmpelScaleTicket()) {
                 container.innerHTML = `
                     <div><label class="block text-[11px] font-bold text-slate-500 mb-1">Hauptfrage</label><input type="text" value="${q[0]}" oninput="updateQuestion(0, this.value)" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold mb-2"></div>
                     <div><label class="block text-[11px] font-bold text-slate-500 mb-1">Aufforderung Text</label><input type="text" value="${q[1]}" oninput="updateQuestion(1, this.value)" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold"></div>`;
@@ -1701,7 +1816,7 @@
                     <div><label class="block text-[11px] font-bold text-slate-500 mb-1">Alltags- / Transferaufgabe</label><textarea oninput="updateMetaText('transferQuestion', this.value)" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold h-20">${window.state.meta.transferQuestion}</textarea></div>`;
             } else if (window.state.ticketType === 'wahrheit') {
                 container.innerHTML = `<div><label class="block text-[11px] font-bold text-slate-500 mb-1">Arbeitsanweisung</label><input type="text" value="${q[0]}" oninput="updateQuestion(0, this.value)" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold"></div>`;
-            } else if (window.state.ticketType === 'aha' || twoFieldTickets.includes(window.state.ticketType) || ['kette', 'hypothese', 'schema', 'kurz', 'begriffsnetz'].includes(window.state.ticketType)) {
+            } else if (window.state.ticketType === 'aha' || twoFieldTickets.includes(window.state.ticketType) || threeFieldTickets.includes(window.state.ticketType) || fourFieldTickets.includes(window.state.ticketType) || window.state.ticketType === 'combo_emoji_lernfrage') {
                 renderGenericTeacherInputs(container, q, q.map((_, i) => getGenericLabel(window.state.ticketType, i)));
             } else if (window.state.ticketType === 'frei') {
                 container.innerHTML = `<div><label class="block text-[11px] font-bold text-slate-500 mb-1">Aufgabenstellung</label><input type="text" value="${q[0]}" oninput="updateQuestion(0, this.value)" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold"></div>`;
@@ -1800,7 +1915,7 @@
                             `).join('')}
                         </div>
                     </div>`;
-            } else if (window.state.ticketType === 'ampel') {
+            } else if (isAmpelScaleTicket()) {
                 ticketContent = `
                     <div class="ticket-task-stack ticket-content-fill text-xs ampel-print-ticket">
                         <div class="ticket-task task-small">
@@ -1875,7 +1990,36 @@
                             <div class="border-b border-dashed border-slate-300 h-7"></div>
                         </div>
                     </div>`;
-            } else if (window.state.ticketType === 'emoji') {
+            } else if (window.state.ticketType === 'combo_emoji_irrtum') {
+                ticketContent = `
+                    <div class="ticket-task-stack ticket-content-fill text-xs emoji-print-ticket">
+                        <p class="font-bold text-center ${textBrandClass}">${q[0]}</p>
+                        <div class="emoji-scale text-center">
+                            ${[
+                                ['😵', 'unklar'],
+                                ['😕', 'wackelig'],
+                                ['😐', 'teils'],
+                                ['🙂', 'sicher'],
+                                ['🤩', 'sehr klar']
+                            ].map(([face, label]) => `
+                                <div class="emoji-choice border ${accentLineClass} rounded-xl bg-white">
+                                    <span class="emoji-face">${face}</span>
+                                    <span class="emoji-label text-slate-500">${label}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="grid grid-cols-1 gap-2 flex-1">
+                            <div class="border border-red-200 rounded-xl p-2 bg-red-50/30">
+                                <p class="font-semibold text-slate-700 mb-1">${q[1]}</p>
+                                <div class="${writingLinesClass} w-full h-16"></div>
+                            </div>
+                            <div class="border ${accentLineClass} rounded-xl p-2 bg-white">
+                                <p class="font-semibold text-slate-700 mb-1">${q[2]}</p>
+                                <div class="${writingLinesClass} w-full h-16"></div>
+                            </div>
+                        </div>
+                    </div>`;
+            } else if (window.state.ticketType === 'emoji' || window.state.ticketType === 'combo_emoji_lernfrage') {
                 ticketContent = `
                     <div class="ticket-task-stack ticket-content-fill text-xs emoji-print-ticket">
                         <p class="font-bold text-center ${textBrandClass}">${q[0]}</p>
@@ -1923,7 +2067,7 @@
                         </div>
                         <p class="concept-footer-note">${q[1]} ${q[2]}</p>
                     </div>`;
-            } else if (['kette', 'hypothese', 'schema', 'kurz'].includes(window.state.ticketType)) {
+            } else if (genericTextTickets.includes(window.state.ticketType) || fourFieldTickets.includes(window.state.ticketType)) {
                 ticketContent = `
                     <div class="space-y-3 text-xs">
                         ${q.map((prompt, i) => `
@@ -2163,7 +2307,7 @@
             statsBox.innerHTML = '';
             const pct = (value) => total > 0 ? Math.round((value / total) * 100) : 0;
 
-            if (window.state.ticketType === 'ampel') {
+            if (isAmpelScaleTicket()) {
                 const counts = { rot: 0, gelb: 0, gruen: 0 };
                 submissions.forEach(s => {
                     const value = s.answers?.[0];
@@ -2195,7 +2339,7 @@
                             </div>
                         `).join('')}
                     </div>`;
-            } else if (window.state.ticketType === 'emoji') {
+            } else if (isEmojiScaleTicket()) {
                 const labels = [
                     ['😵', 'unklar', 'bg-red-500'],
                     ['😕', 'wackelig', 'bg-orange-400'],
@@ -2284,7 +2428,7 @@
                                 </div>
                             `).join('')}
                         </div>`;
-                } else if (window.state.ticketType === 'ampel') {
+                } else if (isAmpelScaleTicket()) {
                     const status = sub.answers[0];
                     let badge = '';
                     if (status === 'gruen') badge = '<span class="bg-green-500/10 text-green-400 border border-green-500/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase">Klar</span>';
@@ -2346,12 +2490,18 @@
                             </div>
                             <div class="text-sky-300 font-bold">${sub.answers[1] || '#Biologie'}</div>
                         </div>`;
-                } else if (window.state.ticketType === 'emoji') {
+                } else if (isEmojiScaleTicket()) {
                     const emojiLabels = {1:'😵 unklar',2:'😕 wackelig',3:'😐 teils',4:'🙂 sicher',5:'🤩 sehr klar'};
+                    const followUps = sub.answers.slice(1).map((answer, answerIndex) => `
+                        <div class="bg-slate-900/60 p-2.5 rounded-lg">
+                            <strong class="text-slate-400">${getGenericLabel(window.state.ticketType, answerIndex + 1)}:</strong>
+                            <p class="text-slate-200 mt-1">${answer || '-'}</p>
+                        </div>
+                    `).join('');
                     bodyHTML = `
                         <div class="space-y-2 text-xs">
                             <div class="flex items-center gap-2"><span class="text-xl">${emojiLabels[sub.answers[0]] ? emojiLabels[sub.answers[0]].split(' ')[0] : '😐'}</span><strong class="text-emerald-400">${emojiLabels[sub.answers[0]] || 'teils'}</strong></div>
-                            <div class="bg-slate-900/60 p-2.5 rounded-lg"><strong class="text-slate-400">Begründung/Frage:</strong><p class="text-slate-200 mt-1">${sub.answers[1] || '-'}</p></div>
+                            ${followUps || '<div class="text-slate-500 text-xs">Keine Zusatzantwort.</div>'}
                         </div>`;
                 } else if (window.state.ticketType === 'begriffsnetz') {
                     const terms = String(sub.answers?.[1] || '').split(' · ').filter(Boolean);
@@ -2371,7 +2521,7 @@
                                 <ul class="list-disc pl-4 mt-1 text-slate-200 space-y-0.5">${links.length ? links.map(l => `<li>${l}</li>`).join('') : '<li>-</li>'}</ul>
                             </div>
                         </div>`;
-                } else if (['kette', 'hypothese', 'irrtum', 'schema', 'kurz'].includes(window.state.ticketType)) {
+                } else if (['kette', 'hypothese', 'irrtum', 'schema', 'kurz', 'combo_aha_frage', 'combo_schema_irrtum', 'combo_hypothese_pruefung', 'combo_begriffsnetz_zusammenhang', 'combo_tweet_aha'].includes(window.state.ticketType)) {
                     bodyHTML = `
                         <div class="space-y-2 text-xs">
                             ${sub.answers.map((answer, i) => `
@@ -2439,7 +2589,7 @@
                     "6 CO2 + 6 H2O -> C6H12O6 + 6 O2",
                     "Spaltung von Wassermolekülen mit Lichtenergie."
                 ];
-            } else if (window.state.ticketType === 'ampel') {
+            } else if (isAmpelScaleTicket()) {
                 const opt = ["gruen", "gelb", "rot"];
                 answers = [
                     opt[Math.floor(Math.random() * opt.length)],
@@ -2582,7 +2732,7 @@
                                 <textarea id="ans-${i}" rows="2" placeholder="Deine Definition..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500" required></textarea>
                             </div>`).join('')}
                     </div>`;
-            } else if (window.state.ticketType === 'ampel') {
+            } else if (isAmpelScaleTicket()) {
                 container.innerHTML = `
                     <div class="space-y-4">
                         <label class="block text-xs text-slate-300 font-bold text-center">${q[0]}</label>
@@ -2645,7 +2795,31 @@
                             </div>
                         </div>
                     </div>`;
-            } else if (window.state.ticketType === 'emoji') {
+            } else if (window.state.ticketType === 'combo_emoji_irrtum') {
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs text-slate-300 font-bold mb-2">${q[0]}</label>
+                            <div class="grid grid-cols-5 gap-2">
+                                ${[
+                                    ['1','😵','unklar'],['2','😕','wackelig'],['3','😐','teils'],['4','🙂','sicher'],['5','🤩','sehr klar']
+                                ].map(([value, face, label]) => `
+                                    <label class="bg-slate-950 border border-slate-700 rounded-xl p-2 text-center cursor-pointer hover:border-emerald-500">
+                                        <input type="radio" name="student-emoji" value="${value}" class="sr-only" ${value === '3' ? 'checked' : ''}>
+                                        <span class="block text-xl">${face}</span><span class="text-[9px] text-slate-400">${label}</span>
+                                    </label>`).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-300 font-bold mb-1"><span class="text-emerald-400 uppercase tracking-wider text-[10px]">${getGenericLabel(window.state.ticketType, 1)}:</span> ${q[1]}</label>
+                            <textarea id="ans-1" rows="3" placeholder="Deine Antwort..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500" required></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-300 font-bold mb-1"><span class="text-emerald-400 uppercase tracking-wider text-[10px]">${getGenericLabel(window.state.ticketType, 2)}:</span> ${q[2]}</label>
+                            <textarea id="ans-2" rows="3" placeholder="Deine Antwort..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500" required></textarea>
+                        </div>
+                    </div>`;
+            } else if (window.state.ticketType === 'emoji' || window.state.ticketType === 'combo_emoji_lernfrage') {
                 container.innerHTML = `
                     <div class="space-y-4">
                         <label class="block text-xs text-slate-300 font-bold text-center">${q[0]}</label>
@@ -2682,7 +2856,7 @@
                             ${[1,2,3,4].map(i => `<input id="net-link-${i-1}" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500" placeholder="z. B. Licht → Chloroplast: liefert Energie">`).join('')}
                         </div>
                     </div>`;
-            } else if (window.state.ticketType === 'aha' || twoFieldTickets.includes(window.state.ticketType) || ['kette', 'hypothese', 'irrtum', 'schema', 'kurz'].includes(window.state.ticketType)) {
+            } else if (window.state.ticketType === 'aha' || twoFieldTickets.includes(window.state.ticketType) || genericTextTickets.includes(window.state.ticketType) || fourFieldTickets.includes(window.state.ticketType)) {
                 container.innerHTML = `
                     <div class="space-y-4">
                         ${q.map((prompt, i) => `
@@ -2723,7 +2897,7 @@
                         if (lies[i].checked) { lieIndex = parseInt(lies[i].value); break; }
                     }
                 }
-            } else if (window.state.ticketType === 'ampel') {
+            } else if (isAmpelScaleTicket()) {
                 const radios = document.getElementsByName('student-ampel');
                 let color = 'gruen';
                 for (let i = 0; i < radios.length; i++) {
@@ -2731,7 +2905,7 @@
                 }
                 answers.push(color);
                 answers.push(document.getElementById('ans-1').value);
-            } else if (window.state.ticketType === 'emoji') {
+            } else if (window.state.ticketType === 'emoji' || window.state.ticketType === 'combo_emoji_lernfrage') {
                 const radios = document.getElementsByName('student-emoji');
                 let level = '3';
                 for (let i = 0; i < radios.length; i++) {
@@ -2739,6 +2913,15 @@
                 }
                 answers.push(level);
                 answers.push(document.getElementById('ans-1').value);
+            } else if (window.state.ticketType === 'combo_emoji_irrtum') {
+                const radios = document.getElementsByName('student-emoji');
+                let level = '3';
+                for (let i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) { level = radios[i].value; break; }
+                }
+                answers.push(level);
+                answers.push(document.getElementById('ans-1').value);
+                answers.push(document.getElementById('ans-2').value);
             } else if (window.state.ticketType === 'begriffsnetz') {
                 const center = document.getElementById('ans-0').value.trim();
                 const terms = [0,1,2,3,4,5].map(i => document.getElementById(`net-term-${i}`)?.value.trim()).filter(Boolean);
@@ -2746,7 +2929,7 @@
                 answers.push(center);
                 answers.push(terms.join(' · '));
                 answers.push(links.join('\n'));
-            } else if (twoFieldTickets.includes(window.state.ticketType) || ['kette', 'hypothese', 'irrtum', 'schema', 'kurz'].includes(window.state.ticketType)) {
+            } else if (twoFieldTickets.includes(window.state.ticketType) || genericTextTickets.includes(window.state.ticketType) || fourFieldTickets.includes(window.state.ticketType)) {
                 for (let i = 0; i < getAnswerCount(window.state.ticketType); i++) {
                     answers.push(document.getElementById(`ans-${i}`).value);
                 }
@@ -2818,7 +3001,7 @@
         function getReportCategoryRows() {
             const total = submissions.length;
             const pct = (value) => total > 0 ? Math.round((value / total) * 100) : 0;
-            if (window.state.ticketType === 'ampel') {
+            if (isAmpelScaleTicket()) {
                 const counts = { gruen: 0, gelb: 0, rot: 0 };
                 submissions.forEach(s => {
                     const value = s.answers?.[0];
@@ -2832,7 +3015,7 @@
                     ['Unklar / rot', counts.rot, pct(counts.rot)]
                 ];
             }
-            if (window.state.ticketType === 'emoji') {
+            if (isEmojiScaleTicket()) {
                 const labels = ['😵 unklar', '😕 wackelig', '😐 teils', '🙂 sicher', '🤩 sehr klar'];
                 const counts = [0, 0, 0, 0, 0];
                 submissions.forEach(s => {
@@ -2860,15 +3043,15 @@
         function formatReportAnswers(sub) {
             const answers = sub.answers || [];
             const questions = window.state.questions[window.state.ticketType] || [];
-            if (window.state.ticketType === 'ampel') {
+            if (isAmpelScaleTicket()) {
                 const labelMap = { rot: '🔴 unklar', gelb: '🟡 teils', gruen: '🟢 verstanden' };
                 return `<strong>Auswahl:</strong> ${escapeHTML(labelMap[answers[0]] || answers[0] || '-')}
                         <br><strong>Begründung/Frage:</strong> ${escapeHTML(answers[1] || '-')}`;
             }
-            if (window.state.ticketType === 'emoji') {
+            if (isEmojiScaleTicket()) {
                 const labelMap = { 1: '😵 unklar', 2: '😕 wackelig', 3: '😐 teils', 4: '🙂 sicher', 5: '🤩 sehr klar' };
-                return `<strong>Auswahl:</strong> ${escapeHTML(labelMap[answers[0]] || answers[0] || '-')}
-                        <br><strong>Begründung/Frage:</strong> ${escapeHTML(answers[1] || '-')}`;
+                const followUps = answers.slice(1).map((answer, index) => `<br><strong>${escapeHTML(getGenericLabel(window.state.ticketType, index + 1))}:</strong> ${escapeHTML(answer || '-')}`).join('');
+                return `<strong>Auswahl:</strong> ${escapeHTML(labelMap[answers[0]] || answers[0] || '-')}${followUps}`;
             }
             if (window.state.ticketType === 'wahrheit') {
                 return [0, 1, 2].map(i => `<strong>Aussage ${i + 1}${String(sub.lieIndex) === String(i) ? ' (Lüge)' : ''}:</strong> ${escapeHTML(answers[i] || '-')}`).join('<br>');
