@@ -1361,16 +1361,6 @@
                     'Korrigiere diesen Irrtum fachlich richtig:'
                 ]
             },
-            'combo_ampel_frage': {
-                id: 'combo_ampel_frage',
-                title: 'Kombi: Ampel + Frage',
-                description: 'Verständnisstand plus konkrete offene Frage',
-                icon: 'traffic-light',
-                prompts: [
-                    'Wie klar ist dir das Thema insgesamt?',
-                    'Welche Frage oder Unsicherheit bleibt noch offen?'
-                ]
-            },
             'combo_aha_frage': {
                 id: 'combo_aha_frage',
                 title: 'Kombi: Aha + Frage',
@@ -1471,7 +1461,6 @@
                 'kurz': [...methods['kurz'].prompts],
                 'begriffsnetz': [...methods['begriffsnetz'].prompts],
                 'combo_emoji_irrtum': [...methods['combo_emoji_irrtum'].prompts],
-                'combo_ampel_frage': [...methods['combo_ampel_frage'].prompts],
                 'combo_aha_frage': [...methods['combo_aha_frage'].prompts],
                 'combo_schema_irrtum': [...methods['combo_schema_irrtum'].prompts],
                 'combo_hypothese_pruefung': [...methods['combo_hypothese_pruefung'].prompts],
@@ -1589,7 +1578,7 @@
         const threeFieldTickets = ['321', 'fachbegriffe', 'wahrheit', 'kette', 'hypothese', 'schema', 'kurz', 'begriffsnetz', 'combo_emoji_irrtum', 'combo_hypothese_pruefung', 'combo_begriffsnetz_zusammenhang'];
         const twoFieldTickets = ['tweet', 'irrtum', 'combo_aha_frage', 'combo_tweet_aha'];
         const oneFieldTickets = ['aha', 'transfer', 'frei'];
-        const ampelScaleTickets = ['ampel', 'combo_ampel_frage'];
+        const ampelScaleTickets = ['ampel'];
         const emojiScaleTickets = ['emoji', 'combo_emoji_irrtum', 'combo_emoji_lernfrage'];
         const genericTextTickets = ['kette', 'hypothese', 'schema', 'kurz', 'combo_aha_frage', 'combo_schema_irrtum', 'combo_hypothese_pruefung', 'combo_begriffsnetz_zusammenhang', 'combo_tweet_aha'];
 
@@ -1619,7 +1608,6 @@
                 kurz: ['Verstanden', 'Noch unklar', 'Hilfebedarf'],
                 begriffsnetz: ['Kernbegriff', 'Weitere Begriffe', 'Freies Netz'],
                 combo_emoji_irrtum: ['Emoji-Skala', 'Irrtum', 'Korrektur'],
-                combo_ampel_frage: ['Ampel', 'Offene Frage'],
                 combo_aha_frage: ['Aha-Moment', 'Offene Frage'],
                 combo_schema_irrtum: ['Struktur', 'Funktion', 'Irrtum', 'Korrektur'],
                 combo_hypothese_pruefung: ['Hypothese', 'Begründung', 'Prüfung'],
@@ -1743,6 +1731,7 @@
             } else {
                 // Route zur Lehrer-Ansicht
                 loadTeacherStateFromBrowser();
+                if (!methods[window.state.ticketType]) window.state.ticketType = '321';
                 renderMethodCards();
                 renderDynamicInputs();
                 renderPreview();
