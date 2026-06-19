@@ -1317,6 +1317,91 @@
             }
         };
 
+        const DEFAULT_STATE = JSON.parse(JSON.stringify(window.state));
+        const LOCAL_STORAGE_KEY = 'bioticket_teacher_settings_v1';
+
+        function clonePlain(obj) {
+            return JSON.parse(JSON.stringify(obj));
+        }
+
+        function mergeSavedState(saved) {
+            const merged = clonePlain(DEFAULT_STATE);
+            if (!saved || typeof saved !== 'object') return merged;
+
+            // Basis-Einstellungen übernehmen, aber nur bekannte/erlaubte Werte zulassen.
+            if (typeof saved.thema === 'string') merged.thema = saved.thema;
+            if (typeof saved.niveau === 'string') merged.niveau = saved.niveau;
+            if (methods[saved.ticketType]) merged.ticketType = saved.ticketType;
+            if (['color', 'bw'].includes(saved.colorMode)) merged.colorMode = saved.colorMode;
+            if (['named', 'anonymous'].includes(saved.nameOption)) merged.nameOption = saved.nameOption;
+            if (['1', '2', '4', '9'].includes(String(saved.layout))) merged.layout = String(saved.layout);
+            if (['emerald', 'sky', 'violet', 'rose', 'amber'].includes(saved.accentColor)) merged.accentColor = saved.accentColor;
+
+            // Fragen/Impulse pro Methode übernehmen, aber neue Methoden aus dem Standard erhalten.
+            if (saved.questions && typeof saved.questions === 'object') {
+                Object.keys(DEFAULT_STATE.questions).forEach(id => {
+                    if (Array.isArray(saved.questions[id])) {
+                        merged.questions[id] = DEFAULT_STATE.questions[id].map((fallback, index) => {
+                            const candidate = saved.questions[id][index];
+                            return typeof candidate === 'string' ? candidate : fallback;
+                        });
+                    }
+                });
+            }
+
+            // Meta-Felder übernehmen, aber fehlende neue Felder aus dem Standard ergänzen.
+            if (saved.meta && typeof saved.meta === 'object') {
+                if (Array.isArray(saved.meta.terms)) {
+                    merged.meta.terms = DEFAULT_STATE.meta.terms.map((fallback, index) => {
+                        const candidate = saved.meta.terms[index];
+                        return typeof candidate === 'string' ? candidate : fallback;
+                    });
+                }
+                if (typeof saved.meta.transferQuestion === 'string') {
+                    merged.meta.transferQuestion = saved.meta.transferQuestion;
+                }
+            }
+            return merged;
+        }
+
+        function loadTeacherStateFromBrowser() {
+            try {
+                const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+                if (!raw) return;
+                window.state = mergeSavedState(JSON.parse(raw));
+            } catch (err) {
+                console.warn('BioTicket: gespeicherte Einstellungen konnten nicht geladen werden.', err);
+            }
+        }
+
+        function saveTeacherStateToBrowser() {
+            try {
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(window.state));
+            } catch (err) {
+                console.warn('BioTicket: Einstellungen konnten nicht gespeichert werden.', err);
+            }
+        }
+
+        window.resetCurrentTicketToDefault = function() {
+            const id = window.state.ticketType;
+            if (!DEFAULT_STATE.questions[id]) return;
+            window.state.questions[id] = clonePlain(DEFAULT_STATE.questions[id]);
+
+            // Zusatzfelder gehören fachlich zu bestimmten Karten und werden dort mit zurückgesetzt.
+            if (id === 'fachbegriffe') {
+                window.state.meta.terms = clonePlain(DEFAULT_STATE.meta.terms);
+            }
+            if (id === 'transfer') {
+                window.state.meta.transferQuestion = DEFAULT_STATE.meta.transferQuestion;
+            }
+
+            saveTeacherStateToBrowser();
+            renderDynamicInputs();
+            renderPreview();
+            updateControlsUI();
+            showToast('Diese Karte wurde auf den Standard zurückgesetzt.', 'rotate-ccw');
+        };
+
         let activeRoom = null;
         let submissions = [];
         let unsubscribeSubmissions = null;
@@ -1458,6 +1543,7 @@
                 setupStudentView(room);
             } else {
                 // Route zur Lehrer-Ansicht
+                loadTeacherStateFromBrowser();
                 renderMethodCards();
                 renderDynamicInputs();
                 renderPreview();
@@ -1471,6 +1557,7 @@
         // Ändert Zustand und rendert neu
         window.updateState = function(key, value) {
             window.state[key] = value;
+            saveTeacherStateToBrowser();
             renderPreview();
             updateControlsUI();
         };
@@ -1565,6 +1652,23 @@
             renderMethodCards();
         };
 
+        function appendCardResetControl(container) {
+            const method = methods[window.state.ticketType];
+            if (!method) return;
+            container.insertAdjacentHTML('beforeend', `
+                <div class="pt-3 mt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                    <p class="text-[10px] text-slate-400 leading-snug">
+                        Änderungen werden automatisch in diesem Browser gespeichert.
+                    </p>
+                    <button type="button" onclick="resetCurrentTicketToDefault()" class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-600 text-[11px] font-bold transition-all">
+                        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                        Karte auf Standard zurücksetzen
+                    </button>
+                </div>
+            `);
+            lucide.createIcons();
+        }
+
         // Formular-Eingaben links dynamisch steuern
         function renderDynamicInputs() {
             const container = document.getElementById('dynamic-inputs-container');
@@ -1602,22 +1706,38 @@
             } else if (window.state.ticketType === 'frei') {
                 container.innerHTML = `<div><label class="block text-[11px] font-bold text-slate-500 mb-1">Aufgabenstellung</label><input type="text" value="${q[0]}" oninput="updateQuestion(0, this.value)" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold"></div>`;
             }
+            appendCardResetControl(container);
         }
 
         function updateQuestion(index, val) {
             window.state.questions[window.state.ticketType][index] = val;
+            saveTeacherStateToBrowser();
             renderPreview();
         }
 
         function updateMetaTerm(index, val) {
             window.state.meta.terms[index] = val;
+            saveTeacherStateToBrowser();
             renderPreview();
         }
 
         function updateMetaText(key, val) {
             window.state.meta[key] = val;
+            saveTeacherStateToBrowser();
             renderPreview();
         }
+
+        // Wichtig bei <script type="module">:
+        // Inline-Handler wie oninput="updateQuestion(...)" sehen nur Funktionen im window-Scope.
+        // Dadurch werden Änderungen an Impulsen, Begriffen und Transferfragen sofort auch in Vorschau und Druck übernommen.
+        window.updateQuestion = updateQuestion;
+        window.updateMetaTerm = updateMetaTerm;
+        window.updateMetaText = updateMetaText;
+
+        // Kurz vor dem Drucken sicherheitshalber noch einmal aus dem aktuellen State rendern.
+        window.addEventListener('beforeprint', () => {
+            renderPreview();
+        });
 
         // Generiert ein hochauflösendes Ticket als HTML-String
         function generateTicketHTML() {
