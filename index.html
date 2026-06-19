@@ -845,6 +845,90 @@
             }
         }
 
+    
+
+        /* --- v15: Mehr Schreibfläche in 1x/2x/4x-Layouts --- */
+        .bio-fill-stack {
+            height: 100%;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .bio-fill-card {
+            flex: 1 1 0;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .bio-fill-card-large { flex: 1.35 1 0; }
+        .bio-fill-card-small { flex: 0.85 1 0; }
+        .bio-fill-fixed { flex: 0 0 auto; }
+        .bio-fill-grow { flex: 1 1 auto; min-height: 0; }
+        .bio-fill-card .writing-lines,
+        .bio-fill-card .writing-lines-bw,
+        .bio-lines-fill {
+            flex: 1 1 auto !important;
+            height: auto !important;
+            min-height: 3.2rem;
+        }
+        .layout-1 .bio-fill-stack { gap: 0.9rem; }
+        .layout-1 .bio-fill-card { padding: 0.95rem !important; }
+        .layout-1 .bio-fill-card .writing-lines,
+        .layout-1 .bio-fill-card .writing-lines-bw,
+        .layout-1 .bio-lines-fill { min-height: 5rem; }
+        .layout-1 .ticket-body { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+        .layout-1 .ticket-321-print .ticket-task.task-large { flex: 1.22 1 0; }
+        .layout-1 .ticket-321-print .ticket-task.task-medium { flex: 1.08 1 0; }
+        .layout-1 .ticket-321-print .ticket-task.task-small { flex: 0.95 1 0; }
+        .layout-2 .bio-fill-stack { gap: 0.65rem; }
+        .layout-2 .bio-fill-card .writing-lines,
+        .layout-2 .bio-fill-card .writing-lines-bw,
+        .layout-2 .bio-lines-fill { min-height: 3.8rem; }
+        .layout-4 .bio-fill-stack { gap: 0.42rem; }
+        .layout-4 .bio-fill-card .writing-lines,
+        .layout-4 .bio-fill-card .writing-lines-bw,
+        .layout-4 .bio-lines-fill { min-height: 2.15rem; }
+        .layout-9 .bio-fill-stack { gap: 0.22rem; }
+        .layout-9 .bio-fill-card { padding: 0.25rem !important; }
+        .layout-9 .bio-fill-card .writing-lines,
+        .layout-9 .bio-fill-card .writing-lines-bw,
+        .layout-9 .bio-lines-fill { min-height: 1.05rem !important; }
+        .layout-9 .bio-fill-card p { margin-top: 0.05rem !important; margin-bottom: 0.08rem !important; }
+        .layout-1 .aha-print-box .writing-lines,
+        .layout-1 .aha-print-box .writing-lines-bw,
+        .layout-1 .free-print-box .writing-lines,
+        .layout-1 .free-print-box .writing-lines-bw { min-height: 12rem; }
+        .layout-2 .aha-print-box .writing-lines,
+        .layout-2 .aha-print-box .writing-lines-bw,
+        .layout-2 .free-print-box .writing-lines,
+        .layout-2 .free-print-box .writing-lines-bw { min-height: 7rem; }
+        .layout-4 .aha-print-box .writing-lines,
+        .layout-4 .aha-print-box .writing-lines-bw,
+        .layout-4 .free-print-box .writing-lines,
+        .layout-4 .free-print-box .writing-lines-bw { min-height: 3.5rem; }
+        .layout-1 .transfer-answer-box .writing-lines,
+        .layout-1 .transfer-answer-box .writing-lines-bw { min-height: 9rem; }
+        .layout-2 .transfer-answer-box .writing-lines,
+        .layout-2 .transfer-answer-box .writing-lines-bw { min-height: 5.5rem; }
+        .layout-4 .transfer-answer-box .writing-lines,
+        .layout-4 .transfer-answer-box .writing-lines-bw { min-height: 2.7rem; }
+        .layout-1 .tweet-main-box .writing-lines,
+        .layout-1 .tweet-main-box .writing-lines-bw { min-height: 13rem; }
+        .layout-2 .tweet-main-box .writing-lines,
+        .layout-2 .tweet-main-box .writing-lines-bw { min-height: 7.2rem; }
+        .layout-4 .tweet-main-box .writing-lines,
+        .layout-4 .tweet-main-box .writing-lines-bw { min-height: 3.8rem; }
+        .layout-1 .combo-emoji-irrtum-lines { min-height: 6.4rem !important; }
+        .layout-2 .combo-emoji-irrtum-lines { min-height: 3.4rem !important; }
+        .layout-4 .combo-emoji-irrtum-lines { min-height: 1.9rem !important; }
+        .layout-1 .concept-summary-box .writing-lines,
+        .layout-1 .concept-summary-box .writing-lines-bw { min-height: 5.2rem; }
+        .layout-2 .concept-summary-box .writing-lines,
+        .layout-2 .concept-summary-box .writing-lines-bw { min-height: 2.6rem; }
+        .layout-4 .concept-summary-box .writing-lines,
+        .layout-4 .concept-summary-box .writing-lines-bw { min-height: 1.6rem; }
+
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col">
@@ -1979,13 +2063,13 @@
             } else if (window.state.ticketType === 'fachbegriffe') {
                 const terms = window.state.meta.terms;
                 ticketContent = `
-                    <div class="space-y-3 text-xs">
-                        <p class="font-semibold text-slate-700">${q[0]}</p>
-                        <div class="space-y-3">
+                    <div class="bio-fill-stack text-xs fachbegriffe-print-ticket">
+                        <p class="font-semibold text-slate-700 bio-fill-fixed">${q[0]}</p>
+                        <div class="bio-fill-stack bio-fill-grow">
                             ${terms.map((term, i) => `
-                                <div class="border ${accentLineClass} rounded-xl p-3 bg-slate-50/50">
-                                    <span class="font-bold ${textBrandClass} text-[11px] uppercase tracking-wider">${term || `Begriff ${i+1}`}</span>
-                                    <div class="${writingLinesClass} h-12 w-full mt-1.5"></div>
+                                <div class="bio-fill-card border ${accentLineClass} rounded-xl p-3 bg-slate-50/50">
+                                    <span class="font-bold ${textBrandClass} text-[11px] uppercase tracking-wider bio-fill-fixed">${term || `Begriff ${i+1}`}</span>
+                                    <div class="${writingLinesClass} w-full mt-1.5"></div>
                                 </div>
                             `).join('')}
                         </div>
@@ -2017,14 +2101,14 @@
                     </div>`;
             } else if (window.state.ticketType === 'transfer') {
                 ticketContent = `
-                    <div class="space-y-4 text-xs">
-                        <p class="font-semibold text-slate-600">${q[0]}</p>
-                        <div class="border-l-4 ${isColor ? `${borderClass} ${accent.softBg}` : 'border-slate-800 bg-slate-50'} p-3 rounded-r-xl">
+                    <div class="bio-fill-stack text-xs transfer-print-ticket">
+                        <p class="font-semibold text-slate-600 bio-fill-fixed">${q[0]}</p>
+                        <div class="border-l-4 ${isColor ? `${borderClass} ${accent.softBg}` : 'border-slate-800 bg-slate-50'} p-3 rounded-r-xl bio-fill-fixed">
                             <p class="font-semibold text-slate-800 italic leading-snug">"${window.state.meta.transferQuestion}"</p>
                         </div>
-                        <div>
-                            <span class="text-[9px] uppercase font-bold text-slate-400 block mb-1">Deine Erklärung:</span>
-                            <div class="${writingLinesClass} h-32 w-full border ${accentLineClass} rounded-xl p-2 bg-white"></div>
+                        <div class="bio-fill-card transfer-answer-box">
+                            <span class="text-[9px] uppercase font-bold text-slate-400 block mb-1 bio-fill-fixed">Deine Erklärung:</span>
+                            <div class="${writingLinesClass} w-full border ${accentLineClass} rounded-xl p-2 bg-white"></div>
                         </div>
                     </div>`;
             } else if (window.state.ticketType === 'wahrheit') {
@@ -2046,10 +2130,10 @@
                     </div>`;
             } else if (window.state.ticketType === 'aha') {
                 ticketContent = `
-                    <div class="space-y-4 text-xs">
-                        <div class="border-l-4 ${isColor ? `${borderClass} ${accent.softBg}` : 'border-slate-800 bg-slate-50'} p-3 rounded-r-xl">
-                            <p class="font-bold text-slate-800">💡 ${q[0]}</p>
-                            <div class="${writingLinesClass} h-32 w-full mt-2"></div>
+                    <div class="bio-fill-stack text-xs aha-print-ticket">
+                        <div class="bio-fill-card aha-print-box border-l-4 ${isColor ? `${borderClass} ${accent.softBg}` : 'border-slate-800 bg-slate-50'} p-3 rounded-r-xl">
+                            <p class="font-bold text-slate-800 bio-fill-fixed">💡 ${q[0]}</p>
+                            <div class="${writingLinesClass} w-full mt-2"></div>
                         </div>
                     </div>`;
             } else if (window.state.ticketType === 'tweet') {
@@ -2068,8 +2152,8 @@
             } else if (window.state.ticketType === 'combo_emoji_irrtum') {
                 ticketContent = `
                     <div class="ticket-task-stack ticket-content-fill text-xs emoji-print-ticket">
-                        <p class="font-bold text-center ${textBrandClass}">${q[0]}</p>
-                        <div class="emoji-scale text-center">
+                        <p class="font-bold text-center ${textBrandClass} bio-fill-fixed">${q[0]}</p>
+                        <div class="emoji-scale text-center bio-fill-fixed">
                             ${[
                                 ['😵', 'unklar'],
                                 ['😕', 'wackelig'],
@@ -2083,14 +2167,14 @@
                                 </div>
                             `).join('')}
                         </div>
-                        <div class="grid grid-cols-1 gap-2 flex-1">
-                            <div class="border border-red-200 rounded-xl p-2 bg-red-50/30">
-                                <p class="font-semibold text-slate-700 mb-1">${q[1]}</p>
-                                <div class="${writingLinesClass} w-full h-16"></div>
+                        <div class="bio-fill-stack bio-fill-grow">
+                            <div class="bio-fill-card border border-red-200 rounded-xl p-2 bg-red-50/30">
+                                <p class="font-semibold text-slate-700 mb-1 bio-fill-fixed">${q[1]}</p>
+                                <div class="${writingLinesClass} w-full combo-emoji-irrtum-lines"></div>
                             </div>
-                            <div class="border ${accentLineClass} rounded-xl p-2 bg-white">
-                                <p class="font-semibold text-slate-700 mb-1">${q[2]}</p>
-                                <div class="${writingLinesClass} w-full h-16"></div>
+                            <div class="bio-fill-card border ${accentLineClass} rounded-xl p-2 bg-white">
+                                <p class="font-semibold text-slate-700 mb-1 bio-fill-fixed">${q[2]}</p>
+                                <div class="${writingLinesClass} w-full combo-emoji-irrtum-lines"></div>
                             </div>
                         </div>
                     </div>`;
@@ -2134,41 +2218,43 @@
                             <div class="concept-box concept-center empty-core-box ${isColor ? accent.badge : ''}"></div>
                             <div class="open-concept-hint">${q[1]}</div>
                         </div>
-                        <div class="border ${accentLineClass} rounded-xl p-2 bg-slate-50 flex-none">
-                            <p class="font-semibold text-slate-700 mb-1">${q[2]}</p>
-                            <div class="${writingLinesClass} h-10 w-full"></div>
+                        <div class="bio-fill-card bio-fill-card-small concept-summary-box border ${accentLineClass} rounded-xl p-2 bg-slate-50">
+                            <p class="font-semibold text-slate-700 mb-1 bio-fill-fixed">${q[2]}</p>
+                            <div class="${writingLinesClass} w-full"></div>
                         </div>
                     </div>`;
             } else if (genericTextTickets.includes(window.state.ticketType) || fourFieldTickets.includes(window.state.ticketType)) {
                 ticketContent = `
-                    <div class="space-y-3 text-xs">
+                    <div class="bio-fill-stack text-xs generic-print-ticket">
                         ${q.map((prompt, i) => `
-                            <div class="border ${accentLineClass} rounded-xl p-3 bg-slate-50/50">
-                                <span class="font-bold ${textBrandClass} text-[10px] uppercase tracking-wider">${getGenericLabel(window.state.ticketType, i)}</span>
-                                <p class="font-semibold text-slate-700 mt-1">${prompt}</p>
-                                <div class="${writingLinesClass} h-12 w-full mt-1.5"></div>
+                            <div class="bio-fill-card border ${accentLineClass} rounded-xl p-3 bg-slate-50/50">
+                                <span class="font-bold ${textBrandClass} text-[10px] uppercase tracking-wider bio-fill-fixed">${getGenericLabel(window.state.ticketType, i)}</span>
+                                <p class="font-semibold text-slate-700 mt-1 bio-fill-fixed">${prompt}</p>
+                                <div class="${writingLinesClass} w-full mt-1.5"></div>
                             </div>
                         `).join('')}
                     </div>`;
             } else if (window.state.ticketType === 'irrtum') {
                 ticketContent = `
-                    <div class="space-y-4 text-xs">
-                        <div class="border border-red-200 rounded-xl p-3 bg-red-50/40">
-                            <span class="font-bold text-red-700 text-[10px] uppercase tracking-wider">Möglicher Irrtum</span>
-                            <p class="font-semibold text-slate-700 mt-1">${q[0]}</p>
-                            <div class="${writingLinesClass} h-16 w-full mt-1.5"></div>
+                    <div class="bio-fill-stack text-xs irrtum-print-ticket">
+                        <div class="bio-fill-card border border-red-200 rounded-xl p-3 bg-red-50/40">
+                            <span class="font-bold text-red-700 text-[10px] uppercase tracking-wider bio-fill-fixed">Möglicher Irrtum</span>
+                            <p class="font-semibold text-slate-700 mt-1 bio-fill-fixed">${q[0]}</p>
+                            <div class="${writingLinesClass} w-full mt-1.5"></div>
                         </div>
-                        <div class="border ${accentLineClass} rounded-xl p-3 ${isColor ? accent.softBg : 'bg-slate-50'}">
-                            <span class="font-bold ${textBrandClass} text-[10px] uppercase tracking-wider">Korrektur</span>
-                            <p class="font-semibold text-slate-700 mt-1">${q[1]}</p>
-                            <div class="${writingLinesClass} h-20 w-full mt-1.5"></div>
+                        <div class="bio-fill-card bio-fill-card-large border ${accentLineClass} rounded-xl p-3 ${isColor ? accent.softBg : 'bg-slate-50'}">
+                            <span class="font-bold ${textBrandClass} text-[10px] uppercase tracking-wider bio-fill-fixed">Korrektur</span>
+                            <p class="font-semibold text-slate-700 mt-1 bio-fill-fixed">${q[1]}</p>
+                            <div class="${writingLinesClass} w-full mt-1.5"></div>
                         </div>
                     </div>`;
             } else if (window.state.ticketType === 'frei') {
                 ticketContent = `
-                    <div class="space-y-2 text-xs">
-                        <p class="font-bold text-sm ${textBrandClass}">${q[0]}</p>
-                        <div class="${writingLinesClass} h-48 w-full border ${accentLineClass} rounded-xl p-3 bg-white"></div>
+                    <div class="bio-fill-stack text-xs frei-print-ticket">
+                        <p class="font-bold text-sm ${textBrandClass} bio-fill-fixed">${q[0]}</p>
+                        <div class="free-print-box bio-fill-card border ${accentLineClass} rounded-xl p-3 bg-white">
+                            <div class="${writingLinesClass} w-full"></div>
+                        </div>
                     </div>`;
             }
 
