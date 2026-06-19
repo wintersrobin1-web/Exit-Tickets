@@ -268,6 +268,197 @@
                 box-shadow: none !important;
             }
         }
+    
+
+        /* --- v4: Druck-/Vorschau- und Schreibflächen-Fix --- */
+        @media screen {
+            #preview-page-container {
+                transform-origin: top center;
+                transition: transform 0.15s ease;
+            }
+        }
+        .ticket-grid.layout-2 {
+            grid-template-columns: 1fr !important;
+            grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+            gap: 5mm !important;
+        }
+        .ticket-grid.layout-4 {
+            gap: 4.5mm !important;
+        }
+        .ticket-grid.layout-9 {
+            gap: 2.8mm !important;
+        }
+        .ticket-card {
+            min-width: 0;
+            min-height: 0;
+        }
+        .ticket-card .ticket-body {
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 0 !important;
+            overflow: hidden !important;
+        }
+        .ticket-content-fill,
+        .ticket-task-stack {
+            flex: 1 1 auto;
+            min-height: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .ticket-task-stack {
+            gap: 0.65rem;
+        }
+        .ticket-task {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        .ticket-task.task-large { flex: 1.35 1 0; }
+        .ticket-task.task-medium { flex: 1.05 1 0; }
+        .ticket-task.task-small { flex: 0.8 1 0; }
+        .ticket-task.task-fill { flex: 1 1 0; }
+        .ticket-task-title {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.45rem;
+            margin-bottom: 0.25rem;
+        }
+        .ticket-number-pill {
+            flex: 0 0 auto;
+            width: 1.35rem;
+            height: 1.35rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+        .ticket-task .writing-lines,
+        .ticket-task .writing-lines-bw {
+            flex: 1 1 auto !important;
+            height: auto !important;
+            min-height: 1.8rem;
+        }
+        .writing-lines,
+        .writing-lines-bw {
+            background-image: repeating-linear-gradient(
+                to bottom,
+                transparent 0,
+                transparent calc(1.28rem - 1px),
+                rgba(15, 23, 42, 0.18) calc(1.28rem - 1px),
+                rgba(15, 23, 42, 0.18) 1.28rem
+            ) !important;
+            background-size: auto !important;
+            line-height: 1.28rem !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        .layout-2 .ticket-card .ticket-body,
+        .layout-4 .ticket-card .ticket-body,
+        .layout-9 .ticket-card .ticket-body {
+            padding-top: 0.65rem !important;
+            padding-bottom: 0.65rem !important;
+        }
+        .layout-2 .ticket-task-stack { gap: 0.55rem; }
+        .layout-4 .ticket-task-stack { gap: 0.4rem; }
+        .layout-9 .ticket-task-stack { gap: 0.24rem; }
+        .layout-2 .ticket-card .p-4 { padding: 0.75rem !important; }
+        .layout-4 .ticket-card .p-4 { padding: 0.58rem !important; }
+        .layout-9 .ticket-card .p-4 { padding: 0.34rem !important; }
+        .layout-9 .ticket-card .p-3 { padding: 0.25rem !important; }
+        .layout-9 .ticket-number-pill {
+            width: 1rem;
+            height: 1rem;
+            font-size: 0.55rem;
+        }
+        .layout-9 .ticket-task-title {
+            gap: 0.25rem;
+            margin-bottom: 0.12rem;
+        }
+        .layout-9 .ticket-task-title p,
+        .layout-9 .ticket-task-title span:last-child {
+            font-size: 0.62rem !important;
+            line-height: 0.78rem !important;
+        }
+        .layout-9 .ticket-footer {
+            font-size: 0.55rem !important;
+        }
+        .layout-9 .ticket-footer .h-5 {
+            height: 0.8rem !important;
+        }
+        .emoji-print-ticket .emoji-scale {
+            grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+            gap: 0.35rem !important;
+            flex: 0 0 auto;
+        }
+        .emoji-print-ticket .emoji-choice {
+            min-height: 2.6rem;
+            padding: 0.2rem;
+        }
+        .emoji-print-ticket .emoji-face { font-size: 1.2rem; }
+        .emoji-print-ticket .emoji-label {
+            white-space: normal;
+            line-height: 0.65rem;
+            font-size: 0.48rem;
+        }
+        .layout-4 .emoji-print-ticket .emoji-choice,
+        .layout-9 .emoji-print-ticket .emoji-choice {
+            min-height: 1.8rem;
+        }
+        .layout-4 .emoji-print-ticket .emoji-face { font-size: 0.95rem; }
+        .layout-9 .emoji-print-ticket .emoji-face { font-size: 0.82rem; }
+        .layout-9 .emoji-print-ticket .emoji-label {
+            font-size: 0.34rem !important;
+            line-height: 0.42rem !important;
+        }
+        .layout-9 .emoji-print-ticket .emoji-scale {
+            gap: 0.12rem !important;
+        }
+        .ticket-logo {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            background: transparent !important;
+            border-radius: 0 !important;
+        }
+        .stats-bar-row .stats-label {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        @media print {
+            .ticket-grid.layout-2 {
+                grid-template-columns: 1fr !important;
+                grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+                gap: 5mm !important;
+            }
+            #print-output .a4-page {
+                padding: 6mm !important;
+            }
+            #print-output .ticket-grid.layout-4 { gap: 4.2mm !important; }
+            #print-output .ticket-grid.layout-9 { gap: 2.6mm !important; }
+            .writing-lines,
+            .writing-lines-bw {
+                background-image: repeating-linear-gradient(
+                    to bottom,
+                    transparent 0,
+                    transparent calc(1.25rem - 1px),
+                    rgba(0, 0, 0, 0.24) calc(1.25rem - 1px),
+                    rgba(0, 0, 0, 0.24) 1.25rem
+                ) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .ticket-card {
+                border-width: 1.5px !important;
+                box-shadow: none !important;
+            }
+        }
+
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col">
@@ -1140,24 +1331,27 @@
 
             if (window.state.ticketType === '321') {
                 ticketContent = `
-                    <div class="space-y-4 text-xs">
-                        <div>
-                            <p class="font-bold flex items-center gap-1.5 mb-1 ${textBrandClass}">
-                                <span class="flex items-center justify-center w-5 h-5 rounded-full ${iconBgClass} text-[10px] font-extrabold">3</span> ${q[0]}
-                            </p>
-                            <div class="${writingLinesClass} h-16 w-full"></div>
+                    <div class="ticket-task-stack ticket-content-fill text-xs ticket-321-print">
+                        <div class="ticket-task task-large">
+                            <div class="ticket-task-title font-bold ${textBrandClass}">
+                                <span class="ticket-number-pill ${iconBgClass}">3</span>
+                                <span>${q[0]}</span>
+                            </div>
+                            <div class="${writingLinesClass} w-full"></div>
                         </div>
-                        <div>
-                            <p class="font-bold flex items-center gap-1.5 mb-1 ${textBrandClass}">
-                                <span class="flex items-center justify-center w-5 h-5 rounded-full ${iconBgClass} text-[10px] font-extrabold">2</span> ${q[1]}
-                            </p>
-                            <div class="${writingLinesClass} h-10 w-full"></div>
+                        <div class="ticket-task task-medium">
+                            <div class="ticket-task-title font-bold ${textBrandClass}">
+                                <span class="ticket-number-pill ${iconBgClass}">2</span>
+                                <span>${q[1]}</span>
+                            </div>
+                            <div class="${writingLinesClass} w-full"></div>
                         </div>
-                        <div>
-                            <p class="font-bold flex items-center gap-1.5 mb-1 ${textBrandClass}">
-                                <span class="flex items-center justify-center w-5 h-5 rounded-full ${iconBgClass} text-[10px] font-extrabold">1</span> ${q[2]}
-                            </p>
-                            <div class="${writingLinesClass} h-6 w-full"></div>
+                        <div class="ticket-task task-small">
+                            <div class="ticket-task-title font-bold ${textBrandClass}">
+                                <span class="ticket-number-pill ${iconBgClass}">1</span>
+                                <span>${q[2]}</span>
+                            </div>
+                            <div class="${writingLinesClass} w-full"></div>
                         </div>
                     </div>`;
             } else if (window.state.ticketType === 'fachbegriffe') {
@@ -1244,7 +1438,7 @@
                     </div>`;
             } else if (window.state.ticketType === 'emoji') {
                 ticketContent = `
-                    <div class="space-y-4 text-xs">
+                    <div class="ticket-task-stack ticket-content-fill text-xs emoji-print-ticket">
                         <p class="font-bold text-center ${textBrandClass}">${q[0]}</p>
                         <div class="emoji-scale text-center">
                             ${[
@@ -1260,9 +1454,9 @@
                                 </div>
                             `).join('')}
                         </div>
-                        <div>
+                        <div class="ticket-task task-fill">
                             <p class="font-semibold text-slate-700 mb-1">${q[1]}</p>
-                            <div class="${writingLinesClass} h-20 w-full border ${accentLineClass} rounded-xl p-2 bg-white"></div>
+                            <div class="${writingLinesClass} w-full border ${accentLineClass} rounded-xl p-2 bg-white"></div>
                         </div>
                     </div>`;
             } else if (['kette', 'hypothese', 'schema', 'kurz', 'begriffsnetz'].includes(window.state.ticketType)) {
@@ -1364,7 +1558,23 @@
             
             lucide.createIcons();
             updateControlsUI();
+            fitPreviewToContainer();
         }
+
+        function fitPreviewToContainer() {
+            const page = document.getElementById('preview-page-container');
+            if (!page || !page.parentElement) return;
+            const parent = page.parentElement;
+            const availableWidth = Math.max(320, parent.clientWidth - 32);
+            page.style.transform = 'none';
+            page.style.marginBottom = '0';
+            const naturalWidth = page.offsetWidth || 794;
+            const naturalHeight = page.offsetHeight || 1123;
+            const scale = Math.min(1, availableWidth / naturalWidth);
+            page.style.transform = `scale(${scale})`;
+            page.style.marginBottom = `${-(naturalHeight * (1 - scale))}px`;
+        }
+        window.addEventListener('resize', fitPreviewToContainer);
 
         window.copyToClipboard = function() {
             if (!isQrShareableUrl()) {
@@ -1498,23 +1708,24 @@
                     else if (value === 'gruen') counts.gruen++;
                 });
 
+                const rows = [
+                    ['gruen', '🟢 verstanden', 'bg-green-500', counts.gruen],
+                    ['gelb', '🟡 teils', 'bg-yellow-400', counts.gelb],
+                    ['rot', '🔴 unklar', 'bg-red-500', counts.rot]
+                ];
                 statsBox.innerHTML = `
                     <div class="space-y-3 pt-1">
                         <div class="flex items-center justify-between">
                             <span class="text-[10px] uppercase font-bold text-slate-400 block">Ampel-Auswertung</span>
                             <span class="text-[10px] text-slate-500">n=${total}</span>
                         </div>
-                        ${[
-                            ['gruen', '🟢 verstanden', 'bg-green-500', counts.gruen],
-                            ['gelb', '🟡 teils', 'bg-yellow-400', counts.gelb],
-                            ['rot', '🔴 unklar', 'bg-red-500', counts.rot]
-                        ].map(([key, label, colorClass, count]) => `
-                            <div>
-                                <div class="flex justify-between text-[10px] mb-1">
-                                    <span class="text-slate-300 font-semibold">${label}</span>
-                                    <span class="text-slate-400 font-mono">${count} · ${pct(count)}%</span>
+                        ${rows.map(([key, label, colorClass, count]) => `
+                            <div class="stats-bar-row">
+                                <div class="flex justify-between text-[10px] mb-1 gap-2">
+                                    <span class="stats-label text-slate-300 font-semibold">${label}</span>
+                                    <span class="text-slate-400 font-mono shrink-0">${count}× · ${pct(count)}%</span>
                                 </div>
-                                <div class="h-2.5 w-full rounded-full overflow-hidden bg-slate-950">
+                                <div class="h-3 w-full rounded-full overflow-hidden bg-slate-950 border border-slate-800">
                                     <div class="${colorClass} h-full transition-all duration-500" style="width:${pct(count)}%"></div>
                                 </div>
                             </div>
@@ -1522,38 +1733,41 @@
                     </div>`;
             } else if (window.state.ticketType === 'emoji') {
                 const labels = [
-                    ['😵', 'unklar'],
-                    ['😕', 'wackelig'],
-                    ['😐', 'teils'],
-                    ['🙂', 'sicher'],
-                    ['🤩', 'sehr klar']
+                    ['😵', 'unklar', 'bg-red-500'],
+                    ['😕', 'wackelig', 'bg-orange-400'],
+                    ['😐', 'teils', 'bg-yellow-400'],
+                    ['🙂', 'sicher', 'bg-green-400'],
+                    ['🤩', 'sehr klar', 'bg-emerald-500']
                 ];
                 const counts = [0, 0, 0, 0, 0];
                 let sum = 0;
+                let valid = 0;
                 submissions.forEach(s => {
-                    const value = Math.max(1, Math.min(5, parseInt(s.answers?.[0] || 3, 10)));
-                    counts[value - 1]++;
-                    sum += value;
+                    const raw = parseInt(s.answers?.[0], 10);
+                    if (!Number.isNaN(raw) && raw >= 1 && raw <= 5) {
+                        counts[raw - 1]++;
+                        sum += raw;
+                        valid++;
+                    }
                 });
-                const avg = total > 0 ? (sum / total).toFixed(1) : '–';
+                const avg = valid > 0 ? (sum / valid).toFixed(1) : '–';
                 statsBox.innerHTML = `
                     <div class="space-y-3 pt-1">
                         <div class="flex items-center justify-between">
-                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Emoji-Skala</span>
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Emoji-Auswertung</span>
                             <span class="text-[10px] text-slate-500">Ø ${avg}/5 · n=${total}</span>
                         </div>
-                        <div class="grid grid-cols-5 gap-1 text-center">
-                            ${counts.map((count, i) => `
-                                <div class="bg-slate-950 rounded-lg p-1.5 border border-slate-800">
-                                    <div class="text-base">${labels[i][0]}</div>
-                                    <div class="text-[9px] text-slate-500 leading-tight truncate">${labels[i][1]}</div>
-                                    <div class="text-[10px] text-slate-300 font-bold">${count}</div>
+                        ${labels.map(([face, label, colorClass], i) => `
+                            <div class="stats-bar-row">
+                                <div class="flex justify-between text-[10px] mb-1 gap-2">
+                                    <span class="stats-label text-slate-300 font-semibold">${face} ${label}</span>
+                                    <span class="text-slate-400 font-mono shrink-0">${counts[i]}× · ${pct(counts[i])}%</span>
                                 </div>
-                            `).join('')}
-                        </div>
-                        <div class="h-3 w-full flex rounded-full overflow-hidden bg-slate-950">
-                            ${counts.map((count, i) => `<div class="${['bg-red-500','bg-orange-400','bg-yellow-400','bg-green-400','bg-emerald-500'][i]} h-full transition-all duration-500" style="width:${pct(count)}%"></div>`).join('')}
-                        </div>
+                                <div class="h-3 w-full rounded-full overflow-hidden bg-slate-950 border border-slate-800">
+                                    <div class="${colorClass} h-full transition-all duration-500" style="width:${pct(counts[i])}%"></div>
+                                </div>
+                            </div>
+                        `).join('')}
                     </div>`;
             } else {
                 statsBox.innerHTML = `
