@@ -561,6 +561,136 @@
         .layout-9 .ampel-writing-area .writing-lines-bw {
             min-height: 1.2rem !important;
         }
+
+        /* v6: offenes Begriffsnetz als echtes Netz statt Zeilen */
+        .concept-ticket {
+            flex: 1 1 auto;
+            min-height: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+        .concept-instruction {
+            flex: 0 0 auto;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        .concept-map-area {
+            position: relative;
+            flex: 1 1 auto;
+            min-height: 8rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at center, rgba(15,23,42,0.035), transparent 46%),
+                linear-gradient(transparent, transparent);
+        }
+        .concept-lines {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .concept-lines line,
+        .concept-lines path {
+            stroke: rgba(15, 23, 42, 0.28);
+            stroke-width: 0.65;
+            stroke-linecap: round;
+            stroke-dasharray: 3 3;
+            vector-effect: non-scaling-stroke;
+        }
+        .concept-box {
+            position: absolute;
+            min-width: 4.8rem;
+            max-width: 7rem;
+            min-height: 1.65rem;
+            padding: 0.28rem 0.45rem;
+            border: 1px solid rgba(15, 23, 42, 0.22);
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.96);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.58rem;
+            line-height: 0.68rem;
+            font-weight: 800;
+            color: #475569;
+            transform: translate(-50%, -50%);
+        }
+        .concept-center {
+            left: 50%;
+            top: 50%;
+            min-width: 6.2rem;
+            min-height: 2.15rem;
+            border-width: 2px;
+            color: #0f172a;
+            font-size: 0.72rem;
+            line-height: 0.82rem;
+        }
+        .concept-slot-1 { left: 50%; top: 10%; }
+        .concept-slot-2 { left: 83%; top: 22%; }
+        .concept-slot-3 { left: 88%; top: 50%; }
+        .concept-slot-4 { left: 83%; top: 78%; }
+        .concept-slot-5 { left: 50%; top: 90%; }
+        .concept-slot-6 { left: 17%; top: 78%; }
+        .concept-slot-7 { left: 12%; top: 50%; }
+        .concept-slot-8 { left: 17%; top: 22%; }
+        .concept-footer-note {
+            flex: 0 0 auto;
+            font-size: 0.48rem;
+            line-height: 0.62rem;
+            color: #64748b;
+            font-weight: 700;
+        }
+        .layout-4 .concept-map-area { min-height: 6.4rem; }
+        .layout-9 .concept-map-area { min-height: 4.4rem; }
+        .layout-4 .concept-box { min-width: 3.9rem; max-width: 5.4rem; min-height: 1.35rem; font-size: 0.48rem; line-height: 0.56rem; border-radius: 0.55rem; padding: 0.15rem 0.25rem; }
+        .layout-4 .concept-center { min-width: 4.6rem; min-height: 1.65rem; font-size: 0.58rem; line-height: 0.66rem; }
+        .layout-9 .concept-instruction { font-size: 0.48rem !important; line-height: 0.58rem !important; }
+        .layout-9 .concept-box { min-width: 2.8rem; max-width: 3.8rem; min-height: 0.95rem; font-size: 0.36rem; line-height: 0.42rem; border-radius: 0.38rem; padding: 0.08rem 0.14rem; }
+        .layout-9 .concept-center { min-width: 3.4rem; min-height: 1.18rem; font-size: 0.42rem; line-height: 0.5rem; border-width: 1.4px; }
+        .layout-9 .concept-footer-note { display: none; }
+        .digital-concept-map {
+            position: relative;
+            min-height: 18rem;
+            border: 1px solid #334155;
+            border-radius: 1rem;
+            background: #020617;
+            overflow: hidden;
+        }
+        .digital-concept-map svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .digital-concept-map line {
+            stroke: #334155;
+            stroke-width: 2;
+            stroke-dasharray: 5 5;
+        }
+        .digital-concept-input {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            width: 34%;
+        }
+        .digital-concept-input.center-input { left: 50%; top: 50%; width: 42%; }
+        .digital-concept-input.pos-1 { left: 50%; top: 11%; }
+        .digital-concept-input.pos-2 { left: 85%; top: 25%; }
+        .digital-concept-input.pos-3 { left: 85%; top: 75%; }
+        .digital-concept-input.pos-4 { left: 50%; top: 89%; }
+        .digital-concept-input.pos-5 { left: 15%; top: 75%; }
+        .digital-concept-input.pos-6 { left: 15%; top: 25%; }
+        @media print {
+            .concept-lines line,
+            .concept-lines path { stroke: rgba(0,0,0,0.36) !important; }
+            .concept-box { border-color: rgba(0,0,0,0.28) !important; }
+        }
+
         .report-page {
             width: 210mm;
             min-height: 297mm;
@@ -1135,13 +1265,13 @@
             },
             'begriffsnetz': {
                 id: 'begriffsnetz',
-                title: 'Begriffsnetz Mini',
-                description: 'Fachbegriffe verknüpfen',
+                title: 'Begriffsnetz offen',
+                description: 'Fachbegriffe frei vernetzen',
                 icon: 'share-2',
                 prompts: [
-                    'Nenne drei wichtige Fachbegriffe der Stunde:',
-                    'Verbinde zwei Begriffe mit einem fachlichen Satz:',
-                    'Welcher Begriff ist für dich noch unsicher?'
+                    'Trage in die Mitte einen zentralen Begriff der Stunde ein.',
+                    'Ergänze außen weitere passende Fachbegriffe.',
+                    'Verbinde Begriffe mit Linien und beschrifte die Verbindung kurz fachlich.'
                 ]
             },
             'frei': {
@@ -1211,7 +1341,7 @@
                 irrtum: ['Möglicher Irrtum', 'Fachliche Korrektur'],
                 schema: ['Struktur', 'Funktion', 'Zusammenhang'],
                 kurz: ['Verstanden', 'Noch unklar', 'Hilfebedarf'],
-                begriffsnetz: ['Begriffe', 'Verknüpfung', 'Unsicherer Begriff'],
+                begriffsnetz: ['Kernbegriff', 'weitere Begriffe', 'Verbindungen'],
                 frei: ['Antwort']
             };
             return (labelSets[ticketType] && labelSets[ticketType][index]) || `Antwort ${index + 1}`;
@@ -1648,7 +1778,32 @@
                             <div class="${writingLinesClass} w-full border ${accentLineClass} rounded-xl p-2 bg-white"></div>
                         </div>
                     </div>`;
-            } else if (['kette', 'hypothese', 'schema', 'kurz', 'begriffsnetz'].includes(window.state.ticketType)) {
+            } else if (window.state.ticketType === 'begriffsnetz') {
+                const conceptSlots = Array.from({length: 8}, (_, i) => i + 1);
+                ticketContent = `
+                    <div class="concept-ticket text-xs">
+                        <p class="concept-instruction ${textBrandClass}">${q[0]}</p>
+                        <div class="concept-map-area border ${accentLineClass} bg-white">
+                            <svg class="concept-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                <line x1="50" y1="50" x2="50" y2="10"/>
+                                <line x1="50" y1="50" x2="83" y2="22"/>
+                                <line x1="50" y1="50" x2="88" y2="50"/>
+                                <line x1="50" y1="50" x2="83" y2="78"/>
+                                <line x1="50" y1="50" x2="50" y2="90"/>
+                                <line x1="50" y1="50" x2="17" y2="78"/>
+                                <line x1="50" y1="50" x2="12" y2="50"/>
+                                <line x1="50" y1="50" x2="17" y2="22"/>
+                                <path d="M50 10 C75 8, 92 25, 88 50"/>
+                                <path d="M88 50 C92 75, 75 92, 50 90"/>
+                                <path d="M50 90 C25 92, 8 75, 12 50"/>
+                                <path d="M12 50 C8 25, 25 8, 50 10"/>
+                            </svg>
+                            <div class="concept-box concept-center ${isColor ? accent.badge : ''}">Kernbegriff</div>
+                            ${conceptSlots.map((slot) => `<div class="concept-box concept-slot-${slot}">Begriff ${slot}</div>`).join('')}
+                        </div>
+                        <p class="concept-footer-note">${q[1]} ${q[2]}</p>
+                    </div>`;
+            } else if (['kette', 'hypothese', 'schema', 'kurz'].includes(window.state.ticketType)) {
                 ticketContent = `
                     <div class="space-y-3 text-xs">
                         ${q.map((prompt, i) => `
@@ -2078,7 +2233,25 @@
                             <div class="flex items-center gap-2"><span class="text-xl">${emojiLabels[sub.answers[0]] ? emojiLabels[sub.answers[0]].split(' ')[0] : '😐'}</span><strong class="text-emerald-400">${emojiLabels[sub.answers[0]] || 'teils'}</strong></div>
                             <div class="bg-slate-900/60 p-2.5 rounded-lg"><strong class="text-slate-400">Begründung/Frage:</strong><p class="text-slate-200 mt-1">${sub.answers[1] || '-'}</p></div>
                         </div>`;
-                } else if (['kette', 'hypothese', 'irrtum', 'schema', 'kurz', 'begriffsnetz'].includes(window.state.ticketType)) {
+                } else if (window.state.ticketType === 'begriffsnetz') {
+                    const terms = String(sub.answers?.[1] || '').split(' · ').filter(Boolean);
+                    const links = String(sub.answers?.[2] || '').split('\n').filter(Boolean);
+                    bodyHTML = `
+                        <div class="space-y-2 text-xs">
+                            <div class="bg-emerald-500/10 border border-emerald-500/20 p-2.5 rounded-xl text-center">
+                                <strong class="text-emerald-300 uppercase tracking-wide text-[9px]">Kernbegriff</strong>
+                                <p class="text-slate-100 font-bold mt-1">${sub.answers?.[0] || '-'}</p>
+                            </div>
+                            <div class="bg-slate-900/60 p-2 rounded-lg">
+                                <strong class="text-slate-400 uppercase tracking-wide text-[9px]">Begriffe außen</strong>
+                                <div class="flex flex-wrap gap-1 mt-1">${terms.length ? terms.map(t => `<span class="bg-slate-800 border border-slate-700 px-2 py-0.5 rounded-full text-slate-200">${t}</span>`).join('') : '<span class="text-slate-500">-</span>'}</div>
+                            </div>
+                            <div class="bg-slate-900/60 p-2 rounded-lg">
+                                <strong class="text-slate-400 uppercase tracking-wide text-[9px]">Verbindungssätze</strong>
+                                <ul class="list-disc pl-4 mt-1 text-slate-200 space-y-0.5">${links.length ? links.map(l => `<li>${l}</li>`).join('') : '<li>-</li>'}</ul>
+                            </div>
+                        </div>`;
+                } else if (['kette', 'hypothese', 'irrtum', 'schema', 'kurz'].includes(window.state.ticketType)) {
                     bodyHTML = `
                         <div class="space-y-2 text-xs">
                             ${sub.answers.map((answer, i) => `
@@ -2180,7 +2353,7 @@
             } else if (window.state.ticketType === 'kurz') {
                 answers = ["Die Fotosynthese-Gleichung.", "Die genaue Rolle von ATP.", "Bei der Unterscheidung Lichtreaktion/Dunkelreaktion."];
             } else if (window.state.ticketType === 'begriffsnetz') {
-                answers = ["Chloroplast, Glucose, Sauerstoff", "Chloroplasten bilden bei der Fotosynthese Glucose.", "Lichtreaktion"];
+                answers = ["Fotosynthese", "Chloroplast · Licht · Wasser · Kohlenstoffdioxid · Glucose · Sauerstoff", "Licht + Chlorophyll: ermöglicht Energieumwandlung\nKohlenstoffdioxid + Wasser: Ausgangsstoffe\nGlucose + Sauerstoff: Produkte"];
             } else {
                 answers = ["Ein sehr verständlicher und spannender Versuchsaufbau heute!"];
             }
@@ -2368,7 +2541,28 @@
                             <textarea id="ans-1" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500" required></textarea>
                         </div>
                     </div>`;
-            } else if (window.state.ticketType === 'aha' || twoFieldTickets.includes(window.state.ticketType) || ['kette', 'hypothese', 'irrtum', 'schema', 'kurz', 'begriffsnetz'].includes(window.state.ticketType)) {
+            } else if (window.state.ticketType === 'begriffsnetz') {
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <p class="text-xs text-slate-400 italic">${q[0]} ${q[1]} ${q[2]}</p>
+                        <div class="digital-concept-map">
+                            <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                                <line x1="50" y1="50" x2="50" y2="11"/>
+                                <line x1="50" y1="50" x2="85" y2="25"/>
+                                <line x1="50" y1="50" x2="85" y2="75"/>
+                                <line x1="50" y1="50" x2="50" y2="89"/>
+                                <line x1="50" y1="50" x2="15" y2="75"/>
+                                <line x1="50" y1="50" x2="15" y2="25"/>
+                            </svg>
+                            <input id="ans-0" class="digital-concept-input center-input bg-emerald-950/80 border border-emerald-500 rounded-xl px-2 py-2 text-center text-xs font-bold text-white placeholder:text-emerald-200 focus:outline-none focus:ring-1 focus:ring-emerald-400" placeholder="Kernbegriff" required>
+                            ${[1,2,3,4,5,6].map(i => `<input id="net-term-${i-1}" class="digital-concept-input pos-${i} bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-center text-[11px] text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500" placeholder="Begriff ${i}">`).join('')}
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs text-slate-300 font-bold">Beschrifte 2–4 Verbindungen fachlich:</label>
+                            ${[1,2,3,4].map(i => `<input id="net-link-${i-1}" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500" placeholder="z. B. Licht → Chloroplast: liefert Energie">`).join('')}
+                        </div>
+                    </div>`;
+            } else if (window.state.ticketType === 'aha' || twoFieldTickets.includes(window.state.ticketType) || ['kette', 'hypothese', 'irrtum', 'schema', 'kurz'].includes(window.state.ticketType)) {
                 container.innerHTML = `
                     <div class="space-y-4">
                         ${q.map((prompt, i) => `
@@ -2425,7 +2619,14 @@
                 }
                 answers.push(level);
                 answers.push(document.getElementById('ans-1').value);
-            } else if (twoFieldTickets.includes(window.state.ticketType) || ['kette', 'hypothese', 'irrtum', 'schema', 'kurz', 'begriffsnetz'].includes(window.state.ticketType)) {
+            } else if (window.state.ticketType === 'begriffsnetz') {
+                const center = document.getElementById('ans-0').value.trim();
+                const terms = [0,1,2,3,4,5].map(i => document.getElementById(`net-term-${i}`)?.value.trim()).filter(Boolean);
+                const links = [0,1,2,3].map(i => document.getElementById(`net-link-${i}`)?.value.trim()).filter(Boolean);
+                answers.push(center);
+                answers.push(terms.join(' · '));
+                answers.push(links.join('\n'));
+            } else if (twoFieldTickets.includes(window.state.ticketType) || ['kette', 'hypothese', 'irrtum', 'schema', 'kurz'].includes(window.state.ticketType)) {
                 for (let i = 0; i < getAnswerCount(window.state.ticketType); i++) {
                     answers.push(document.getElementById(`ans-${i}`).value);
                 }
@@ -2554,6 +2755,11 @@
             }
             if (window.state.ticketType === 'fachbegriffe') {
                 return (window.state.meta.terms || []).map((term, i) => `<strong>${escapeHTML(term || `Begriff ${i+1}`)}:</strong> ${escapeHTML(answers[i] || '-')}`).join('<br>');
+            }
+            if (window.state.ticketType === 'begriffsnetz') {
+                const terms = String(answers[1] || '').split(' · ').filter(Boolean).join(', ');
+                const links = String(answers[2] || '').split('\n').filter(Boolean).join('<br>');
+                return `<strong>Kernbegriff:</strong> ${escapeHTML(answers[0] || '-')}<br><strong>Begriffe außen:</strong> ${escapeHTML(terms || '-')}<br><strong>Verbindungen:</strong><br>${links ? escapeHTML(links).replace(/&lt;br&gt;/g, '<br>') : '-'}`;
             }
             return answers.map((answer, i) => `<strong>${escapeHTML(questions[i] || getGenericLabel(window.state.ticketType, i) || `Antwort ${i+1}`)}:</strong> ${escapeHTML(answer || '-')}`).join('<br>');
         }
