@@ -59,6 +59,73 @@
         #zoomed-qr-holder canvas, #zoomed-qr-holder img {
             display: block;
         }
+
+        .emoji-scale {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(4.6rem, 1fr));
+            gap: 0.35rem;
+        }
+        .emoji-choice {
+            min-height: 3.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.15rem;
+        }
+        .emoji-face {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+        .emoji-label {
+            white-space: nowrap;
+            font-size: 0.55rem;
+            line-height: 1;
+            font-weight: 800;
+        }
+        .compact-ticket .p-4 { padding: 0.7rem !important; }
+        .compact-ticket .p-3 { padding: 0.55rem !important; }
+        .compact-ticket .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.55rem !important; }
+        .compact-ticket .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.45rem !important; }
+        .compact-ticket .writing-lines,
+        .compact-ticket .writing-lines-bw {
+            background-size: 100% 1.15rem;
+            line-height: 1.15rem;
+        }
+        .ultra-compact-ticket .p-4 { padding: 0.45rem !important; }
+        .ultra-compact-ticket .p-3,
+        .ultra-compact-ticket .p-2\.5,
+        .ultra-compact-ticket .p-2 { padding: 0.35rem !important; }
+        .ultra-compact-ticket .rounded-2xl { border-radius: 0.75rem !important; }
+        .ultra-compact-ticket .rounded-xl { border-radius: 0.55rem !important; }
+        .ultra-compact-ticket .text-xs { font-size: 0.58rem !important; line-height: 0.85rem !important; }
+        .ultra-compact-ticket .text-sm { font-size: 0.65rem !important; line-height: 0.9rem !important; }
+        .ultra-compact-ticket .text-\[10px\] { font-size: 0.5rem !important; line-height: 0.7rem !important; }
+        .ultra-compact-ticket .text-\[9px\],
+        .ultra-compact-ticket .text-\[8px\] { font-size: 0.45rem !important; line-height: 0.62rem !important; }
+        .ultra-compact-ticket .space-y-4 > :not([hidden]) ~ :not([hidden]),
+        .ultra-compact-ticket .space-y-3 > :not([hidden]) ~ :not([hidden]),
+        .ultra-compact-ticket .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.3rem !important; }
+        .ultra-compact-ticket .writing-lines,
+        .ultra-compact-ticket .writing-lines-bw {
+            background-size: 100% 0.82rem;
+            line-height: 0.82rem;
+        }
+        .ultra-compact-ticket .h-48 { height: 5rem !important; }
+        .ultra-compact-ticket .h-32 { height: 3.5rem !important; }
+        .ultra-compact-ticket .h-24 { height: 2.8rem !important; }
+        .ultra-compact-ticket .h-20 { height: 2.4rem !important; }
+        .ultra-compact-ticket .h-16 { height: 2rem !important; }
+        .ultra-compact-ticket .h-12 { height: 1.6rem !important; }
+        .ultra-compact-ticket .h-10 { height: 1.4rem !important; }
+        .ultra-compact-ticket .h-8,
+        .ultra-compact-ticket .h-7,
+        .ultra-compact-ticket .h-6 { height: 1.1rem !important; }
+        .ultra-compact-ticket .emoji-scale { grid-template-columns: repeat(auto-fit, minmax(3.1rem, 1fr)); gap: 0.18rem; }
+        .ultra-compact-ticket .emoji-choice { min-height: 2.05rem; }
+        .ultra-compact-ticket .emoji-face { font-size: 0.95rem; }
+        .ultra-compact-ticket .emoji-label { font-size: 0.42rem; }
+
         /* Druckoptimierung: Blendet Steuerelemente aus und skaliert Tickets auf A4 */
         @media print {
             .no-print {
@@ -83,12 +150,14 @@
                 page-break-inside: avoid;
                 break-inside: avoid;
                 box-shadow: none !important;
-                border: 2px solid #334155 !important;
             }
+            #print-output .grid { gap: 4mm !important; }
         }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col">
+
+    <div class="hidden border-emerald-500 bg-emerald-50 border-emerald-100 text-emerald-800 text-emerald-600 bg-emerald-200 bg-emerald-100 border-emerald-200 bg-emerald-50/40 border-sky-500 bg-sky-50 border-sky-100 text-sky-800 text-sky-600 bg-sky-200 bg-sky-100 border-sky-200 bg-sky-50/40 border-violet-500 bg-violet-50 border-violet-100 text-violet-800 text-violet-600 bg-violet-200 bg-violet-100 border-violet-200 bg-violet-50/40 border-rose-500 bg-rose-50 border-rose-100 text-rose-800 text-rose-600 bg-rose-200 bg-rose-100 border-rose-200 bg-rose-50/40 border-amber-500 bg-amber-50 border-amber-100 text-amber-900 text-amber-700 bg-amber-200 bg-amber-100 border-amber-200 bg-amber-50/40"></div>
 
     <!-- LEHRER-ANSICHT (Standard) -->
     <div id="teacher-view" class="flex flex-col min-h-screen">
@@ -184,6 +253,17 @@
                         </div>
 
                         <div>
+                            <span class="block text-xs font-bold text-slate-600 mb-2">Akzentfarbe der Tickets</span>
+                            <div class="grid grid-cols-5 gap-2">
+                                <button onclick="updateState('accentColor', 'emerald')" id="btn-accent-emerald" class="h-9 border rounded-xl flex items-center justify-center transition-all" title="Grün"><span class="w-5 h-5 rounded-full bg-emerald-500"></span></button>
+                                <button onclick="updateState('accentColor', 'sky')" id="btn-accent-sky" class="h-9 border rounded-xl flex items-center justify-center transition-all" title="Blau"><span class="w-5 h-5 rounded-full bg-sky-500"></span></button>
+                                <button onclick="updateState('accentColor', 'violet')" id="btn-accent-violet" class="h-9 border rounded-xl flex items-center justify-center transition-all" title="Violett"><span class="w-5 h-5 rounded-full bg-violet-500"></span></button>
+                                <button onclick="updateState('accentColor', 'rose')" id="btn-accent-rose" class="h-9 border rounded-xl flex items-center justify-center transition-all" title="Rose"><span class="w-5 h-5 rounded-full bg-rose-500"></span></button>
+                                <button onclick="updateState('accentColor', 'amber')" id="btn-accent-amber" class="h-9 border rounded-xl flex items-center justify-center transition-all" title="Gelb/Orange"><span class="w-5 h-5 rounded-full bg-amber-500"></span></button>
+                            </div>
+                        </div>
+
+                        <div>
                             <span class="block text-xs font-bold text-slate-600 mb-2">Namensfeld</span>
                             <div class="grid grid-cols-2 gap-2">
                                 <button onclick="updateState('nameOption', 'named')" id="btn-name-named" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
@@ -197,18 +277,22 @@
 
                         <div>
                             <span class="block text-xs font-bold text-slate-600 mb-2">Tickets auf A4-Seite</span>
-                            <div class="grid grid-cols-3 gap-2">
+                            <div class="grid grid-cols-4 gap-2">
                                 <button onclick="updateState('layout', '1')" id="btn-layout-1" class="px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all">
                                     <span class="text-base">1x</span>
-                                    <span class="text-[9px] text-slate-500 font-normal">Ganzseitig</span>
+                                    <span class="text-[9px] text-slate-500 font-normal">Ganz</span>
                                 </button>
                                 <button onclick="updateState('layout', '2')" id="btn-layout-2" class="px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all">
                                     <span class="text-base">2x</span>
-                                    <span class="text-[9px] text-slate-500 font-normal">Halbiert</span>
+                                    <span class="text-[9px] text-slate-500 font-normal">Halb</span>
                                 </button>
                                 <button onclick="updateState('layout', '4')" id="btn-layout-4" class="px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all">
                                     <span class="text-base">4x</span>
                                     <span class="text-[9px] text-slate-500 font-normal">Viertel</span>
+                                </button>
+                                <button onclick="updateState('layout', '9')" id="btn-layout-9" class="px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all">
+                                    <span class="text-base">9x</span>
+                                    <span class="text-[9px] text-slate-500 font-normal">Kompakt</span>
                                 </button>
                             </div>
                         </div>
@@ -431,12 +515,12 @@
             '321': {
                 id: '321',
                 title: '3-2-1 Methode',
-                description: '3 Learnings, 2 Fragen, 1 Erkenntnis',
+                description: 'Lernen, Interesse, offene Frage',
                 icon: 'activity',
                 prompts: [
-                    '3 Dinge, die ich heute neu gelernt habe:',
-                    '2 Fragen, die ich noch zum Thema habe:',
-                    '1 wichtige Erkenntnis, die ich mitnehme:'
+                    '3 Dinge, die ich gelernt habe (Fakten, Konzepte oder Fähigkeiten):',
+                    '2 Dinge, die ich spannend oder besonders interessant fand:',
+                    '1 Frage, die ich noch habe:'
                 ]
             },
             'fachbegriffe': {
@@ -484,17 +568,16 @@
                 description: 'Wichtigste Erkenntnis sichern',
                 icon: 'lightbulb',
                 prompts: [
-                    'Was war heute dein Aha-Moment?',
-                    'Was ist dein wichtigstes Take-away zur Stunde?'
+                    'Was war heute dein Aha-Moment?'
                 ]
             },
             'tweet': {
                 id: 'tweet',
                 title: 'Bio-Tweet',
-                description: 'Kernidee in 280 Zeichen',
+                description: 'Kernidee in 150 Zeichen',
                 icon: 'message-circle',
                 prompts: [
-                    'Fasse die Stunde als Bio-Tweet zusammen (max. 280 Zeichen):',
+                    'Fasse die Stunde als Bio-Tweet zusammen (max. 150 Zeichen):',
                     'Setze einen passenden Hashtag oder Fachbegriff dazu:'
                 ]
             },
@@ -591,7 +674,8 @@
             ticketType: '321',
             colorMode: 'color', // 'color' | 'bw'
             nameOption: 'named', // 'named' | 'anonymous'
-            layout: '2', // '1' | '2' | '4'
+            layout: '2', // '1' | '2' | '4' | '9'
+            accentColor: 'emerald', // Ticket-Akzentfarbe
             questions: {
                 '321': [...methods['321'].prompts],
                 'fachbegriffe': [...methods['fachbegriffe'].prompts],
@@ -621,8 +705,8 @@
         let isZoomed = false;
 
         const threeFieldTickets = ['321', 'fachbegriffe', 'wahrheit', 'kette', 'hypothese', 'schema', 'kurz', 'begriffsnetz'];
-        const twoFieldTickets = ['aha', 'tweet', 'irrtum'];
-        const oneFieldTickets = ['transfer', 'frei'];
+        const twoFieldTickets = ['tweet', 'irrtum'];
+        const oneFieldTickets = ['aha', 'transfer', 'frei'];
 
         function getAnswerCount(ticketType = window.state.ticketType) {
             if (threeFieldTickets.includes(ticketType)) return 3;
@@ -632,7 +716,7 @@
 
         function getGenericLabel(ticketType, index) {
             const labelSets = {
-                aha: ['Aha-Moment', 'Take-away'],
+                aha: ['Aha-Moment'],
                 tweet: ['Bio-Tweet', 'Hashtag/Fachbegriff'],
                 kette: ['Ursache', 'Mechanismus', 'Wirkung'],
                 hypothese: ['Hypothese', 'Begründung', 'Prüfung'],
@@ -643,6 +727,27 @@
                 frei: ['Antwort']
             };
             return (labelSets[ticketType] && labelSets[ticketType][index]) || `Antwort ${index + 1}`;
+        }
+
+        function getAccentClasses() {
+            const palettes = {
+                emerald: {
+                    borderStrong: 'border-emerald-500', header: 'bg-emerald-50 border-b border-emerald-100', text: 'text-emerald-800', softText: 'text-emerald-600', iconBg: 'bg-emerald-200 text-emerald-800', badge: 'bg-emerald-100 text-emerald-800', line: 'border-emerald-200', softBg: 'bg-emerald-50/40'
+                },
+                sky: {
+                    borderStrong: 'border-sky-500', header: 'bg-sky-50 border-b border-sky-100', text: 'text-sky-800', softText: 'text-sky-600', iconBg: 'bg-sky-200 text-sky-800', badge: 'bg-sky-100 text-sky-800', line: 'border-sky-200', softBg: 'bg-sky-50/40'
+                },
+                violet: {
+                    borderStrong: 'border-violet-500', header: 'bg-violet-50 border-b border-violet-100', text: 'text-violet-800', softText: 'text-violet-600', iconBg: 'bg-violet-200 text-violet-800', badge: 'bg-violet-100 text-violet-800', line: 'border-violet-200', softBg: 'bg-violet-50/40'
+                },
+                rose: {
+                    borderStrong: 'border-rose-500', header: 'bg-rose-50 border-b border-rose-100', text: 'text-rose-800', softText: 'text-rose-600', iconBg: 'bg-rose-200 text-rose-800', badge: 'bg-rose-100 text-rose-800', line: 'border-rose-200', softBg: 'bg-rose-50/40'
+                },
+                amber: {
+                    borderStrong: 'border-amber-500', header: 'bg-amber-50 border-b border-amber-100', text: 'text-amber-900', softText: 'text-amber-700', iconBg: 'bg-amber-200 text-amber-900', badge: 'bg-amber-100 text-amber-900', line: 'border-amber-200', softBg: 'bg-amber-50/40'
+                }
+            };
+            return palettes[window.state.accentColor] || palettes.emerald;
         }
 
         function renderGenericTeacherInputs(container, q, labels = []) {
@@ -777,7 +882,7 @@
             }
 
             // Layout
-            for (let i of ['1', '2', '4']) {
+            for (let i of ['1', '2', '4', '9']) {
                 const btn = document.getElementById(`btn-layout-${i}`);
                 if (window.state.layout === i) {
                     btn.className = "px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 bg-emerald-50 border-emerald-500 text-emerald-800 shadow-sm";
@@ -785,6 +890,16 @@
                     btn.className = "px-3 py-2 border rounded-xl text-xs font-semibold flex flex-col items-center gap-1 bg-white text-slate-700 border-slate-200 hover:bg-slate-50";
                 }
             }
+
+            ['emerald', 'sky', 'violet', 'rose', 'amber'].forEach(color => {
+                const btn = document.getElementById(`btn-accent-${color}`);
+                if (!btn) return;
+                if (window.state.accentColor === color) {
+                    btn.className = 'h-9 border-2 rounded-xl flex items-center justify-center transition-all border-slate-900 bg-slate-50 shadow-sm';
+                } else {
+                    btn.className = 'h-9 border rounded-xl flex items-center justify-center transition-all border-slate-200 bg-white hover:bg-slate-50';
+                }
+            });
 
             // Kacheln
             document.querySelectorAll('.method-card').forEach(card => {
@@ -864,7 +979,7 @@
                     <div><label class="block text-[11px] font-bold text-slate-500 mb-1">Alltags- / Transferaufgabe</label><textarea oninput="updateMetaText('transferQuestion', this.value)" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold h-20">${window.state.meta.transferQuestion}</textarea></div>`;
             } else if (window.state.ticketType === 'wahrheit') {
                 container.innerHTML = `<div><label class="block text-[11px] font-bold text-slate-500 mb-1">Arbeitsanweisung</label><input type="text" value="${q[0]}" oninput="updateQuestion(0, this.value)" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold"></div>`;
-            } else if (twoFieldTickets.includes(window.state.ticketType) || ['kette', 'hypothese', 'schema', 'kurz', 'begriffsnetz'].includes(window.state.ticketType)) {
+            } else if (window.state.ticketType === 'aha' || twoFieldTickets.includes(window.state.ticketType) || ['kette', 'hypothese', 'schema', 'kurz', 'begriffsnetz'].includes(window.state.ticketType)) {
                 renderGenericTeacherInputs(container, q, q.map((_, i) => getGenericLabel(window.state.ticketType, i)));
             } else if (window.state.ticketType === 'frei') {
                 container.innerHTML = `<div><label class="block text-[11px] font-bold text-slate-500 mb-1">Aufgabenstellung</label><input type="text" value="${q[0]}" oninput="updateQuestion(0, this.value)" class="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs font-semibold"></div>`;
@@ -890,13 +1005,17 @@
         function generateTicketHTML() {
             const isColor = window.state.colorMode === 'color';
             const showName = window.state.nameOption === 'named';
+            const accent = getAccentClasses();
+            const ticketCount = parseInt(window.state.layout || '2');
+            const compactClass = ticketCount === 9 ? 'ultra-compact-ticket' : (ticketCount >= 4 ? 'compact-ticket' : '');
             
-            const borderClass = isColor ? 'border-emerald-500' : 'border-slate-800';
-            const headerBgClass = isColor ? 'bg-emerald-50 border-b border-emerald-100' : 'bg-slate-100 border-b border-slate-300';
-            const textBrandClass = isColor ? 'text-emerald-800' : 'text-slate-900';
-            const iconBgClass = isColor ? 'bg-emerald-200 text-emerald-800' : 'bg-slate-200 text-slate-800';
-            const badgeClass = isColor ? 'bg-emerald-100 text-emerald-800' : 'border border-slate-400 text-slate-800 text-[10px] px-1.5 py-0.5 rounded';
-            const accentLineClass = isColor ? 'border-emerald-200' : 'border-slate-300';
+            const borderClass = isColor ? accent.borderStrong : 'border-slate-800';
+            const headerBgClass = isColor ? accent.header : 'bg-slate-100 border-b border-slate-300';
+            const textBrandClass = isColor ? accent.text : 'text-slate-900';
+            const softBrandTextClass = isColor ? accent.softText : 'text-slate-500';
+            const iconBgClass = isColor ? accent.iconBg : 'bg-slate-200 text-slate-800';
+            const badgeClass = isColor ? accent.badge : 'border border-slate-400 text-slate-800 text-[10px] px-1.5 py-0.5 rounded';
+            const accentLineClass = isColor ? accent.line : 'border-slate-300';
             const writingLinesClass = isColor ? 'writing-lines' : 'writing-lines-bw';
 
             const plantIcon = `<img src="${BIOTICKET_LOGO_DATA_URI}" alt="BioTicket Logo" class="w-8 h-8 rounded-lg object-contain bg-emerald-900 p-0.5 shadow-sm">`;
@@ -911,7 +1030,7 @@
                             <p class="font-bold flex items-center gap-1.5 mb-1 ${textBrandClass}">
                                 <span class="flex items-center justify-center w-5 h-5 rounded-full ${iconBgClass} text-[10px] font-extrabold">3</span> ${q[0]}
                             </p>
-                            <div class="${writingLinesClass} h-15 w-full"></div>
+                            <div class="${writingLinesClass} h-16 w-full"></div>
                         </div>
                         <div>
                             <p class="font-bold flex items-center gap-1.5 mb-1 ${textBrandClass}">
@@ -969,7 +1088,7 @@
                 ticketContent = `
                     <div class="space-y-4 text-xs">
                         <p class="font-semibold text-slate-600">${q[0]}</p>
-                        <div class="bg-emerald-50/20 border-l-4 ${isColor ? 'border-emerald-500 bg-emerald-50/40' : 'border-slate-800 bg-slate-50'} p-3 rounded-r-xl">
+                        <div class="border-l-4 ${isColor ? `${borderClass} ${accent.softBg}` : 'border-slate-800 bg-slate-50'} p-3 rounded-r-xl">
                             <p class="font-semibold text-slate-800 italic leading-snug">"${window.state.meta.transferQuestion}"</p>
                         </div>
                         <div>
@@ -990,22 +1109,18 @@
             } else if (window.state.ticketType === 'aha') {
                 ticketContent = `
                     <div class="space-y-4 text-xs">
-                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-r-xl">
+                        <div class="border-l-4 ${isColor ? `${borderClass} ${accent.softBg}` : 'border-slate-800 bg-slate-50'} p-3 rounded-r-xl">
                             <p class="font-bold text-slate-800">💡 ${q[0]}</p>
-                            <div class="${writingLinesClass} h-20 w-full mt-2"></div>
-                        </div>
-                        <div>
-                            <p class="font-semibold ${textBrandClass} mb-1">${q[1]}</p>
-                            <div class="${writingLinesClass} h-16 w-full border ${accentLineClass} rounded-xl p-2 bg-white"></div>
+                            <div class="${writingLinesClass} h-32 w-full mt-2"></div>
                         </div>
                     </div>`;
             } else if (window.state.ticketType === 'tweet') {
                 ticketContent = `
                     <div class="space-y-4 text-xs">
                         <div class="border ${accentLineClass} rounded-2xl p-3 bg-slate-50">
-                            <div class="flex items-center gap-2 mb-2"><span class="font-extrabold text-slate-900">Bio-Tweet</span><span class="text-[9px] text-slate-400">max. 280 Zeichen</span></div>
+                            <div class="flex items-center gap-2 mb-2"><span class="font-extrabold text-slate-900">Bio-Tweet</span><span class="text-[9px] text-slate-400">max. 150 Zeichen</span></div>
                             <p class="font-semibold text-slate-700 mb-1">${q[0]}</p>
-                            <div class="${writingLinesClass} h-24 w-full"></div>
+                            <div class="${writingLinesClass} h-20 w-full"></div>
                         </div>
                         <div>
                             <p class="font-semibold ${textBrandClass} mb-1">${q[1]}</p>
@@ -1016,12 +1131,19 @@
                 ticketContent = `
                     <div class="space-y-4 text-xs">
                         <p class="font-bold text-center ${textBrandClass}">${q[0]}</p>
-                        <div class="grid grid-cols-5 gap-2 text-center text-2xl">
-                            <div class="border ${accentLineClass} rounded-xl p-2">😵<div class="text-[8px] font-bold text-slate-500 mt-1">unklar</div></div>
-                            <div class="border ${accentLineClass} rounded-xl p-2">😕<div class="text-[8px] font-bold text-slate-500 mt-1">wackelig</div></div>
-                            <div class="border ${accentLineClass} rounded-xl p-2">😐<div class="text-[8px] font-bold text-slate-500 mt-1">teils</div></div>
-                            <div class="border ${accentLineClass} rounded-xl p-2">🙂<div class="text-[8px] font-bold text-slate-500 mt-1">sicher</div></div>
-                            <div class="border ${accentLineClass} rounded-xl p-2">🤩<div class="text-[8px] font-bold text-slate-500 mt-1">sehr klar</div></div>
+                        <div class="emoji-scale text-center">
+                            ${[
+                                ['😵', 'unklar'],
+                                ['😕', 'wackelig'],
+                                ['😐', 'teils'],
+                                ['🙂', 'sicher'],
+                                ['🤩', 'sehr klar']
+                            ].map(([face, label]) => `
+                                <div class="emoji-choice border ${accentLineClass} rounded-xl bg-white">
+                                    <span class="emoji-face">${face}</span>
+                                    <span class="emoji-label text-slate-500">${label}</span>
+                                </div>
+                            `).join('')}
                         </div>
                         <div>
                             <p class="font-semibold text-slate-700 mb-1">${q[1]}</p>
@@ -1047,7 +1169,7 @@
                             <p class="font-semibold text-slate-700 mt-1">${q[0]}</p>
                             <div class="${writingLinesClass} h-16 w-full mt-1.5"></div>
                         </div>
-                        <div class="border ${accentLineClass} rounded-xl p-3 bg-emerald-50/30">
+                        <div class="border ${accentLineClass} rounded-xl p-3 ${isColor ? accent.softBg : 'bg-slate-50'}">
                             <span class="font-bold ${textBrandClass} text-[10px] uppercase tracking-wider">Korrektur</span>
                             <p class="font-semibold text-slate-700 mt-1">${q[1]}</p>
                             <div class="${writingLinesClass} h-20 w-full mt-1.5"></div>
@@ -1077,19 +1199,12 @@
                 </div>`;
 
             return `
-                <div class="ticket-card border-2 ${borderClass} rounded-2xl overflow-hidden bg-white shadow-md flex flex-col justify-between h-full relative">
-                    <div class="absolute right-4 bottom-14 opacity-[0.03] pointer-events-none">
-                        <svg class="w-36 h-36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4.5 10.5C4.5 5.25 9 3 9 3s4.5 2.25 4.5 7.5S9 18 9 18s-4.5-2.25-4.5-7.5Z"/>
-                            <path d="M15 13.5c0 5.25-4.5 7.5-4.5 7.5s-4.5-2.25-4.5-7.5S10.5 6 10.5 6s4.5 2.25 4.5 7.5Z"/>
-                        </svg>
-                    </div>
-
+                <div class="ticket-card ${compactClass} border-2 ${borderClass} rounded-2xl overflow-hidden bg-white shadow-md flex flex-col justify-between h-full relative">
                     <div class="p-4 ${headerBgClass} flex items-center justify-between">
                         <div class="flex items-center gap-2">
                             ${plantIcon}
                             <div>
-                                <span class="text-[8px] font-bold uppercase tracking-wider ${isColor ? 'text-emerald-600' : 'text-slate-500'}">BIOLOGIE EXIT-TICKET</span>
+                                <span class="text-[8px] font-bold uppercase tracking-wider ${softBrandTextClass}">BIOLOGIE EXIT-TICKET</span>
                                 <h3 class="font-extrabold text-xs text-slate-800 line-clamp-1">${window.state.thema}</h3>
                             </div>
                         </div>
@@ -1111,25 +1226,18 @@
         // Layout für Bildschirm-Vorschau & Druck grid erstellen
         function buildGridHTML() {
             const ticketHTML = generateTicketHTML();
-            let gridClass = 'grid gap-6 ';
+            let gridClass = 'grid ';
             let count = parseInt(window.state.layout);
 
-            if (count === 1) gridClass += 'grid-cols-1';
-            else if (count === 2) gridClass += 'grid-cols-1 md:grid-cols-2';
-            else if (count === 4) gridClass += 'grid-cols-1 md:grid-cols-2';
+            if (count === 1) gridClass += 'grid-cols-1 gap-6';
+            else if (count === 2) gridClass += 'grid-cols-1 md:grid-cols-2 gap-6';
+            else if (count === 4) gridClass += 'grid-cols-1 md:grid-cols-2 gap-4';
+            else if (count === 9) gridClass += 'grid-cols-3 gap-3';
 
             let containerHTML = `<div class="${gridClass} w-full">`;
             for (let i = 0; i < count; i++) {
-                const showCutline = count > 1 && i > 0;
                 containerHTML += `
                     <div class="relative flex flex-col h-full">
-                        ${showCutline ? `
-                            <div class="absolute -top-3.5 left-0 right-0 flex items-center justify-center no-print">
-                                <div class="w-full border-t border-dashed border-slate-400"></div>
-                                <span class="bg-slate-200 px-2 text-slate-400 text-[10px] flex items-center gap-1">
-                                    <i data-lucide="scissors" class="w-3 h-3"></i> hier ausschneiden
-                                </span>
-                            </div>` : ''}
                         ${ticketHTML}
                     </div>`;
             }
@@ -1200,6 +1308,7 @@
                     questions: window.state.questions[window.state.ticketType],
                     meta: window.state.meta,
                     nameOption: window.state.nameOption,
+                    accentColor: window.state.accentColor,
                     createdAt: new Date().toISOString(),
                     closed: false
                 });
@@ -1416,7 +1525,6 @@
                     bodyHTML = `
                         <div class="space-y-2 text-xs">
                             <div class="bg-yellow-500/10 border border-yellow-500/20 p-2.5 rounded-lg"><strong class="text-yellow-300">Aha-Moment:</strong><p class="text-slate-200 mt-1">${sub.answers[0] || '-'}</p></div>
-                            <div class="bg-slate-900/60 p-2.5 rounded-lg"><strong class="text-emerald-400">Take-away:</strong><p class="text-slate-200 mt-1">${sub.answers[1] || '-'}</p></div>
                         </div>`;
                 } else if (window.state.ticketType === 'tweet') {
                     bodyHTML = `
@@ -1520,9 +1628,9 @@
                 ];
                 lieIndex = 1; // Aussage 2 ist die Lüge
             } else if (window.state.ticketType === 'aha') {
-                answers = ["Dass Fotosynthese und Zellatmung zusammenhängen.", "Pflanzen stellen Zucker her, den sie selbst wieder für Energie nutzen."];
+                answers = ["Dass Fotosynthese und Zellatmung zusammenhängen."];
             } else if (window.state.ticketType === 'tweet') {
-                answers = ["Fotosynthese: Lichtenergie wird in chemische Energie umgewandelt. Aus CO2 und Wasser entstehen Glucose und Sauerstoff.", "#Chloroplasten"];
+                answers = ["Fotosynthese: Lichtenergie wird chemisch gespeichert: Aus CO2 und Wasser entstehen Glucose und Sauerstoff.", "#Chloroplasten"];
             } else if (window.state.ticketType === 'emoji') {
                 answers = [String(Math.ceil(Math.random() * 5)), "Ich kann die Grundgleichung erklären, aber die Teilreaktionen muss ich noch üben."];
             } else if (window.state.ticketType === 'kette') {
@@ -1584,6 +1692,7 @@
                     window.state.questions[data.ticketType] = data.questions;
                     if (data.meta) window.state.meta = data.meta;
                     window.state.nameOption = data.nameOption || 'named';
+                    window.state.accentColor = data.accentColor || 'emerald';
 
                     // Renders
                     document.getElementById('student-thema').innerText = window.state.thema;
@@ -1711,11 +1820,11 @@
                 container.innerHTML = `
                     <div class="space-y-4">
                         <label class="block text-xs text-slate-300 font-bold text-center">${q[0]}</label>
-                        <div class="grid grid-cols-5 gap-1">
+                        <div class="emoji-scale">
                             ${[1,2,3,4,5].map((val, i) => {
                                 const labels = ['😵','😕','😐','🙂','🤩'];
                                 const text = ['unklar','wackelig','teils','sicher','sehr klar'];
-                                return `<label class="border border-slate-700 bg-slate-950 rounded-xl p-2 flex flex-col items-center gap-1 cursor-pointer hover:border-emerald-500"><input type="radio" name="student-emoji" value="${val}" required><span class="text-xl">${labels[i]}</span><span class="text-[8px] uppercase font-bold text-slate-500">${text[i]}</span></label>`;
+                                return `<label class="emoji-choice border border-slate-700 bg-slate-950 rounded-xl p-2 cursor-pointer hover:border-emerald-500"><input type="radio" name="student-emoji" value="${val}" required><span class="emoji-face">${labels[i]}</span><span class="emoji-label uppercase text-slate-500">${text[i]}</span></label>`;
                             }).join('')}
                         </div>
                         <div>
@@ -1723,13 +1832,13 @@
                             <textarea id="ans-1" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500" required></textarea>
                         </div>
                     </div>`;
-            } else if (twoFieldTickets.includes(window.state.ticketType) || ['kette', 'hypothese', 'irrtum', 'schema', 'kurz', 'begriffsnetz'].includes(window.state.ticketType)) {
+            } else if (window.state.ticketType === 'aha' || twoFieldTickets.includes(window.state.ticketType) || ['kette', 'hypothese', 'irrtum', 'schema', 'kurz', 'begriffsnetz'].includes(window.state.ticketType)) {
                 container.innerHTML = `
                     <div class="space-y-4">
                         ${q.map((prompt, i) => `
                             <div>
                                 <label class="block text-xs text-slate-300 font-bold mb-1"><span class="text-emerald-400 uppercase tracking-wider text-[10px]">${getGenericLabel(window.state.ticketType, i)}:</span> ${prompt}</label>
-                                <textarea id="ans-${i}" rows="${window.state.ticketType === 'tweet' && i === 0 ? 4 : 2}" ${window.state.ticketType === 'tweet' && i === 0 ? 'maxlength="280"' : ''} placeholder="Deine Antwort..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500" required></textarea>
+                                <textarea id="ans-${i}" rows="${window.state.ticketType === 'tweet' && i === 0 ? 4 : (window.state.ticketType === 'aha' ? 4 : 2)}" ${window.state.ticketType === 'tweet' && i === 0 ? 'maxlength="150"' : ''} placeholder="Deine Antwort..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500" required></textarea>
                             </div>
                         `).join('')}
                     </div>`;
@@ -1784,7 +1893,7 @@
                 for (let i = 0; i < getAnswerCount(window.state.ticketType); i++) {
                     answers.push(document.getElementById(`ans-${i}`).value);
                 }
-            } else if (window.state.ticketType === 'transfer' || window.state.ticketType === 'frei') {
+            } else if (window.state.ticketType === 'aha' || window.state.ticketType === 'transfer' || window.state.ticketType === 'frei') {
                 answers.push(document.getElementById('ans-0').value);
             }
 
