@@ -2536,6 +2536,240 @@
             transform: scale(1.08);
         }
 
+
+        /* v8: Noto Emoji, helles Live-Dashboard, lesbarer Raumcode, minimalistischere Statistik */
+        @media screen {
+            .edu-noto-emoji-wrap {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 1.72rem;
+                height: 1.72rem;
+                line-height: 1;
+                vertical-align: middle;
+                flex: 0 0 auto;
+            }
+            .edu-noto-emoji-img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                filter: saturate(.96) contrast(1.02);
+            }
+            .edu-noto-emoji-fallback {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+                font-size: 1.2rem;
+                line-height: 1;
+            }
+            .emoji-face .edu-noto-emoji-wrap { width: 1.8rem; height: 1.8rem; }
+            .student-emoji-choice .edu-noto-emoji-wrap { width: 2.05rem; height: 2.05rem; }
+            .student-emoji-choice input:checked + .emoji-face .edu-noto-emoji-wrap { transform: scale(1.08); }
+            .edu-stats-noto-emoji { width: 1.15rem !important; height: 1.15rem !important; }
+            .edu-live-noto-emoji { width: 1.45rem !important; height: 1.45rem !important; }
+
+            #dashboard-view {
+                background: linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 100%) !important;
+                color: #1d1d1f !important;
+                overflow-x: hidden !important;
+            }
+            #dashboard-view > header {
+                background: rgba(255,255,255,.86) !important;
+                color: #1d1d1f !important;
+                border-bottom: 1px solid rgba(0,0,0,.08) !important;
+                box-shadow: 0 1px 0 rgba(255,255,255,.8) inset, 0 10px 32px rgba(0,0,0,.055) !important;
+                backdrop-filter: blur(22px) saturate(160%) !important;
+                -webkit-backdrop-filter: blur(22px) saturate(160%) !important;
+            }
+            #dashboard-view main {
+                overflow: visible !important;
+                max-width: 1280px !important;
+                width: 100% !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            #dashboard-view main > div,
+            #live-pinnwand {
+                background: rgba(255,255,255,.78) !important;
+                border-color: rgba(0,0,0,.08) !important;
+                color: #1d1d1f !important;
+                box-shadow: 0 18px 48px rgba(0,0,0,.075), inset 0 1px 0 rgba(255,255,255,.9) !important;
+            }
+            #dashboard-view .text-slate-200,
+            #dashboard-view .text-slate-300,
+            #dashboard-view .text-slate-400,
+            #dashboard-view .text-slate-500,
+            #dashboard-view .text-indigo-300,
+            #dashboard-view .text-indigo-400,
+            #dashboard-view .text-emerald-400,
+            #dashboard-view .text-emerald-500 {
+                color: #6e6e73 !important;
+            }
+            #dashboard-thema-title,
+            #stats-count,
+            #dashboard-view .text-slate-900,
+            #dashboard-view strong.text-slate-900 {
+                color: #1d1d1f !important;
+            }
+            #room-code-badge,
+            .edu-room-code-badge {
+                background: #f5f5f7 !important;
+                color: #111111 !important;
+                border: 1px solid rgba(0,0,0,.10) !important;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,.92) !important;
+                letter-spacing: .02em !important;
+            }
+            #dashboard-view button.bg-emerald-600,
+            #dashboard-view button.bg-slate-700,
+            #dashboard-view button.bg-slate-800 {
+                background: #111111 !important;
+                color: #ffffff !important;
+                border-color: #111111 !important;
+            }
+            #dashboard-view button.bg-white\/90,
+            #dashboard-view button.bg-white\/90:hover {
+                background: rgba(255,255,255,.78) !important;
+                color: #1d1d1f !important;
+                border-color: rgba(0,0,0,.08) !important;
+            }
+            #dashboard-view button.bg-red-600 { background: #ef4444 !important; color: #fff !important; }
+
+            #dashboard-qr-holder,
+            #zoomed-qr-holder {
+                max-width: 100% !important;
+                overflow: hidden !important;
+            }
+            #dashboard-qr-holder canvas,
+            #dashboard-qr-holder img {
+                width: min(58vw, 220px) !important;
+                height: auto !important;
+                max-width: 100% !important;
+            }
+            #qr-zoom-overlay { padding: min(5vw, 1.5rem) !important; overflow-y: auto !important; }
+            #qr-zoom-overlay > div {
+                width: min(92vw, 25rem) !important;
+                max-width: 25rem !important;
+                padding: clamp(1rem, 4vw, 1.75rem) !important;
+            }
+            #zoomed-qr-holder canvas,
+            #zoomed-qr-holder img {
+                width: min(72vw, 330px) !important;
+                height: auto !important;
+                max-width: 100% !important;
+            }
+            #qr-zoom-overlay .bioticket-logo,
+            #dashboard-view .bioticket-logo-mini {
+                width: 2.7rem !important;
+                height: 2.7rem !important;
+                object-fit: cover !important;
+                border-radius: .58rem !important;
+            }
+
+            .edu-live-stats-card {
+                background: rgba(255,255,255,.66) !important;
+                border: 1px solid rgba(0,0,0,.075) !important;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,.86) !important;
+            }
+            .edu-live-stats-head {
+                padding-bottom: .15rem !important;
+                border-bottom: 1px solid rgba(0,0,0,.06) !important;
+            }
+            .edu-stats-kicker { color: #86868b !important; }
+            .edu-stats-count { color: #1d1d1f !important; font-variant-numeric: tabular-nums !important; }
+            .edu-stats-mini { display: grid; gap: .72rem; padding-top: .1rem; }
+            .edu-stats-mini-head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                font-size: .62rem;
+                color: #86868b;
+                font-weight: 760;
+                text-transform: uppercase;
+                letter-spacing: .12em;
+            }
+            .edu-stat-row {
+                display: grid;
+                grid-template-columns: minmax(5.1rem, .9fr) minmax(4.8rem, 1.1fr) 3.7rem;
+                gap: .55rem;
+                align-items: center;
+            }
+            .edu-stat-label {
+                display: inline-flex;
+                align-items: center;
+                gap: .45rem;
+                min-width: 0;
+                color: #1d1d1f !important;
+                font-weight: 720;
+                font-size: .73rem;
+                white-space: nowrap;
+            }
+            .edu-stat-dot {
+                width: .45rem;
+                height: .45rem;
+                border-radius: 999px;
+                box-shadow: 0 0 0 3px rgba(0,0,0,.045);
+            }
+            .edu-stat-track {
+                height: .36rem;
+                border-radius: 999px;
+                background: rgba(0,0,0,.06);
+                overflow: hidden;
+            }
+            .edu-stat-track > span {
+                display: block;
+                height: 100%;
+                border-radius: inherit;
+                background: linear-gradient(90deg, #1d1d1f, #6e6e73);
+                transition: width .5s ease;
+            }
+            .edu-stat-value {
+                color: #86868b !important;
+                font-size: .68rem;
+                font-weight: 700;
+                font-variant-numeric: tabular-nums;
+                text-align: right;
+                white-space: nowrap;
+            }
+            .edu-stats-empty {
+                margin: .1rem 0 0 0;
+                color: #86868b !important;
+                text-align: center;
+                font-size: .72rem;
+                line-height: 1.45;
+            }
+            .edu-stats-empty strong { color: #1d1d1f !important; font-weight: 760; }
+            @media (max-width: 460px) {
+                .edu-stat-row { grid-template-columns: 1fr; gap: .25rem; }
+                .edu-stat-value { text-align: left; }
+            }
+
+            .edu-live-response-card,
+            #live-pinnwand .bg-slate-800,
+            #live-pinnwand .bg-slate-900\/60,
+            #live-pinnwand .bg-slate-900\/40 {
+                background: rgba(255,255,255,.74) !important;
+                border-color: rgba(0,0,0,.075) !important;
+                color: #1d1d1f !important;
+                box-shadow: none !important;
+            }
+            #live-pinnwand .text-slate-200 { color: #1d1d1f !important; }
+            #live-pinnwand .text-indigo-400,
+            #live-pinnwand .text-emerald-400 { color: #1d1d1f !important; }
+            #live-pinnwand .text-slate-500,
+            #live-pinnwand .text-slate-600 { color: #86868b !important; }
+            .edu-license-note,
+            .edu-license-inline { color: #86868b !important; }
+        }
+
+        @media print {
+            .edu-noto-emoji-wrap { display: inline-flex; align-items: center; justify-content: center; width: 1.6rem; height: 1.6rem; }
+            .edu-noto-emoji-img { width: 100%; height: 100%; object-fit: contain; }
+            .edu-noto-emoji-fallback { display: none; }
+        }
+
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col">
@@ -2725,6 +2959,9 @@
             </section>
 
         </main>
+        <footer class="edu-license-note no-print text-center text-[10px] text-slate-400 py-5 px-4">
+            Emoji-Grafiken: <a href="https://github.com/googlefonts/noto-emoji" target="_blank" rel="noopener" class="underline decoration-slate-300 underline-offset-2">Noto Emoji</a> von Google, Bildressourcen unter <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener" class="underline decoration-slate-300 underline-offset-2">Apache License 2.0</a>.
+        </footer>
     </div>
 
     <!-- LIVE BEAMER-DASHBOARD (FÜR LEHRKRÄFTE) -->
@@ -2738,9 +2975,9 @@
                 </div>
                 <div>
                     <h1 class="text-lg font-bold flex items-center gap-2">
-                        Live-Klassenzimmer <span id="room-code-badge" class="bg-indigo-600 text-white text-xs px-2.5 py-1 rounded-lg font-mono font-bold ml-2">RAUM: -----</span>
+                        Live-Klassenzimmer <span id="room-code-badge" class="edu-room-code-badge bg-white text-slate-950 text-xs px-2.5 py-1 rounded-lg font-mono font-bold ml-2 border border-slate-200">RAUM: -----</span>
                     </h1>
-                    <p class="text-xs text-slate-400">Thema: <span id="dashboard-thema-title" class="text-emerald-400 font-semibold">---</span></p>
+                    <p class="text-xs text-slate-400">Thema: <span id="dashboard-thema-title" class="text-slate-900 font-semibold">---</span></p>
                 </div>
             </div>
             <div class="flex items-center gap-2 flex-wrap justify-end">
@@ -2784,12 +3021,12 @@
                 </div>
 
                 <!-- Echtzeit-Auswertung -->
-                <div class="w-full bg-slate-900/60 border border-slate-800 p-4 rounded-xl space-y-3">
-                    <div class="flex justify-between items-center">
-                        <span class="text-xs text-slate-400">Abgaben insgesamt:</span>
-                        <span id="stats-count" class="text-xl font-bold text-emerald-400">0</span>
+                <div class="edu-live-stats-card w-full bg-white border border-slate-200 p-4 rounded-2xl space-y-4">
+                    <div class="edu-live-stats-head flex justify-between items-end gap-3">
+                        <span class="edu-stats-kicker text-[10px] text-slate-500 uppercase tracking-[0.18em] font-bold">Abgaben</span>
+                        <span id="stats-count" class="edu-stats-count text-3xl font-semibold text-slate-950 tracking-tight">0</span>
                     </div>
-                    <div id="stats-container" class="border-t border-slate-800 pt-2 text-xs">
+                    <div id="stats-container" class="edu-stats-container text-xs">
                         <!-- Methode-spezifische Statistiken (z.B. Ampel-Verteilung) -->
                     </div>
                 </div>
@@ -2799,7 +3036,7 @@
             <div class="lg:col-span-8 flex flex-col gap-3 h-full">
                 <div class="flex items-center justify-between">
                     <h2 class="font-bold text-sm text-slate-300 tracking-wider uppercase flex items-center gap-2">
-                        <i data-lucide="layout-grid" class="w-4 h-4 text-emerald-500"></i> Live-Abgaben der Klasse
+                        <i data-lucide="layout-grid" class="w-4 h-4 text-slate-500"></i> Live-Abgaben der Klasse
                     </h2>
                     <span id="pinnwand-status" class="text-xs text-slate-500 italic">Warte auf Antworten...</span>
                 </div>
@@ -2872,7 +3109,7 @@
         </main>
 
         <footer class="text-center text-[10px] text-slate-600 py-4 border-t border-slate-800/40 mt-6 max-w-lg mx-auto w-full">
-            EduTix &copy; Echtzeit-Cloudverbindung aktiv.
+            EduTix &copy; Echtzeit-Cloudverbindung aktiv.<br><span class="edu-license-inline">Emoji-Grafiken: Noto Emoji von Google · Apache License 2.0.</span>
         </footer>
     </div>
 
@@ -3860,15 +4097,17 @@
         }
 
         function renderEduEmojiMark(value, extraClass = '') {
-            const safeValue = Math.min(5, Math.max(1, Number(value) || 3));
+            const safeValue = Math.min(5, Math.max(1, parseInt(value, 10) || 3));
             const emojiMap = {
-                1: '😵',
-                2: '😕',
-                3: '😐',
-                4: '🙂',
-                5: '🤩'
+                1: { label: 'unklar', face: '😵', file: 'emoji_u1f635.png' },
+                2: { label: 'wackelig', face: '😕', file: 'emoji_u1f615.png' },
+                3: { label: 'teils', face: '😐', file: 'emoji_u1f610.png' },
+                4: { label: 'sicher', face: '🙂', file: 'emoji_u1f642.png' },
+                5: { label: 'sehr klar', face: '🤩', file: 'emoji_u1f929.png' }
             };
-            return `<span class="edu-native-emoji edu-emoji-${safeValue} ${extraClass}" aria-hidden="true">${emojiMap[safeValue]}</span>`;
+            const item = emojiMap[safeValue] || emojiMap[3];
+            const src = `https://raw.githubusercontent.com/googlefonts/noto-emoji/main/png/128/${item.file}`;
+            return `<span class="edu-noto-emoji-wrap edu-emoji-${safeValue} ${extraClass}" title="${item.label}" aria-label="${item.label}"><img class="edu-noto-emoji-img" src="${src}" alt="${item.face} ${item.label}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';"><span class="edu-noto-emoji-fallback" aria-hidden="true">${item.face}</span></span>`;
         }
 
         // Generiert ein hochauflösendes Ticket als HTML-String
@@ -4324,35 +4563,31 @@
                 });
 
                 const rows = [
-                    ['gruen', '🟢 verstanden', 'bg-green-500', counts.gruen],
-                    ['gelb', '🟡 teils', 'bg-yellow-400', counts.gelb],
-                    ['rot', '🔴 unklar', 'bg-red-500', counts.rot]
+                    ['gruen', 'Klar', '#34c759', counts.gruen],
+                    ['gelb', 'Teils', '#ffcc00', counts.gelb],
+                    ['rot', 'Hilfe', '#ff3b30', counts.rot]
                 ];
                 statsBox.innerHTML = `
-                    <div class="space-y-3 pt-1">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Ampel-Auswertung</span>
-                            <span class="text-[10px] text-slate-500">n=${total}</span>
+                    <div class="edu-stats-mini">
+                        <div class="edu-stats-mini-head">
+                            <span>Ampel-Auswertung</span>
+                            <span>n=${total}</span>
                         </div>
-                        ${rows.map(([key, label, colorClass, count]) => `
-                            <div class="stats-bar-row">
-                                <div class="flex justify-between text-[10px] mb-1 gap-2">
-                                    <span class="stats-label text-slate-300 font-semibold">${label}</span>
-                                    <span class="text-slate-400 font-mono shrink-0">${count}× · ${pct(count)}%</span>
-                                </div>
-                                <div class="h-3 w-full rounded-full overflow-hidden bg-slate-950 border border-slate-800">
-                                    <div class="${colorClass} h-full transition-all duration-500" style="width:${pct(count)}%"></div>
-                                </div>
+                        ${rows.map(([key, label, color, count]) => `
+                            <div class="edu-stat-row">
+                                <div class="edu-stat-label"><span class="edu-stat-dot" style="background:${color}"></span>${label}</div>
+                                <div class="edu-stat-track"><span style="width:${pct(count)}%; background:${color}"></span></div>
+                                <div class="edu-stat-value">${count} · ${pct(count)}%</div>
                             </div>
                         `).join('')}
                     </div>`;
             } else if (isEmojiScaleTicket()) {
                 const labels = [
-                    ['😵', 'unklar', 'bg-red-500'],
-                    ['😕', 'wackelig', 'bg-orange-400'],
-                    ['😐', 'teils', 'bg-yellow-400'],
-                    ['🙂', 'sicher', 'bg-green-400'],
-                    ['🤩', 'sehr klar', 'bg-emerald-500']
+                    [1, 'unklar'],
+                    [2, 'wackelig'],
+                    [3, 'teils'],
+                    [4, 'sicher'],
+                    [5, 'sehr klar']
                 ];
                 const counts = [0, 0, 0, 0, 0];
                 let sum = 0;
@@ -4367,27 +4602,23 @@
                 });
                 const avg = valid > 0 ? (sum / valid).toFixed(1) : '–';
                 statsBox.innerHTML = `
-                    <div class="space-y-3 pt-1">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Emoji-Auswertung</span>
-                            <span class="text-[10px] text-slate-500">Ø ${avg}/5 · n=${total}</span>
+                    <div class="edu-stats-mini">
+                        <div class="edu-stats-mini-head">
+                            <span>Emoji-Auswertung</span>
+                            <span>Ø ${avg}/5 · n=${total}</span>
                         </div>
-                        ${labels.map(([face, label, colorClass], i) => `
-                            <div class="stats-bar-row">
-                                <div class="flex justify-between text-[10px] mb-1 gap-2">
-                                    <span class="stats-label text-slate-300 font-semibold">${face} ${label}</span>
-                                    <span class="text-slate-400 font-mono shrink-0">${counts[i]}× · ${pct(counts[i])}%</span>
-                                </div>
-                                <div class="h-3 w-full rounded-full overflow-hidden bg-slate-950 border border-slate-800">
-                                    <div class="${colorClass} h-full transition-all duration-500" style="width:${pct(counts[i])}%"></div>
-                                </div>
+                        ${labels.map(([value, label], i) => `
+                            <div class="edu-stat-row edu-stat-row-emoji">
+                                <div class="edu-stat-label">${renderEduEmojiMark(value, 'edu-stats-noto-emoji')}<span>${label}</span></div>
+                                <div class="edu-stat-track"><span style="width:${pct(counts[i])}%"></span></div>
+                                <div class="edu-stat-value">${counts[i]} · ${pct(counts[i])}%</div>
                             </div>
                         `).join('')}
                     </div>`;
             } else {
                 statsBox.innerHTML = `
-                    <p class="text-[10px] text-slate-500 italic text-center py-2">
-                        Live-Auswertung aktiv für:<br>${methods[window.state.ticketType].title}
+                    <p class="edu-stats-empty">
+                        Live-Auswertung aktiv<br><strong>${methods[window.state.ticketType].title}</strong>
                     </p>`;
             }
         }
@@ -4413,7 +4644,7 @@
 
             submissions.forEach((sub, idx) => {
                 const card = document.createElement('div');
-                card.className = "bg-slate-800 border border-slate-700 p-4 rounded-xl shadow-lg flex flex-col justify-between space-y-4 hover:border-indigo-500/50 transition-all duration-300";
+                card.className = "edu-live-response-card bg-white border border-slate-200 p-4 rounded-2xl shadow-sm flex flex-col justify-between space-y-4 hover:border-slate-300 transition-all duration-300";
 
                 let bodyHTML = '';
                 const questions = window.state.questions[window.state.ticketType];
@@ -4498,7 +4729,7 @@
                             <div class="text-sky-300 font-bold">${sub.answers[1] || '#Unterricht'}</div>
                         </div>`;
                 } else if (isEmojiScaleTicket()) {
-                    const emojiLabels = {1:'😵 unklar',2:'😕 wackelig',3:'😐 teils',4:'🙂 sicher',5:'🤩 sehr klar'};
+                    const emojiLabels = {1:'unklar',2:'wackelig',3:'teils',4:'sicher',5:'sehr klar'};
                     const followUps = sub.answers.slice(1).map((answer, answerIndex) => `
                         <div class="bg-slate-900/60 p-2.5 rounded-lg">
                             <strong class="text-slate-400">${getGenericLabel(window.state.ticketType, answerIndex + 1)}:</strong>
@@ -4507,7 +4738,7 @@
                     `).join('');
                     bodyHTML = `
                         <div class="space-y-2 text-xs">
-                            <div class="flex items-center gap-2"><span class="text-xl">${emojiLabels[sub.answers[0]] ? emojiLabels[sub.answers[0]].split(' ')[0] : '😐'}</span><strong class="text-emerald-400">${emojiLabels[sub.answers[0]] || 'teils'}</strong></div>
+                            <div class="flex items-center gap-2">${renderEduEmojiMark(sub.answers[0] || 3, 'edu-live-noto-emoji')}<strong class="text-slate-900">${emojiLabels[sub.answers[0]] || 'teils'}</strong></div>
                             ${followUps || '<div class="text-slate-500 text-xs">Keine Zusatzantwort.</div>'}
                         </div>`;
                 } else if (window.state.ticketType === 'begriffsnetz') {
