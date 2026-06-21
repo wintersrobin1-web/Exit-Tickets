@@ -2770,6 +2770,331 @@
             .edu-noto-emoji-fallback { display: none; }
         }
 
+    
+
+        /* v9: Noto-Emoji in A4-Designfarbe, robustere Live-Layouts, reduzierte Statistik-Toggle */
+        body[data-accent="emerald"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(2.35) hue-rotate(82deg) brightness(.78) contrast(1.08); --edu-stat-accent: #55685f; --edu-stat-accent-soft:#edf3ef; }
+        body[data-accent="sky"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(3.2) hue-rotate(158deg) brightness(.82) contrast(1.08); --edu-stat-accent: #236a92; --edu-stat-accent-soft:#edf6fb; }
+        body[data-accent="violet"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(3.1) hue-rotate(220deg) brightness(.86) contrast(1.05); --edu-stat-accent: #6250a4; --edu-stat-accent-soft:#f3f0fb; }
+        body[data-accent="rose"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(2.75) hue-rotate(298deg) brightness(.86) contrast(1.06); --edu-stat-accent: #a9485d; --edu-stat-accent-soft:#fbf0f3; }
+        body[data-accent="amber"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(2.05) hue-rotate(348deg) brightness(.88) contrast(1.08); --edu-stat-accent: #ad6f24; --edu-stat-accent-soft:#fbf4e8; }
+
+        .edu-noto-emoji-wrap {
+            border-radius: 999px;
+            color: var(--edu-stat-accent, var(--accent-700, #1d1d1f));
+            background: color-mix(in srgb, currentColor 8%, white 92%);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 1px 2px rgba(0,0,0,.055);
+            padding: .12rem;
+        }
+        .edu-noto-emoji-img {
+            filter: var(--edu-noto-filter, grayscale(1) sepia(1) saturate(2.9) hue-rotate(158deg) brightness(.84) contrast(1.08)) !important;
+            transform: translateZ(0);
+        }
+        .emoji-choice .edu-noto-emoji-wrap,
+        .ticket-card .edu-noto-emoji-wrap {
+            background: color-mix(in srgb, var(--ticket-text, var(--edu-stat-accent, #1d1d1f)) 9%, white 91%) !important;
+        }
+        .student-emoji-choice .edu-noto-emoji-wrap {
+            background: rgba(255,255,255,.92) !important;
+        }
+        .student-emoji-choice input:checked + .emoji-face .edu-noto-emoji-wrap {
+            background: var(--accent-50, #f0f9ff) !important;
+            box-shadow: 0 0 0 3px var(--accent-ring, rgba(14,165,233,.22)), inset 0 1px 0 rgba(255,255,255,.9) !important;
+        }
+
+        @media screen {
+            .edu-preview-section > .edu-preview-toolbar,
+            #teacher-view main > section.edu-preview-section > div.edu-preview-toolbar {
+                width: min(100%, 44rem) !important;
+                margin: 0 auto 1rem auto !important;
+                padding: .2rem 0 .75rem 0 !important;
+                min-height: 0 !important;
+                height: auto !important;
+                overflow: visible !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: .5rem !important;
+                background: transparent !important;
+                border: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                text-align: center !important;
+            }
+            .edu-preview-title,
+            .edu-preview-badge,
+            #preview-badge {
+                line-height: 1.25 !important;
+                min-height: 0 !important;
+                height: auto !important;
+                overflow: visible !important;
+                transform: none !important;
+                padding-block: 0 !important;
+            }
+            .edu-preview-title {
+                white-space: nowrap !important;
+                display: inline-flex !important;
+                align-items: center !important;
+            }
+            .edu-preview-title::after { transform: translateY(.02rem); }
+            #preview-badge {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                background: transparent !important;
+                border: 0 !important;
+                box-shadow: none !important;
+                white-space: nowrap !important;
+            }
+
+            #dashboard-view,
+            #dashboard-view * { box-sizing: border-box; }
+            #dashboard-view { overflow-x: hidden !important; }
+            #dashboard-view header { overflow: visible !important; }
+            #dashboard-view header .bioticket-logo-mini {
+                width: 2.35rem !important;
+                height: 2.35rem !important;
+                max-width: 2.35rem !important;
+                max-height: 2.35rem !important;
+                object-fit: cover !important;
+                border-radius: .58rem !important;
+                flex: 0 0 auto !important;
+            }
+            #dashboard-view h1,
+            #dashboard-view h2,
+            #dashboard-view .edu-stats-kicker,
+            #dashboard-view #stats-count,
+            #dashboard-view #dashboard-thema-title {
+                color: #1d1d1f !important;
+                line-height: 1.25 !important;
+                overflow: visible !important;
+                text-overflow: clip !important;
+            }
+            #dashboard-view .text-emerald-300,
+            #dashboard-view .text-emerald-400,
+            #dashboard-view .text-emerald-500,
+            #dashboard-view .text-green-300,
+            #dashboard-view .text-green-400,
+            #dashboard-view .text-green-500 {
+                color: #1d1d1f !important;
+            }
+            #dashboard-view main {
+                grid-auto-rows: minmax(0, auto) !important;
+                overflow: visible !important;
+                padding: clamp(1rem, 2.1vw, 1.5rem) !important;
+                min-width: 0 !important;
+            }
+            #dashboard-view main > div { min-width: 0 !important; overflow: visible !important; }
+            #dashboard-view main > div:first-child {
+                gap: 1rem !important;
+                justify-content: flex-start !important;
+                align-items: center !important;
+                padding: clamp(1rem, 2vw, 1.35rem) !important;
+            }
+            #dashboard-view main > div:first-child > .bg-white {
+                width: min(100%, 15.5rem) !important;
+                max-width: 15.5rem !important;
+                padding: clamp(.85rem, 2vw, 1.1rem) !important;
+                overflow: hidden !important;
+            }
+            #dashboard-qr-holder,
+            #zoomed-qr-holder {
+                width: min(100%, 12.25rem) !important;
+                max-width: 12.25rem !important;
+                min-width: 0 !important;
+                overflow: hidden !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                margin-inline: auto !important;
+            }
+            #dashboard-qr-holder canvas,
+            #dashboard-qr-holder img {
+                width: 100% !important;
+                height: auto !important;
+                max-width: 100% !important;
+                display: block !important;
+            }
+            #join-url-box {
+                background: rgba(245,245,247,.94) !important;
+                color: #1d1d1f !important;
+                border-color: rgba(0,0,0,.08) !important;
+            }
+            #room-code-badge,
+            .edu-room-code-badge {
+                display: inline-flex !important;
+                align-items: center !important;
+                max-width: 100% !important;
+                line-height: 1.2 !important;
+                background: #f5f5f7 !important;
+                color: #111 !important;
+                border-color: rgba(0,0,0,.1) !important;
+            }
+            #dashboard-view .lg\:col-span-8 > .flex.items-center.justify-between {
+                align-items: flex-start !important;
+                flex-wrap: wrap !important;
+                gap: .55rem .8rem !important;
+                min-height: 1.8rem !important;
+                overflow: visible !important;
+            }
+            #dashboard-view .lg\:col-span-8 h2 {
+                display: inline-flex !important;
+                align-items: center !important;
+                gap: .45rem !important;
+                white-space: normal !important;
+                min-height: 1.45rem !important;
+                color: #1d1d1f !important;
+            }
+            #dashboard-view .lg\:col-span-8 h2 [data-lucide] {
+                width: 1rem !important;
+                height: 1rem !important;
+                flex: 0 0 1rem !important;
+            }
+            #live-pinnwand {
+                min-height: 16rem !important;
+                max-height: min(72vh, 46rem) !important;
+                overflow-y: auto !important;
+            }
+
+            .edu-live-stats-card {
+                border-radius: 1.35rem !important;
+                background: rgba(255,255,255,.72) !important;
+                padding: 1rem !important;
+                overflow: visible !important;
+            }
+            .edu-live-stats-head {
+                align-items: start !important;
+                gap: .8rem !important;
+                padding-bottom: .65rem !important;
+                margin-bottom: .1rem !important;
+                border-bottom: 1px solid rgba(0,0,0,.06) !important;
+            }
+            .edu-stats-kicker { font-size: .62rem !important; line-height: 1.25 !important; }
+            .edu-stats-count { font-size: 2.2rem !important; line-height: .95 !important; letter-spacing: -.04em !important; }
+            .edu-stats-switch {
+                display: inline-flex;
+                align-items: center;
+                gap: .18rem;
+                padding: .16rem;
+                border-radius: 999px;
+                background: rgba(0,0,0,.045);
+                border: 1px solid rgba(0,0,0,.05);
+            }
+            .edu-stats-switch button {
+                appearance: none;
+                border: 0;
+                background: transparent;
+                color: #86868b;
+                font-size: .58rem;
+                line-height: 1;
+                font-weight: 780;
+                letter-spacing: .02em;
+                padding: .36rem .48rem;
+                border-radius: 999px;
+                cursor: pointer;
+                transition: background .18s ease, color .18s ease, box-shadow .18s ease;
+            }
+            .edu-stats-switch button.active {
+                background: #fff;
+                color: #1d1d1f;
+                box-shadow: 0 1px 2px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.9);
+            }
+            .edu-stats-mini { gap: .58rem !important; }
+            .edu-stats-mini-head {
+                align-items: center !important;
+                text-transform: none !important;
+                letter-spacing: -.01em !important;
+                font-size: .72rem !important;
+                font-weight: 760 !important;
+                color: #1d1d1f !important;
+            }
+            .edu-stat-row {
+                grid-template-columns: minmax(4.6rem, .9fr) minmax(4rem, 1.1fr) 3.2rem !important;
+                gap: .5rem !important;
+            }
+            .edu-stat-label { font-size: .72rem !important; font-weight: 720 !important; }
+            .edu-stat-track { height: .31rem !important; background: rgba(0,0,0,.055) !important; }
+            .edu-stat-track > span { background: linear-gradient(90deg, var(--edu-stat-accent, #1d1d1f), color-mix(in srgb, var(--edu-stat-accent, #1d1d1f) 54%, white 46%)) !important; }
+            .edu-stat-value { font-size: .64rem !important; }
+            .edu-stats-pie-wrap {
+                display: grid;
+                grid-template-columns: auto minmax(0, 1fr);
+                align-items: center;
+                gap: .85rem;
+                padding-top: .1rem;
+            }
+            .edu-stats-pie {
+                width: 5.25rem;
+                height: 5.25rem;
+                border-radius: 999px;
+                display: grid;
+                place-items: center;
+                box-shadow: inset 0 0 0 1px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.065);
+                flex: 0 0 auto;
+            }
+            .edu-stats-pie::after {
+                content: attr(data-center);
+                width: 3.45rem;
+                height: 3.45rem;
+                border-radius: inherit;
+                background: rgba(255,255,255,.94);
+                display: grid;
+                place-items: center;
+                color: #1d1d1f;
+                font-size: .76rem;
+                font-weight: 800;
+                letter-spacing: -.02em;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+            }
+            .edu-stats-pie-legend {
+                display: grid;
+                gap: .35rem;
+                min-width: 0;
+            }
+            .edu-stats-pie-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: .6rem;
+                min-width: 0;
+                color: #1d1d1f;
+                font-size: .68rem;
+                font-weight: 720;
+            }
+            .edu-stats-pie-item > span:first-child {
+                display: inline-flex;
+                align-items: center;
+                gap: .38rem;
+                min-width: 0;
+                white-space: nowrap;
+            }
+            .edu-stats-pie-item small {
+                color: #86868b;
+                font-size: .64rem;
+                font-weight: 720;
+                font-variant-numeric: tabular-nums;
+                white-space: nowrap;
+            }
+            .edu-stats-pie-dot {
+                width: .46rem;
+                height: .46rem;
+                border-radius: 999px;
+                flex: 0 0 auto;
+                box-shadow: 0 0 0 3px rgba(0,0,0,.035);
+            }
+            .edu-stats-pie-item .edu-noto-emoji-wrap { width: 1.15rem !important; height: 1.15rem !important; }
+            @media (max-width: 520px) {
+                .edu-stats-pie-wrap { grid-template-columns: 1fr; justify-items: center; }
+                .edu-stats-pie-legend { width: 100%; }
+                .edu-stat-row { grid-template-columns: 1fr !important; }
+                .edu-stat-value { text-align: left !important; }
+            }
+        }
+
+        @media print {
+            .edu-noto-emoji-img { filter: var(--edu-noto-filter, grayscale(1) sepia(1) saturate(2.9) hue-rotate(158deg) brightness(.84) contrast(1.08)) !important; }
+        }
+
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col">
@@ -2960,7 +3285,7 @@
 
         </main>
         <footer class="edu-license-note no-print text-center text-[10px] text-slate-400 py-5 px-4">
-            Emoji-Grafiken: <a href="https://github.com/googlefonts/noto-emoji" target="_blank" rel="noopener" class="underline decoration-slate-300 underline-offset-2">Noto Emoji</a> von Google, Bildressourcen unter <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener" class="underline decoration-slate-300 underline-offset-2">Apache License 2.0</a>.
+            Emoji-Grafiken: <a href="https://github.com/googlefonts/noto-emoji" target="_blank" rel="noopener" class="underline decoration-slate-300 underline-offset-2">Noto Emoji</a> von Google, PNG-/SVG-Bildressourcen unter <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener" class="underline decoration-slate-300 underline-offset-2">Apache License 2.0</a>.
         </footer>
     </div>
 
@@ -3109,7 +3434,7 @@
         </main>
 
         <footer class="text-center text-[10px] text-slate-600 py-4 border-t border-slate-800/40 mt-6 max-w-lg mx-auto w-full">
-            EduTix &copy; Echtzeit-Cloudverbindung aktiv.<br><span class="edu-license-inline">Emoji-Grafiken: Noto Emoji von Google · Apache License 2.0.</span>
+            EduTix &copy; Echtzeit-Cloudverbindung aktiv.<br><span class="edu-license-inline">Emoji-Grafiken: Noto Emoji von Google · PNG/SVG-Bildressourcen unter Apache License 2.0.</span>
         </footer>
     </div>
 
@@ -4545,6 +4870,40 @@
             showToast(`Neue Abgabe von ${submission.studentName}!`, "check");
         }
 
+        let eduStatsMode = localStorage.getItem('edutixStatsMode') || 'bars';
+        window.setEduStatsMode = function(mode) {
+            eduStatsMode = mode === 'pie' ? 'pie' : 'bars';
+            localStorage.setItem('edutixStatsMode', eduStatsMode);
+            renderStats();
+        };
+
+        function buildStatsToggle() {
+            return `
+                <div class="edu-stats-switch" role="group" aria-label="Statistikdarstellung wählen">
+                    <button type="button" onclick="window.setEduStatsMode('bars')" class="${eduStatsMode === 'bars' ? 'active' : ''}">Balken</button>
+                    <button type="button" onclick="window.setEduStatsMode('pie')" class="${eduStatsMode === 'pie' ? 'active' : ''}">Torte</button>
+                </div>`;
+        }
+
+        function buildConicGradient(parts, total, fallback = '#eef0f4') {
+            if (!total) return fallback;
+            let cursor = 0;
+            const segments = [];
+            parts.forEach(part => {
+                const count = Math.max(0, Number(part.count) || 0);
+                if (!count) return;
+                const start = (cursor / total) * 100;
+                cursor += count;
+                const end = (cursor / total) * 100;
+                segments.push(`${part.color} ${start}% ${end}%`);
+            });
+            if (cursor < total) {
+                const start = (cursor / total) * 100;
+                segments.push(`#e5e7eb ${start}% 100%`);
+            }
+            return segments.length ? `conic-gradient(${segments.join(', ')})` : fallback;
+        }
+
         function renderStats() {
             const total = submissions.length;
             document.getElementById('stats-count').innerText = total;
@@ -4563,24 +4922,40 @@
                 });
 
                 const rows = [
-                    ['gruen', 'Klar', '#34c759', counts.gruen],
-                    ['gelb', 'Teils', '#ffcc00', counts.gelb],
-                    ['rot', 'Hilfe', '#ff3b30', counts.rot]
+                    { key:'gruen', label:'Klar', color:'#34c759', count:counts.gruen },
+                    { key:'gelb', label:'Teils', color:'#ffcc00', count:counts.gelb },
+                    { key:'rot', label:'Hilfe', color:'#ff3b30', count:counts.rot }
                 ];
-                statsBox.innerHTML = `
-                    <div class="edu-stats-mini">
-                        <div class="edu-stats-mini-head">
-                            <span>Ampel-Auswertung</span>
-                            <span>n=${total}</span>
-                        </div>
-                        ${rows.map(([key, label, color, count]) => `
-                            <div class="edu-stat-row">
-                                <div class="edu-stat-label"><span class="edu-stat-dot" style="background:${color}"></span>${label}</div>
-                                <div class="edu-stat-track"><span style="width:${pct(count)}%; background:${color}"></span></div>
-                                <div class="edu-stat-value">${count} · ${pct(count)}%</div>
+
+                if (eduStatsMode === 'pie') {
+                    const gradient = buildConicGradient(rows, total);
+                    statsBox.innerHTML = `
+                        <div class="edu-stats-mini">
+                            <div class="edu-stats-mini-head"><span>Ampel-Auswertung</span>${buildStatsToggle()}</div>
+                            <div class="edu-stats-pie-wrap">
+                                <div class="edu-stats-pie" data-center="n=${total}" style="background:${gradient}"></div>
+                                <div class="edu-stats-pie-legend">
+                                    ${rows.map(row => `
+                                        <div class="edu-stats-pie-item">
+                                            <span><i class="edu-stats-pie-dot" style="background:${row.color}"></i>${row.label}</span>
+                                            <small>${row.count} · ${pct(row.count)}%</small>
+                                        </div>`).join('')}
+                                </div>
                             </div>
-                        `).join('')}
-                    </div>`;
+                        </div>`;
+                } else {
+                    statsBox.innerHTML = `
+                        <div class="edu-stats-mini">
+                            <div class="edu-stats-mini-head"><span>Ampel-Auswertung</span>${buildStatsToggle()}</div>
+                            ${rows.map(row => `
+                                <div class="edu-stat-row">
+                                    <div class="edu-stat-label"><span class="edu-stat-dot" style="background:${row.color}"></span>${row.label}</div>
+                                    <div class="edu-stat-track"><span style="width:${pct(row.count)}%; background:${row.color} !important"></span></div>
+                                    <div class="edu-stat-value">${row.count} · ${pct(row.count)}%</div>
+                                </div>
+                            `).join('')}
+                        </div>`;
+                }
             } else if (isEmojiScaleTicket()) {
                 const labels = [
                     [1, 'unklar'],
@@ -4601,20 +4976,38 @@
                     }
                 });
                 const avg = valid > 0 ? (sum / valid).toFixed(1) : '–';
-                statsBox.innerHTML = `
-                    <div class="edu-stats-mini">
-                        <div class="edu-stats-mini-head">
-                            <span>Emoji-Auswertung</span>
-                            <span>Ø ${avg}/5 · n=${total}</span>
-                        </div>
-                        ${labels.map(([value, label], i) => `
-                            <div class="edu-stat-row edu-stat-row-emoji">
-                                <div class="edu-stat-label">${renderEduEmojiMark(value, 'edu-stats-noto-emoji')}<span>${label}</span></div>
-                                <div class="edu-stat-track"><span style="width:${pct(counts[i])}%"></span></div>
-                                <div class="edu-stat-value">${counts[i]} · ${pct(counts[i])}%</div>
+                const colors = ['#7f8790', '#8d98a3', 'var(--edu-stat-accent, #236a92)', 'color-mix(in srgb, var(--edu-stat-accent, #236a92) 78%, white 22%)', 'color-mix(in srgb, var(--edu-stat-accent, #236a92) 55%, white 45%)'];
+                const rows = labels.map(([value, label], i) => ({ value, label, color: colors[i], count: counts[i] }));
+
+                if (eduStatsMode === 'pie') {
+                    const gradient = buildConicGradient(rows, total);
+                    statsBox.innerHTML = `
+                        <div class="edu-stats-mini">
+                            <div class="edu-stats-mini-head"><span>Emoji-Auswertung · Ø ${avg}/5</span>${buildStatsToggle()}</div>
+                            <div class="edu-stats-pie-wrap">
+                                <div class="edu-stats-pie" data-center="n=${total}" style="background:${gradient}"></div>
+                                <div class="edu-stats-pie-legend">
+                                    ${rows.map(row => `
+                                        <div class="edu-stats-pie-item">
+                                            <span>${renderEduEmojiMark(row.value, 'edu-stats-noto-emoji')} ${row.label}</span>
+                                            <small>${row.count} · ${pct(row.count)}%</small>
+                                        </div>`).join('')}
+                                </div>
                             </div>
-                        `).join('')}
-                    </div>`;
+                        </div>`;
+                } else {
+                    statsBox.innerHTML = `
+                        <div class="edu-stats-mini">
+                            <div class="edu-stats-mini-head"><span>Emoji-Auswertung · Ø ${avg}/5</span>${buildStatsToggle()}</div>
+                            ${rows.map(row => `
+                                <div class="edu-stat-row edu-stat-row-emoji">
+                                    <div class="edu-stat-label">${renderEduEmojiMark(row.value, 'edu-stats-noto-emoji')}<span>${row.label}</span></div>
+                                    <div class="edu-stat-track"><span style="width:${pct(row.count)}%"></span></div>
+                                    <div class="edu-stat-value">${row.count} · ${pct(row.count)}%</div>
+                                </div>
+                            `).join('')}
+                        </div>`;
+                }
             } else {
                 statsBox.innerHTML = `
                     <p class="edu-stats-empty">
