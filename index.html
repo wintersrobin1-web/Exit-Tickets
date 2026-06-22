@@ -4522,6 +4522,125 @@
             max-width: 30ch !important;
         }
 
+
+
+        /* v25: mehr Platz für Live-Diagramme, kompakte Kombi-Methoden, Zoom ohne redundante Statistik */
+        @media screen and (min-width: 1024px) {
+            #dashboard-view main.grid > div:first-child {
+                grid-column: span 5 / span 5 !important;
+            }
+            #dashboard-view main.grid > div:nth-child(2) {
+                grid-column: span 7 / span 7 !important;
+            }
+        }
+        #dashboard-view .edu-live-stats-card {
+            padding: 1.35rem !important;
+            border-radius: 1.8rem !important;
+        }
+        #dashboard-view .edu-stats-mini {
+            gap: 1rem !important;
+        }
+        #dashboard-view .edu-stats-mini-head {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) auto !important;
+            gap: .7rem !important;
+            align-items: center !important;
+            margin-bottom: .25rem !important;
+        }
+        #dashboard-view .edu-stats-mini-head > span:first-child {
+            min-width: 0 !important;
+            font-size: .86rem !important;
+            line-height: 1.18 !important;
+            letter-spacing: -.03em !important;
+        }
+        #dashboard-view .edu-stats-actions {
+            justify-self: end !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: .45rem !important;
+        }
+        #dashboard-view .edu-stat-row {
+            grid-template-columns: minmax(8.1rem, auto) minmax(0, 1fr) 3.1rem !important;
+            gap: .85rem !important;
+            min-height: 2.85rem !important;
+            align-items: center !important;
+        }
+        #dashboard-view .edu-stat-label {
+            min-width: 0 !important;
+            overflow: visible !important;
+        }
+        #dashboard-view .edu-stat-track {
+            min-width: 0 !important;
+            height: .42rem !important;
+        }
+        #dashboard-view .edu-stat-value {
+            text-align: right !important;
+            font-size: .76rem !important;
+        }
+        #dashboard-view .edu-stat-row-emoji .edu-stat-label {
+            grid-template-columns: 1.55rem minmax(0, 1fr) !important;
+            column-gap: .65rem !important;
+        }
+        #dashboard-view .edu-stat-row-emoji .edu-stat-label .edu-noto-emoji-wrap,
+        #dashboard-view .edu-stat-row-emoji .edu-stat-label .edu-stats-noto-emoji {
+            width: 1.28rem !important;
+            height: 1.28rem !important;
+        }
+        @media screen and (max-width: 540px) {
+            #dashboard-view .edu-stat-row {
+                grid-template-columns: minmax(6.9rem, auto) minmax(4.5rem, 1fr) 2.7rem !important;
+                gap: .55rem !important;
+            }
+            #dashboard-view .edu-stats-mini-head {
+                grid-template-columns: 1fr !important;
+            }
+            #dashboard-view .edu-stats-actions {
+                justify-self: start !important;
+            }
+        }
+        .edu-visual-zoom-card .report-section-title,
+        .edu-visual-zoom-card .report-stat-summary,
+        .edu-visual-zoom-card .report-stat-row {
+            display: none !important;
+        }
+        .edu-visual-zoom-card .report-visual-box {
+            min-height: clamp(34rem, 70vh, 48rem) !important;
+            width: 100% !important;
+        }
+        .edu-visual-zoom-card .report-bar-svg {
+            min-height: 28rem !important;
+        }
+        .edu-visual-zoom-card .report-wordcloud {
+            min-height: clamp(34rem, 70vh, 48rem) !important;
+        }
+        .edu-combo-toggle {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .75rem;
+            width: 100%;
+            padding: .75rem .9rem;
+            border: 1px solid rgba(15, 23, 42, .09);
+            border-radius: 1rem;
+            background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,250,252,.92));
+            color: #475569;
+            font-size: .72rem;
+            font-weight: 850;
+            letter-spacing: -.01em;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.95);
+            cursor: pointer;
+        }
+        .edu-combo-toggle span {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+        }
+        .edu-combo-toggle:hover {
+            color: #1d1d1f;
+            background: #fff;
+            border-color: rgba(15, 23, 42, .14);
+        }
 </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col">
@@ -5821,7 +5940,13 @@
             const container = document.getElementById('method-grid');
             container.innerHTML = '';
 
-            Object.values(methods).forEach(method => {
+            const allMethods = Object.values(methods);
+            const comboMethods = allMethods.filter(method => method.id && method.id.startsWith('combo_'));
+            const standardMethods = allMethods.filter(method => !(method.id && method.id.startsWith('combo_')));
+            const activeIsCombo = String(window.state.ticketType || '').startsWith('combo_');
+            const showCombo = localStorage.getItem('edutixShowComboMethods') === 'true' || activeIsCombo;
+
+            const renderCard = (method) => {
                 const isActive = method.id === window.state.ticketType;
                 const card = document.createElement('div');
                 card.setAttribute('data-id', method.id);
@@ -5851,7 +5976,29 @@
                     <p class="text-[10px] text-slate-500 leading-tight">${method.description}</p>
                 `;
                 container.appendChild(card);
-            });
+            };
+
+            standardMethods.forEach(renderCard);
+
+            if (comboMethods.length) {
+                const toggle = document.createElement('button');
+                toggle.type = 'button';
+                toggle.className = 'edu-combo-toggle';
+                toggle.innerHTML = `
+                    <span><i data-lucide="layers-3" class="w-3.5 h-3.5"></i>${showCombo ? 'Kombi-Methoden ausblenden' : 'Kombi-Methoden anzeigen'}</span>
+                    <i data-lucide="${showCombo ? 'chevron-up' : 'chevron-down'}" class="w-4 h-4"></i>
+                `;
+                toggle.onclick = () => {
+                    const next = !(localStorage.getItem('edutixShowComboMethods') === 'true' || activeIsCombo);
+                    localStorage.setItem('edutixShowComboMethods', next ? 'true' : 'false');
+                    renderMethodCards();
+                };
+                container.appendChild(toggle);
+
+                if (showCombo) {
+                    comboMethods.forEach(renderCard);
+                }
+            }
             lucide.createIcons();
         }
 
@@ -6431,7 +6578,7 @@
         }
 
         function buildStatsHead(title) {
-            return `<div class="edu-stats-mini-head"><span>${title}</span><div class="edu-stats-actions">${buildStatsToggle()}${buildStatsDownloadButton()}</div></div>`;
+            return `<div class="edu-stats-mini-head"><span>${title}</span><div class="edu-stats-actions">${buildStatsToggle()}</div></div>`;
         }
 
         const EDU_DESIGN_CHART_PALETTE = ['#55685f', '#236a92', '#6250a4', '#a9485d', '#ad6f24'];
@@ -7586,23 +7733,17 @@
         }
 
         function renderVisualZoomHTML() {
-            const stats = renderReportStatsHTML();
             if (window.state.ticketType === 'wortwolke') {
-                const visual = renderReportVisualHTML();
-                return `<div class="space-y-4">${visual}<div class="report-section-title">Statistik</div>${stats}</div>`;
+                return renderReportVisualHTML();
             }
             const rows = getReportCategoryRows();
             if (eduStatsMode === 'pie' && rows.length) {
                 const total = rows.reduce((sum, row) => sum + row.count, 0);
                 const gradient = buildConicGradient(rows, total);
                 const markerKind = isEmojiScaleTicket() ? 'emoji' : 'dot';
-                return `<div class="space-y-4">
-                    <div class="report-visual-box edu-zoom-pie-only">${buildPieShell(rows, total, gradient, markerKind)}</div>
-                    <div class="report-section-title">Statistik</div>${stats}
-                </div>`;
+                return `<div class="report-visual-box edu-zoom-pie-only">${buildPieShell(rows, total, gradient, markerKind)}</div>`;
             }
-            const visual = renderReportVisualHTML();
-            return `<div class="space-y-4">${visual}<div class="report-section-title">Statistik</div>${stats}</div>`;
+            return renderReportVisualHTML();
         }
 
 
