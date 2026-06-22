@@ -3844,285 +3844,186 @@
         }
 
 
-        /* v16: Print-Options clean rebuild + spacious Wortwolke */
+        /* v17: Wortwolke großflächig + stabile Druckoptionen */
         @media screen {
-            .edu-print-options-card,
-            #teacher-view .edu-print-options-card {
-                width: 100% !important;
-                margin: 0 0 .7rem 0 !important;
-                padding: clamp(1.05rem, 1.45vw, 1.35rem) !important;
-                border-radius: 2rem !important;
-                background: rgba(255,255,255,.76) !important;
-                border: 1px solid rgba(0,0,0,.075) !important;
-                box-shadow: 0 18px 50px rgba(15,23,42,.07), inset 0 1px 0 rgba(255,255,255,.95) !important;
-                backdrop-filter: blur(18px) saturate(145%) !important;
-                -webkit-backdrop-filter: blur(18px) saturate(145%) !important;
+            .edu-print-options-card {
+                padding: clamp(1rem, 1.5vw, 1.25rem) !important;
+                overflow: visible !important;
             }
-            .edu-print-options-head {
-                display: flex !important;
-                align-items: center !important;
-                gap: .62rem !important;
-                margin: 0 0 1.05rem !important;
-                padding: 0 !important;
-                border: 0 !important;
-            }
-            .edu-print-options-head h2 {
-                margin: 0 !important;
-                padding: 0 !important;
-                border: 0 !important;
-                color: #1d1d1f !important;
-                font-size: clamp(1rem, 1.4vw, 1.18rem) !important;
-                line-height: 1.1 !important;
-                letter-spacing: -.045em !important;
-                font-weight: 860 !important;
-                text-transform: none !important;
-            }
-            .edu-print-options-icon {
-                width: 2rem !important;
-                height: 2rem !important;
-                border-radius: .72rem !important;
-                display: inline-flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                background: rgba(0,0,0,.045) !important;
-                color: #6e6e73 !important;
-                flex: 0 0 auto !important;
-            }
-            .edu-print-options-icon [data-lucide] {
-                width: 1rem !important;
-                height: 1rem !important;
-                stroke: currentColor !important;
-                color: currentColor !important;
-            }
-            .edu-print-options-grid,
             .edu-print-options-card .edu-print-options-grid {
                 display: grid !important;
-                grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
-                gap: 1rem 1.1rem !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 1rem 1.05rem !important;
                 align-items: start !important;
             }
-            .edu-print-control {
+            .edu-print-options-card .edu-print-options-grid > div {
                 min-width: 0 !important;
-                display: flex !important;
-                flex-direction: column !important;
-                gap: .52rem !important;
             }
-            .edu-control-mode { grid-column: span 3 !important; order: 1 !important; }
-            .edu-control-name { grid-column: span 3 !important; order: 2 !important; }
-            .edu-control-layout { grid-column: span 6 !important; order: 3 !important; }
-            .edu-control-palette { grid-column: 1 / -1 !important; order: 4 !important; }
-            .edu-print-label,
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(2) {
+                grid-column: 1 / -1 !important;
+                order: 4 !important;
+            }
             .edu-print-options-card .edu-print-options-grid > div > span:first-child {
                 display: block !important;
-                margin: 0 !important;
+                margin: 0 0 .45rem 0 !important;
                 color: #6e6e73 !important;
                 font-size: .72rem !important;
-                line-height: 1.1 !important;
-                font-weight: 790 !important;
-                letter-spacing: -.018em !important;
+                font-weight: 780 !important;
+                letter-spacing: -.01em !important;
+                line-height: 1.15 !important;
             }
-            .edu-segmented {
-                display: grid !important;
-                gap: .5rem !important;
-                min-width: 0 !important;
+            .edu-print-options-card .grid {
+                gap: .55rem !important;
             }
-            .edu-segmented-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-            .edu-segmented-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
-            .edu-option-btn,
-            #teacher-view .edu-option-btn,
-            .edu-print-options-card button.edu-option-btn {
-                appearance: none !important;
-                min-width: 0 !important;
-                min-height: 3.2rem !important;
-                width: 100% !important;
-                padding: .58rem .72rem !important;
+            .edu-print-options-card button:not(.edu-palette-btn) {
+                min-height: 3.05rem !important;
+                height: auto !important;
+                padding: .66rem .72rem !important;
                 border-radius: 999px !important;
                 border: 1px solid rgba(0,0,0,.085) !important;
-                background: rgba(255,255,255,.74) !important;
+                background: rgba(255,255,255,.82) !important;
+                box-shadow: 0 10px 28px rgba(0,0,0,.045), inset 0 1px 0 rgba(255,255,255,.9) !important;
                 color: #1d1d1f !important;
-                display: inline-flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                gap: .42rem !important;
                 font-size: .78rem !important;
-                line-height: 1.05 !important;
-                font-weight: 760 !important;
-                letter-spacing: -.026em !important;
-                text-align: center !important;
-                box-shadow: inset 0 1px 0 rgba(255,255,255,.96), 0 8px 22px rgba(15,23,42,.045) !important;
-                transition: transform .16s ease, background .16s ease, border-color .16s ease, box-shadow .16s ease !important;
-                overflow: visible !important;
-            }
-            .edu-option-btn:hover { transform: translateY(-1px) !important; }
-            .edu-option-btn i,
-            .edu-option-btn [data-lucide] {
-                width: .95rem !important;
-                height: .95rem !important;
-                flex: 0 0 auto !important;
-                color: currentColor !important;
-                stroke: currentColor !important;
-            }
-            .edu-option-btn span {
-                color: currentColor !important;
-                background: transparent !important;
-                border: 0 !important;
-                box-shadow: none !important;
-                white-space: normal !important;
-            }
-            .edu-option-btn.is-active,
-            #teacher-view .edu-option-btn.is-active,
-            .edu-print-options-card button.edu-option-btn.is-active {
-                background: #1d1d1f !important;
-                color: #fff !important;
-                border-color: #1d1d1f !important;
-                box-shadow: 0 14px 34px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.16) !important;
-            }
-            .edu-option-btn.is-active .edu-layout-sub { color: rgba(255,255,255,.72) !important; }
-            .edu-layout-btn {
-                flex-direction: column !important;
-                gap: .12rem !important;
-                min-height: 3.55rem !important;
-                padding-block: .5rem !important;
-            }
-            .edu-layout-number {
-                font-size: 1rem !important;
-                line-height: 1 !important;
-                font-weight: 850 !important;
-                letter-spacing: -.04em !important;
-            }
-            .edu-layout-sub {
-                font-size: .63rem !important;
-                line-height: 1 !important;
-                color: #6b7280 !important;
-                font-weight: 620 !important;
-                letter-spacing: -.015em !important;
-            }
-            .edu-palette-grid,
-            .edu-print-options-card .edu-palette-grid {
-                display: grid !important;
-                grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-                gap: .62rem !important;
-            }
-            .edu-palette-btn,
-            .edu-print-options-card .edu-palette-btn {
-                min-height: 3.6rem !important;
-                padding: .52rem .4rem !important;
-                border-radius: 1.2rem !important;
-                border: 1px solid rgba(0,0,0,.08) !important;
-                background: rgba(255,255,255,.72) !important;
-                color: #1d1d1f !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                flex-direction: column !important;
-                gap: .25rem !important;
-                box-shadow: inset 0 1px 0 rgba(255,255,255,.96), 0 8px 22px rgba(15,23,42,.04) !important;
-                overflow: visible !important;
-            }
-            .edu-palette-btn .edu-swatch {
-                width: 1.28rem !important;
-                height: 1.28rem !important;
-                display: block !important;
-                border-radius: 999px !important;
-                border: 1px solid rgba(255,255,255,.55) !important;
-                box-shadow: 0 8px 18px rgba(15,23,42,.14), inset 0 1px 0 rgba(255,255,255,.55) !important;
-            }
-            .edu-palette-btn span:last-child {
-                background: transparent !important;
-                box-shadow: none !important;
-                border: 0 !important;
-                color: currentColor !important;
-                font-size: .67rem !important;
-                line-height: 1 !important;
                 font-weight: 780 !important;
-                letter-spacing: -.022em !important;
+                letter-spacing: -.02em !important;
+                line-height: 1.08 !important;
+                white-space: normal !important;
+                text-align: center !important;
+                overflow: visible !important;
+                gap: .42rem !important;
             }
-            .edu-palette-btn.is-active {
-                background: #1d1d1f !important;
-                color: #fff !important;
-                border-color: #1d1d1f !important;
-                box-shadow: 0 14px 34px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.16) !important;
+            .edu-print-options-card button:not(.edu-palette-btn) span,
+            .edu-print-options-card button:not(.edu-palette-btn) i,
+            .edu-print-options-card button:not(.edu-palette-btn) svg {
+                flex: 0 0 auto !important;
+            }
+            .edu-print-options-card button:not(.edu-palette-btn)::before,
+            .edu-print-options-card button:not(.edu-palette-btn)::after,
+            .edu-print-options-card .edu-palette-btn::before,
+            .edu-print-options-card .edu-palette-btn::after {
+                content: none !important;
+                display: none !important;
+            }
+            .edu-print-options-card button[id^="btn-layout-"] {
+                min-width: 0 !important;
+                padding: .52rem .35rem !important;
+            }
+            .edu-print-options-card button[id^="btn-layout-"] span:first-child {
+                font-size: 1.05rem !important;
+                line-height: 1 !important;
+                font-weight: 860 !important;
+            }
+            .edu-print-options-card button[id^="btn-layout-"] span:last-child {
+                font-size: .62rem !important;
+                line-height: 1 !important;
+            }
+            .edu-mini-paper-dot {
+                width: .62rem !important;
+                height: .62rem !important;
+                border-radius: 999px !important;
+                border: 0 !important;
+                background: var(--edu-stat-accent, #236a92) !important;
+                box-shadow: 0 0 0 3px color-mix(in srgb, var(--edu-stat-accent, #236a92) 18%, transparent) !important;
+            }
+            .edu-print-options-card .edu-palette-grid {
+                grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+                gap: .55rem !important;
+            }
+            .edu-print-options-card .edu-palette-btn {
+                min-height: 3.25rem !important;
+                border-radius: 1.15rem !important;
+                padding: .5rem .55rem !important;
+                overflow: visible !important;
             }
             @media (max-width: 1180px) {
-                .edu-control-mode,
-                .edu-control-name { grid-column: span 6 !important; }
-                .edu-control-layout,
-                .edu-control-palette { grid-column: 1 / -1 !important; }
-            }
-            @media (max-width: 680px) {
-                .edu-print-options-grid { grid-template-columns: 1fr !important; }
-                .edu-control-mode,
-                .edu-control-name,
-                .edu-control-layout,
-                .edu-control-palette { grid-column: 1 / -1 !important; }
-                .edu-segmented-4 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-                .edu-palette-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+                .edu-print-options-card .edu-print-options-grid {
+                    grid-template-columns: 1fr !important;
+                }
+                .edu-print-options-card .edu-print-options-grid > div:nth-child(2) {
+                    grid-column: auto !important;
+                }
             }
 
-            .edu-live-stats-card.edu-wordcloud-active {
-                padding: clamp(1rem, 1.6vw, 1.25rem) !important;
+            #wordcloud-wide-panel {
+                display: none;
+                width: 100%;
+                min-width: 0;
             }
-            .edu-live-stats-card.edu-wordcloud-active .edu-live-stats-head {
-                margin-bottom: .1rem !important;
+            #dashboard-view.edu-wordcloud-dashboard-mode #wordcloud-wide-panel {
+                display: block !important;
             }
-            .edu-word-cloud-panel {
-                min-height: 23rem !important;
+            #dashboard-view.edu-wordcloud-dashboard-mode #live-pinnwand {
+                max-height: 24vh !important;
+                min-height: 10rem !important;
+            }
+            #dashboard-view.edu-wordcloud-dashboard-mode .edu-live-stats-card #stats-container {
+                display: none !important;
+            }
+            .edu-wordcloud-wide .edu-word-cloud-panel {
+                width: 100% !important;
+                min-height: clamp(24rem, 48vh, 36rem) !important;
+                padding: clamp(1.15rem, 2vw, 1.65rem) !important;
                 border-radius: 1.65rem !important;
-                padding: 1rem 1.05rem 1.05rem !important;
-                overflow: visible !important;
+                background: rgba(255,255,255,.76) !important;
+                border: 1px solid rgba(0,0,0,.075) !important;
+                box-shadow: 0 18px 50px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.92) !important;
             }
-            .edu-word-cloud-head {
+            .edu-wordcloud-wide .edu-word-cloud-head {
                 margin-bottom: .8rem !important;
+                padding: 0 .15rem !important;
             }
-            .edu-word-cloud-head span:first-child { font-size: .9rem !important; }
-            .edu-word-cloud-head span:last-child { font-size: .78rem !important; }
+            .edu-wordcloud-wide .edu-word-cloud-head span:first-child {
+                font-size: 1.1rem !important;
+                font-weight: 860 !important;
+                letter-spacing: -.035em !important;
+            }
+            .edu-wordcloud-wide .edu-word-cloud-head span:last-child {
+                font-size: .78rem !important;
+                color: #8a8f98 !important;
+            }
+            .edu-wordcloud-wide .edu-word-cloud {
+                min-height: clamp(19rem, 38vh, 30rem) !important;
+                padding: 1rem clamp(.6rem, 1.5vw, 1.2rem) !important;
+                gap: .75rem 1.2rem !important;
+                overflow: visible !important;
+                align-content: center !important;
+            }
             .edu-word-cloud {
-                min-height: 18.5rem !important;
-                padding: .75rem .55rem .35rem !important;
-                gap: .72rem 1rem !important;
                 overflow: visible !important;
             }
             .edu-cloud-word {
-                line-height: 1.03 !important;
-                letter-spacing: -.045em !important;
-                padding: .12rem .16rem !important;
-                max-width: 100% !important;
+                max-width: min(100%, 24ch) !important;
+                white-space: normal !important;
                 overflow-wrap: anywhere !important;
                 word-break: normal !important;
-                hyphens: auto !important;
-                text-shadow: 0 1px 0 rgba(255,255,255,.28) !important;
+                line-height: .96 !important;
+                text-align: center !important;
             }
-            .edu-cloud-word small { display: none !important; }
-            .edu-cloud-word[data-rank="0"] { flex-basis: 100% !important; }
-            .edu-cloud-word[data-rank="1"],
-            .edu-cloud-word[data-rank="2"] { flex-basis: 47% !important; }
-            .edu-cloud-word[data-rank="3"],
-            .edu-cloud-word[data-rank="4"] { flex-basis: 38% !important; }
-            .edu-wordcloud-hint { display: none !important; }
-        }
-
-
-
-        /* v16.1: override ältere nth-child-Regeln im verschobenen Druckblock */
-        @media screen {
-            #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-mode { grid-column: span 3 !important; order: 1 !important; }
-            #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-name { grid-column: span 3 !important; order: 2 !important; }
-            #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-layout { grid-column: span 6 !important; order: 3 !important; }
-            #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-palette { grid-column: 1 / -1 !important; order: 4 !important; }
-            @media (max-width: 1180px) {
-                #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-mode,
-                #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-name { grid-column: span 6 !important; }
-                #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-layout,
-                #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-palette { grid-column: 1 / -1 !important; }
+            .edu-cloud-word small {
+                display: none !important;
             }
-            @media (max-width: 680px) {
-                #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-mode,
-                #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-name,
-                #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-layout,
-                #teacher-view .edu-print-options-card .edu-print-options-grid > div.edu-control-palette { grid-column: 1 / -1 !important; }
+            .edu-word-cloud-empty {
+                min-height: 18rem !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+            }
+            .edu-wordcloud-student-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: .7rem;
+            }
+            .edu-wordcloud-student-grid input {
+                text-align: center;
+            }
+            @media (min-width: 520px) {
+                .edu-wordcloud-student-grid {
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                }
             }
         }
-
 </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col">
@@ -4234,62 +4135,65 @@
             <!-- Rechte Spalte: Live-Vorschau -->
             <section class="lg:col-span-7 flex flex-col h-full edu-preview-section">
                 <!-- Layout & Druck-Optionen -->
-                <div class="edu-print-options-card">
-                    <div class="edu-print-options-head">
-                        <span class="edu-print-options-icon"><i data-lucide="layout" class="w-4 h-4"></i></span>
-                        <h2>Layout & Druck-Optionen</h2>
-                    </div>
-                    <div class="edu-print-options-grid">
-                        <div class="edu-print-control edu-control-mode">
-                            <span class="edu-print-label">A4-Farbmodus</span>
-                            <div class="edu-segmented edu-segmented-2">
-                                <button onclick="updateState('colorMode', 'color')" id="btn-color" class="edu-option-btn edu-option-btn-mode">
-                                    <i data-lucide="palette" class="w-4 h-4"></i><span>Designfarbe</span>
+                <div class="edu-print-options-card bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h2 class="font-bold text-slate-900 flex items-center gap-2 border-b pb-3 border-slate-100 text-sm uppercase tracking-wider">
+                        <i data-lucide="layout" class="w-4 h-4 text-emerald-600"></i> Layout & Druck-Optionen
+                    </h2>
+                    <div class="edu-print-options-grid space-y-4">
+                        <div>
+                            <span class="block text-xs font-bold text-slate-600 mb-2">A4-Farbmodus</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="updateState('colorMode', 'color')" id="btn-color" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                                    <span class="edu-mini-paper-dot"></span> Designfarbe
                                 </button>
-                                <button onclick="updateState('colorMode', 'bw')" id="btn-bw" class="edu-option-btn edu-option-btn-mode">
-                                    <i data-lucide="circle-off" class="w-4 h-4"></i><span>Tintensparend</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="edu-print-control edu-control-name">
-                            <span class="edu-print-label">Namensfeld</span>
-                            <div class="edu-segmented edu-segmented-2">
-                                <button onclick="updateState('nameOption', 'named')" id="btn-name-named" class="edu-option-btn">
-                                    <i data-lucide="user" class="w-4 h-4"></i><span>Name & Datum</span>
-                                </button>
-                                <button onclick="updateState('nameOption', 'anonymous')" id="btn-name-anon" class="edu-option-btn">
-                                    <i data-lucide="user-x" class="w-4 h-4"></i><span>Anonym</span>
+                                <button onclick="updateState('colorMode', 'bw')" id="btn-bw" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                                    <span class="w-3 h-3 rounded-full bg-white border border-slate-400"></span> S/W
                                 </button>
                             </div>
                         </div>
 
-                        <div class="edu-print-control edu-control-layout">
-                            <span class="edu-print-label">Tickets auf A4-Seite</span>
-                            <div class="edu-segmented edu-segmented-4">
-                                <button onclick="updateState('layout', '1')" id="btn-layout-1" class="edu-option-btn edu-layout-btn">
-                                    <span class="edu-layout-number">1x</span><span class="edu-layout-sub">Ganz</span>
-                                </button>
-                                <button onclick="updateState('layout', '2')" id="btn-layout-2" class="edu-option-btn edu-layout-btn">
-                                    <span class="edu-layout-number">2x</span><span class="edu-layout-sub">Halb</span>
-                                </button>
-                                <button onclick="updateState('layout', '4')" id="btn-layout-4" class="edu-option-btn edu-layout-btn">
-                                    <span class="edu-layout-number">4x</span><span class="edu-layout-sub">Viertel</span>
-                                </button>
-                                <button onclick="updateState('layout', '9')" id="btn-layout-9" class="edu-option-btn edu-layout-btn">
-                                    <span class="edu-layout-number">9x</span><span class="edu-layout-sub">Kompakt</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="edu-print-control edu-control-palette">
-                            <span class="edu-print-label">A4-Designfarbe</span>
-                            <div class="edu-palette-grid" aria-label="A4-Designfarbe wählen">
+                        <div>
+                            <span class="block text-xs font-bold text-slate-600 mb-2">A4-Designfarbe</span>
+                            <div class="grid grid-cols-5 gap-2 edu-palette-grid" aria-label="A4-Designfarbe wählen">
                                 <button onclick="updateState('accentColor', 'emerald')" id="btn-accent-emerald" class="edu-palette-btn" title="Sage"><span class="edu-swatch" style="background:linear-gradient(135deg,#55685f,#dfe7e2)"></span><span>Sage</span></button>
                                 <button onclick="updateState('accentColor', 'sky')" id="btn-accent-sky" class="edu-palette-btn" title="Ocean"><span class="edu-swatch" style="background:linear-gradient(135deg,#236a92,#dbeaf4)"></span><span>Ocean</span></button>
                                 <button onclick="updateState('accentColor', 'violet')" id="btn-accent-violet" class="edu-palette-btn" title="Iris"><span class="edu-swatch" style="background:linear-gradient(135deg,#6250a4,#e8e3f6)"></span><span>Iris</span></button>
                                 <button onclick="updateState('accentColor', 'rose')" id="btn-accent-rose" class="edu-palette-btn" title="Berry"><span class="edu-swatch" style="background:linear-gradient(135deg,#a9485d,#f4dfe5)"></span><span>Berry</span></button>
                                 <button onclick="updateState('accentColor', 'amber')" id="btn-accent-amber" class="edu-palette-btn" title="Sand"><span class="edu-swatch" style="background:linear-gradient(135deg,#ad6f24,#f4e6cc)"></span><span>Sand</span></button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="block text-xs font-bold text-slate-600 mb-2">Namensfeld</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="updateState('nameOption', 'named')" id="btn-name-named" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                                    <i data-lucide="user" class="w-4 h-4"></i> Name/Datum
+                                </button>
+                                <button onclick="updateState('nameOption', 'anonymous')" id="btn-name-anon" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                                    <i data-lucide="user-x" class="w-4 h-4"></i> Anonym
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="block text-xs font-bold text-slate-600 mb-2">Tickets auf A4-Seite</span>
+                            <div class="grid grid-cols-4 gap-2">
+                                <button onclick="updateState('layout', '1')" id="btn-layout-1" class="px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all">
+                                    <span class="text-base">1x</span>
+                                    <span class="text-[9px] text-slate-500 font-normal">Ganz</span>
+                                </button>
+                                <button onclick="updateState('layout', '2')" id="btn-layout-2" class="px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all">
+                                    <span class="text-base">2x</span>
+                                    <span class="text-[9px] text-slate-500 font-normal">Halb</span>
+                                </button>
+                                <button onclick="updateState('layout', '4')" id="btn-layout-4" class="px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all">
+                                    <span class="text-base">4x</span>
+                                    <span class="text-[9px] text-slate-500 font-normal">Viertel</span>
+                                </button>
+                                <button onclick="updateState('layout', '9')" id="btn-layout-9" class="px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all">
+                                    <span class="text-base">9x</span>
+                                    <span class="text-[9px] text-slate-500 font-normal">Kompakt</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -4392,6 +4296,8 @@
                     </h2>
                     <span id="pinnwand-status" class="text-xs text-slate-500 italic">Warte auf Antworten...</span>
                 </div>
+
+                <div id="wordcloud-wide-panel" class="edu-wordcloud-wide hidden"></div>
 
                 <div id="live-pinnwand" class="flex-1 bg-slate-950 border border-slate-800 rounded-2xl p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[72vh]">
                     <!-- Schüler-Antworten fliegen hier live ein -->
@@ -4663,7 +4569,7 @@
             'wortwolke': {
                 id: 'wortwolke',
                 title: 'Wortwolke',
-                description: '1–3 Wörter live sammeln',
+                description: 'Begriffe live sammeln',
                 icon: 'cloud',
                 prompts: [
                     'Welche 1–3 Wörter bleiben dir aus der Stunde besonders im Kopf?'
@@ -5283,31 +5189,31 @@
             const btnColor = document.getElementById('btn-color');
             const btnBw = document.getElementById('btn-bw');
             if (window.state.colorMode === 'color') {
-                btnColor.className = "edu-option-btn edu-option-btn-mode is-active";
-                btnBw.className = "edu-option-btn edu-option-btn-mode";
+                btnColor.className = "px-3 py-2 border rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 theme-selected bg-emerald-50 border-emerald-500 text-emerald-800 shadow-sm";
+                btnBw.className = "px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 bg-white text-slate-700 border-slate-200 hover:bg-slate-50";
             } else {
-                btnColor.className = "edu-option-btn edu-option-btn-mode";
-                btnBw.className = "edu-option-btn edu-option-btn-mode is-active";
+                btnColor.className = "px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 bg-white text-slate-700 border-slate-200 hover:bg-slate-50";
+                btnBw.className = "px-3 py-2 border rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 bg-slate-950 border-slate-900 text-white shadow-sm";
             }
 
             // Name
             const btnNamed = document.getElementById('btn-name-named');
             const btnAnon = document.getElementById('btn-name-anon');
             if (window.state.nameOption === 'named') {
-                btnNamed.className = "edu-option-btn is-active";
-                btnAnon.className = "edu-option-btn";
+                btnNamed.className = "px-3 py-2 border rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 theme-selected bg-emerald-50 border-emerald-500 text-emerald-800 shadow-sm";
+                btnAnon.className = "px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 bg-white text-slate-700 border-slate-200 hover:bg-slate-50";
             } else {
-                btnNamed.className = "edu-option-btn";
-                btnAnon.className = "edu-option-btn is-active";
+                btnNamed.className = "px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 bg-white text-slate-700 border-slate-200 hover:bg-slate-50";
+                btnAnon.className = "px-3 py-2 border rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 bg-slate-950 border-slate-900 text-white shadow-sm";
             }
 
             // Layout
             for (let i of ['1', '2', '4', '9']) {
                 const btn = document.getElementById(`btn-layout-${i}`);
                 if (window.state.layout === i) {
-                    btn.className = "edu-option-btn edu-layout-btn is-active";
+                    btn.className = "px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 theme-selected bg-emerald-50 border-emerald-500 text-emerald-800 shadow-sm";
                 } else {
-                    btn.className = "edu-option-btn edu-layout-btn";
+                    btn.className = "px-3 py-2 border rounded-xl text-xs font-semibold flex flex-col items-center gap-1 bg-white text-slate-700 border-slate-200 hover:bg-slate-50";
                 }
             }
 
@@ -6068,8 +5974,8 @@
                 .slice(0, limit);
         }
 
-        function renderWordCloudStats() {
-            const rows = getWordCloudRows(20);
+        function renderWordCloudStats(isWide = false) {
+            const rows = getWordCloudRows(isWide ? 36 : 20);
             const totalTerms = rows.reduce((sum, row) => sum + row.count, 0);
             const maxCount = rows.reduce((max, row) => Math.max(max, row.count), 1);
             const palette = [
@@ -6082,20 +5988,24 @@
                 '#be123c',
                 '#475569'
             ];
+            const scopeClass = isWide ? ' edu-wordcloud-panel-wide' : '';
 
             if (!rows.length) {
-                return `<div class="edu-word-cloud-panel">
-                    <div class="edu-word-cloud-head"><span>Wortwolke</span><span>1–3 Wörter</span></div>
+                return `<div class="edu-word-cloud-panel${scopeClass}">
+                    <div class="edu-word-cloud-head"><span>Wortwolke</span><span>Live</span></div>
                     <div class="edu-word-cloud-empty">Noch keine Wörter vorhanden.<br>Die Wortwolke baut sich live auf.</div>
                 </div>`;
             }
 
-            return `<div class="edu-word-cloud-panel">
-                <div class="edu-word-cloud-head"><span>Wortwolke</span><span>${totalTerms} Wörter</span></div>
+            return `<div class="edu-word-cloud-panel${scopeClass}">
+                <div class="edu-word-cloud-head"><span>Wortwolke</span><span>${totalTerms} Begriffe</span></div>
                 <div class="edu-word-cloud" aria-label="Live-Wortwolke">
                     ${rows.map((row, index) => {
                         const weight = row.count / maxCount;
-                        const size = Math.max(0.92, Math.min(2.05, 0.9 + weight * 1.25 - Math.min(index, 9) * 0.035)).toFixed(2);
+                        const maxScale = isWide ? 2.55 : 1.45;
+                        const base = isWide ? 1.05 : .86;
+                        const rankTaper = Math.min(index, isWide ? 14 : 9) * (isWide ? 0.025 : 0.035);
+                        const size = (base + weight * maxScale - rankTaper).toFixed(2);
                         const color = palette[index % palette.length];
                         return `<span class="edu-cloud-word" data-rank="${Math.min(index, 6)}" style="--cloud-size:${size}rem; --cloud-color:${color};" title="${escapeHTML(row.label)} · ${row.count}×">${escapeHTML(row.label)}</span>`;
                     }).join('')}
@@ -6109,12 +6019,20 @@
             document.getElementById('stats-count').innerText = total;
 
             const statsBox = document.getElementById('stats-container');
-            const statsCard = statsBox.closest('.edu-live-stats-card');
-            if (statsCard) statsCard.classList.toggle('edu-wordcloud-active', window.state.ticketType === 'wortwolke');
             statsBox.innerHTML = '';
+            const wideWordcloudPanel = document.getElementById('wordcloud-wide-panel');
+            const dashboardView = document.getElementById('dashboard-view');
+            const isWordCloudMode = window.state.ticketType === 'wortwolke';
+            if (dashboardView) dashboardView.classList.toggle('edu-wordcloud-dashboard-mode', isWordCloudMode);
+            if (wideWordcloudPanel) {
+                wideWordcloudPanel.classList.toggle('hidden', !isWordCloudMode);
+                wideWordcloudPanel.innerHTML = isWordCloudMode ? renderWordCloudStats(true) : '';
+            }
             const pct = (value) => total > 0 ? Math.round((value / total) * 100) : 0;
 
-            if (isAmpelScaleTicket()) {
+            if (isWordCloudMode) {
+                statsBox.innerHTML = `<p class="edu-stats-empty">Wortwolke aktiv<br><strong>${total} Abgaben</strong></p>`;
+            } else if (isAmpelScaleTicket()) {
                 const counts = { rot: 0, gelb: 0, gruen: 0 };
                 submissions.forEach(s => {
                     const value = s.answers?.[0];
@@ -6642,8 +6560,12 @@
                 container.innerHTML = `
                     <div class="space-y-3">
                         ${active(0) ? `<label class="block text-xs text-slate-300 font-bold text-center leading-snug">${q[0]}</label>` : ''}
-                        <input id="ans-0" type="text" maxlength="60" placeholder="z. B. Energie · Diagramm · Unsicherheit" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white text-center font-semibold focus:outline-none focus:ring-1 focus:ring-emerald-500" required>
-                        <p class="text-[10px] text-slate-500 text-center leading-snug">Bitte nur 1–3 Wörter eingeben. Ähnliche Schreibweisen werden in der Live-Wortwolke zusammengeführt.</p>
+                        <div class="edu-wordcloud-student-grid">
+                            <input id="ans-0" type="text" maxlength="24" placeholder="Protein" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white font-semibold focus:outline-none focus:ring-1 focus:ring-emerald-500" required>
+                            <input id="ans-1" type="text" maxlength="24" placeholder="Bewegung" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white font-semibold focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                            <input id="ans-2" type="text" maxlength="24" placeholder="Muskulatur" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white font-semibold focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                        </div>
+                        <p class="text-[10px] text-slate-500 text-center leading-snug">Trage ein bis drei Begriffe ein. Ähnliche Schreibweisen werden in der Live-Wortwolke zusammengeführt.</p>
                     </div>`;
             } else if (type === 'frei') {
                 container.innerHTML = `<div>${active(0) ? `<label class="block text-xs text-slate-300 font-bold mb-1">${q[0]}</label>` : ''}<textarea id="ans-0" rows="6" placeholder="Deine Antwort hier..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500" required></textarea></div>`;
@@ -6701,7 +6623,10 @@
                 answers[0] = valueOf(0).trim();
                 answers[1] = valueOf(1).trim();
             } else if (type === 'wortwolke') {
-                answers[0] = valueOf(0).trim();
+                answers[0] = [valueOf(0), valueOf(1), valueOf(2)]
+                    .map(value => String(value || '').trim())
+                    .filter(Boolean)
+                    .join(' ');
             } else if (type === 'transfer' || type === 'frei') {
                 answers[0] = valueOf(0);
             } else {
