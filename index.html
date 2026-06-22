@@ -4223,110 +4223,47 @@
         }
 
 
-
-        /* v20: stabile Druckoptionen, Export-Visuals und QR/Zoom-Feinschliff */
+        /* v21: finale Korrekturen – Optionen ausrichten, PDF-Grafiken als SVG druckbar, QR stabil */
         @media screen {
-            .edu-print-options-card .edu-print-options-grid-v20,
-            .edu-print-options-card .edu-print-options-grid-v20.space-y-4 {
+            .edu-print-options-card .edu-print-options-grid {
                 display: grid !important;
                 grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
                 grid-template-areas:
                     "color name"
                     "layout layout"
                     "palette palette" !important;
-                gap: 1.15rem 1.5rem !important;
+                gap: 1.25rem 1.45rem !important;
                 align-items: start !important;
             }
-            .edu-print-options-card .edu-print-options-grid-v20 > * {
+            .edu-print-options-card .edu-print-options-grid > * {
                 margin-top: 0 !important;
-                min-width: 0 !important;
-            }
-            .edu-option-color { grid-area: color !important; }
-            .edu-option-name { grid-area: name !important; }
-            .edu-option-layout { grid-area: layout !important; max-width: 36rem; }
-            .edu-option-palette { grid-area: palette !important; }
-            .edu-option-group {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: .55rem !important;
                 align-self: start !important;
             }
-            .edu-option-label {
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(1) { grid-area: color !important; }
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(2) { grid-area: palette !important; }
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(3) { grid-area: name !important; }
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(4) { grid-area: layout !important; }
+            .edu-print-options-card .edu-print-options-grid > div > span:first-child {
+                height: 1.18rem !important;
+                min-height: 1.18rem !important;
                 display: flex !important;
                 align-items: center !important;
-                height: 1.25rem !important;
-                margin: 0 !important;
-                color: #5f6066 !important;
-                font-size: .82rem !important;
-                font-weight: 800 !important;
-                letter-spacing: -.01em !important;
+                margin: 0 0 .58rem 0 !important;
+                padding: 0 !important;
                 line-height: 1 !important;
             }
-            .edu-option-button-row,
-            .edu-two-buttons {
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(1) > .grid,
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(3) > .grid {
                 display: grid !important;
                 grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-                gap: .72rem !important;
-                align-items: stretch !important;
-            }
-            .edu-layout-button-row {
-                display: grid !important;
-                grid-template-columns: repeat(4, minmax(4.8rem, 1fr)) !important;
-                gap: .72rem !important;
-                align-items: stretch !important;
-            }
-            .edu-palette-grid-v20 {
-                display: grid !important;
-                grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-                gap: .72rem !important;
                 align-items: stretch !important;
             }
             .edu-print-options-card button:not(.edu-palette-btn) {
-                width: 100% !important;
-                min-height: 3.2rem !important;
-                height: auto !important;
-                padding: .66rem .86rem !important;
-                border-radius: 999px !important;
-                white-space: normal !important;
-                line-height: 1.15 !important;
-                text-align: center !important;
-                overflow: visible !important;
+                min-height: 3.15rem !important;
+                line-height: 1.08 !important;
             }
-            .edu-print-options-card #btn-color,
-            .edu-print-options-card #btn-bw,
-            .edu-print-options-card #btn-name-named,
-            .edu-print-options-card #btn-name-anon {
-                min-height: 3.35rem !important;
-                flex-direction: row !important;
-            }
-            .edu-print-options-card #btn-layout-1,
-            .edu-print-options-card #btn-layout-2,
-            .edu-print-options-card #btn-layout-4,
-            .edu-print-options-card #btn-layout-9 {
-                min-width: 0 !important;
-                min-height: 3.45rem !important;
-                aspect-ratio: auto !important;
-                padding: .52rem .45rem !important;
-            }
-            .edu-print-options-card button svg,
-            .edu-print-options-card button i {
-                flex: 0 0 auto !important;
-            }
-            .edu-print-options-card .edu-palette-btn {
-                min-height: 3.65rem !important;
-                height: auto !important;
-                padding: .58rem .65rem !important;
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                justify-content: center !important;
-                gap: .25rem !important;
-                overflow: visible !important;
-                border-radius: 1.25rem !important;
-            }
-            @media (max-width: 900px) {
-                .edu-print-options-card .edu-print-options-grid-v20,
-                .edu-print-options-card .edu-print-options-grid-v20.space-y-4 {
+            @media (max-width: 760px) {
+                .edu-print-options-card .edu-print-options-grid {
                     grid-template-columns: 1fr !important;
                     grid-template-areas:
                         "color"
@@ -4334,14 +4271,56 @@
                         "layout"
                         "palette" !important;
                 }
-                .edu-option-layout { max-width: none; }
-                .edu-palette-grid-v20 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-            }
-            @media (max-width: 520px) {
-                .edu-layout-button-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-                .edu-palette-grid-v20 { grid-template-columns: 1fr !important; }
             }
         }
+        .report-page, .report-page * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+        .report-pie-holder {
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .report-pie-svg {
+            width: 176px;
+            height: 176px;
+            display: block;
+            overflow: visible;
+        }
+        .report-bar-svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .report-bar-report {
+            background: #ffffff;
+            padding: 12px 14px;
+        }
+        .report-pie-report {
+            background: #ffffff;
+        }
+        @media print {
+            .report-pie-svg, .report-bar-svg {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+        .edu-visual-zoom-card .report-visual-grid {
+            grid-template-columns: minmax(220px, 360px) minmax(220px, 1fr);
+        }
+        .edu-visual-zoom-card .report-pie-holder {
+            width: min(52vw, 25rem);
+            height: min(52vw, 25rem);
+        }
+        .edu-visual-zoom-card .report-pie-svg {
+            width: min(52vw, 24rem);
+            height: min(52vw, 24rem);
+        }
+
 </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col">
@@ -4457,34 +4436,45 @@
                     <h2 class="font-bold text-slate-900 flex items-center gap-2 border-b pb-3 border-slate-100 text-sm uppercase tracking-wider">
                         <i data-lucide="layout" class="w-4 h-4 text-emerald-600"></i> Layout & Druck-Optionen
                     </h2>
-                    <div class="edu-print-options-grid edu-print-options-grid-v20">
-                        <div class="edu-option-group edu-option-color">
-                            <span class="edu-option-label">A4-Farbmodus</span>
-                            <div class="edu-option-button-row edu-two-buttons">
+                    <div class="edu-print-options-grid">
+                        <div>
+                            <span class="block text-xs font-bold text-slate-600 mb-2">A4-Farbmodus</span>
+                            <div class="grid grid-cols-2 gap-2">
                                 <button onclick="updateState('colorMode', 'color')" id="btn-color" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                                    <span class="edu-mini-paper-dot"></span> <span>Designfarbe</span>
+                                    <span class="edu-mini-paper-dot"></span> Designfarbe
                                 </button>
                                 <button onclick="updateState('colorMode', 'bw')" id="btn-bw" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                                    <span class="w-3 h-3 rounded-full bg-white border border-slate-400"></span> <span>S/W</span>
+                                    <span class="w-3 h-3 rounded-full bg-white border border-slate-400"></span> S/W
                                 </button>
                             </div>
                         </div>
 
-                        <div class="edu-option-group edu-option-name">
-                            <span class="edu-option-label">Namensfeld</span>
-                            <div class="edu-option-button-row edu-two-buttons">
+                        <div>
+                            <span class="block text-xs font-bold text-slate-600 mb-2">A4-Designfarbe</span>
+                            <div class="grid grid-cols-5 gap-2 edu-palette-grid" aria-label="A4-Designfarbe wählen">
+                                <button onclick="updateState('accentColor', 'emerald')" id="btn-accent-emerald" class="edu-palette-btn" title="Sage"><span class="edu-swatch" style="background:linear-gradient(135deg,#55685f,#dfe7e2)"></span><span>Sage</span></button>
+                                <button onclick="updateState('accentColor', 'sky')" id="btn-accent-sky" class="edu-palette-btn" title="Ocean"><span class="edu-swatch" style="background:linear-gradient(135deg,#236a92,#dbeaf4)"></span><span>Ocean</span></button>
+                                <button onclick="updateState('accentColor', 'violet')" id="btn-accent-violet" class="edu-palette-btn" title="Iris"><span class="edu-swatch" style="background:linear-gradient(135deg,#6250a4,#e8e3f6)"></span><span>Iris</span></button>
+                                <button onclick="updateState('accentColor', 'rose')" id="btn-accent-rose" class="edu-palette-btn" title="Berry"><span class="edu-swatch" style="background:linear-gradient(135deg,#a9485d,#f4dfe5)"></span><span>Berry</span></button>
+                                <button onclick="updateState('accentColor', 'amber')" id="btn-accent-amber" class="edu-palette-btn" title="Sand"><span class="edu-swatch" style="background:linear-gradient(135deg,#ad6f24,#f4e6cc)"></span><span>Sand</span></button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="block text-xs font-bold text-slate-600 mb-2">Namensfeld</span>
+                            <div class="grid grid-cols-2 gap-2">
                                 <button onclick="updateState('nameOption', 'named')" id="btn-name-named" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                                    <i data-lucide="user" class="w-4 h-4"></i> <span>Name/Datum</span>
+                                    <i data-lucide="user" class="w-4 h-4"></i> Name/Datum
                                 </button>
                                 <button onclick="updateState('nameOption', 'anonymous')" id="btn-name-anon" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                                    <i data-lucide="user-x" class="w-4 h-4"></i> <span>Anonym</span>
+                                    <i data-lucide="user-x" class="w-4 h-4"></i> Anonym
                                 </button>
                             </div>
                         </div>
 
-                        <div class="edu-option-group edu-option-layout">
-                            <span class="edu-option-label">Tickets auf A4-Seite</span>
-                            <div class="edu-layout-button-row">
+                        <div>
+                            <span class="block text-xs font-bold text-slate-600 mb-2">Tickets auf A4-Seite</span>
+                            <div class="grid grid-cols-4 gap-2">
                                 <button onclick="updateState('layout', '1')" id="btn-layout-1" class="px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all">
                                     <span class="text-base">1x</span>
                                     <span class="text-[9px] text-slate-500 font-normal">Ganz</span>
@@ -4501,17 +4491,6 @@
                                     <span class="text-base">9x</span>
                                     <span class="text-[9px] text-slate-500 font-normal">Kompakt</span>
                                 </button>
-                            </div>
-                        </div>
-
-                        <div class="edu-option-group edu-option-palette">
-                            <span class="edu-option-label">A4-Designfarbe</span>
-                            <div class="edu-palette-grid-v20" aria-label="A4-Designfarbe wählen">
-                                <button onclick="updateState('accentColor', 'emerald')" id="btn-accent-emerald" class="edu-palette-btn" title="Sage"><span class="edu-swatch" style="background:linear-gradient(135deg,#55685f,#dfe7e2)"></span><span>Sage</span></button>
-                                <button onclick="updateState('accentColor', 'sky')" id="btn-accent-sky" class="edu-palette-btn" title="Ocean"><span class="edu-swatch" style="background:linear-gradient(135deg,#236a92,#dbeaf4)"></span><span>Ocean</span></button>
-                                <button onclick="updateState('accentColor', 'violet')" id="btn-accent-violet" class="edu-palette-btn" title="Iris"><span class="edu-swatch" style="background:linear-gradient(135deg,#6250a4,#e8e3f6)"></span><span>Iris</span></button>
-                                <button onclick="updateState('accentColor', 'rose')" id="btn-accent-rose" class="edu-palette-btn" title="Berry"><span class="edu-swatch" style="background:linear-gradient(135deg,#a9485d,#f4dfe5)"></span><span>Berry</span></button>
-                                <button onclick="updateState('accentColor', 'amber')" id="btn-accent-amber" class="edu-palette-btn" title="Sand"><span class="edu-swatch" style="background:linear-gradient(135deg,#ad6f24,#f4e6cc)"></span><span>Sand</span></button>
                             </div>
                         </div>
                     </div>
@@ -4615,7 +4594,7 @@
                     <span id="pinnwand-status" class="text-xs text-slate-500 italic">Warte auf Antworten...</span>
                 </div>
 
-                <div id="wordcloud-wide-panel" class="edu-wordcloud-wide hidden" onclick="openVisualZoom(event)" title="Wortwolke vergrößern"></div>
+                <div id="wordcloud-wide-panel" class="edu-wordcloud-wide hidden" onclick="openVisualZoom(event)"></div>
 
                 <div id="live-pinnwand" class="flex-1 bg-slate-950 border border-slate-800 rounded-2xl p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[72vh]">
                     <!-- Schüler-Antworten fliegen hier live ein -->
@@ -5450,7 +5429,43 @@
             showToast('QR erst nach Veröffentlichung nutzbar: index.html z. B. über GitHub Pages, EdgeOne oder Firebase Hosting öffnen.', 'alert-triangle');
         }
 
-        function renderQrCode(targetId, text, size, attempt = 0) {
+        const qrImageCache = new Map();
+
+        function getStableQrDataUrl(text) {
+            if (!text || typeof QRCode === 'undefined') return '';
+            if (qrImageCache.has(text)) return qrImageCache.get(text);
+            const tmp = document.createElement('div');
+            tmp.style.position = 'fixed';
+            tmp.style.left = '-10000px';
+            tmp.style.top = '-10000px';
+            tmp.style.width = '720px';
+            tmp.style.height = '720px';
+            tmp.style.background = '#fff';
+            document.body.appendChild(tmp);
+            let dataUrl = '';
+            try {
+                new QRCode(tmp, {
+                    text,
+                    width: 720,
+                    height: 720,
+                    colorDark: '#020617',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+                const canvas = tmp.querySelector('canvas');
+                const img = tmp.querySelector('img');
+                if (canvas && canvas.toDataURL) dataUrl = canvas.toDataURL('image/png');
+                else if (img && img.src) dataUrl = img.src;
+            } catch (err) {
+                console.warn('QR-Erzeugung fehlgeschlagen:', err);
+            } finally {
+                document.body.removeChild(tmp);
+            }
+            if (dataUrl) qrImageCache.set(text, dataUrl);
+            return dataUrl;
+        }
+
+        function renderQrCode(targetId, text, size) {
             const target = document.getElementById(targetId);
             if (!target || !text) return;
             target.innerHTML = '';
@@ -5460,34 +5475,37 @@
             target.style.display = 'flex';
             target.style.alignItems = 'center';
             target.style.justifyContent = 'center';
-            if (typeof QRCode === 'undefined') {
-                if (attempt < 20) setTimeout(() => renderQrCode(targetId, text, size, attempt + 1), 120);
+
+            const dataUrl = getStableQrDataUrl(text);
+            if (dataUrl) {
+                const img = document.createElement('img');
+                img.src = dataUrl;
+                img.alt = 'EduTix QR-Code';
+                img.style.width = `${size}px`;
+                img.style.height = `${size}px`;
+                img.style.maxWidth = '100%';
+                img.style.display = 'block';
+                img.style.imageRendering = 'pixelated';
+                target.appendChild(img);
                 return;
             }
-            try {
-                new QRCode(target, {
-                    text,
-                    width: size,
-                    height: size,
-                    colorDark: '#020617',
-                    colorLight: '#ffffff',
-                    correctLevel: QRCode.CorrectLevel.H
-                });
-            } catch (err) {
-                if (attempt < 8) setTimeout(() => renderQrCode(targetId, text, size, attempt + 1), 160);
-                return;
+
+            new QRCode(target, {
+                text,
+                width: size,
+                height: size,
+                colorDark: '#020617',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            const rendered = target.querySelector('canvas, img');
+            if (rendered) {
+                rendered.style.width = `${size}px`;
+                rendered.style.height = `${size}px`;
+                rendered.style.maxWidth = '100%';
+                rendered.style.display = 'block';
+                rendered.style.imageRendering = 'pixelated';
             }
-            const fitRenderedQr = () => {
-                target.querySelectorAll('canvas, img').forEach(rendered => {
-                    rendered.style.width = `${size}px`;
-                    rendered.style.height = `${size}px`;
-                    rendered.style.maxWidth = '100%';
-                    rendered.style.display = 'block';
-                    rendered.style.imageRendering = 'pixelated';
-                });
-            };
-            fitRenderedQr();
-            requestAnimationFrame(fitRenderedQr);
         }
 
         // AUTHENTIFIZIERUNG VOR KOOPERATIONEN (Regel 3)
@@ -6130,7 +6148,7 @@
 
                 const refreshQrs = () => {
                     renderQrCode('dashboard-qr-holder', joinUrl, 220);
-                    renderQrCode('zoomed-qr-holder', joinUrl, 640);
+                    renderQrCode('zoomed-qr-holder', joinUrl, 560);
                 };
                 refreshQrs();
                 requestAnimationFrame(refreshQrs);
@@ -7116,6 +7134,60 @@
             return `conic-gradient(${segments.join(', ')})`;
         }
 
+        function polarToCartesian(cx, cy, r, angleDeg) {
+            const angleRad = (angleDeg - 90) * Math.PI / 180;
+            return { x: cx + r * Math.cos(angleRad), y: cy + r * Math.sin(angleRad) };
+        }
+
+        function buildSvgPieSlice(cx, cy, r, startAngle, endAngle) {
+            const start = polarToCartesian(cx, cy, r, endAngle);
+            const end = polarToCartesian(cx, cy, r, startAngle);
+            const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
+            return `M ${cx} ${cy} L ${start.x.toFixed(3)} ${start.y.toFixed(3)} A ${r} ${r} 0 ${largeArcFlag} 0 ${end.x.toFixed(3)} ${end.y.toFixed(3)} Z`;
+        }
+
+        function buildReportPieSVG(rows) {
+            const total = rows.reduce((sum, row) => sum + row.count, 0);
+            const cx = 100, cy = 100, r = 78;
+            if (!total) {
+                return `<svg class="report-pie-svg" viewBox="0 0 200 200" role="img" aria-label="Leeres Tortendiagramm"><circle cx="100" cy="100" r="78" fill="#f8fafc" stroke="#dbe3ee" stroke-width="2"/></svg>`;
+            }
+            let cursor = 0;
+            const slices = rows.filter(row => row.count > 0).map(row => {
+                const start = (cursor / total) * 360;
+                cursor += row.count;
+                const end = (cursor / total) * 360;
+                if (end - start >= 359.9) {
+                    return `<circle cx="100" cy="100" r="78" fill="${row.color}"/>`;
+                }
+                return `<path d="${buildSvgPieSlice(cx, cy, r, start, end)}" fill="${row.color}" stroke="#ffffff" stroke-width="2"/>`;
+            }).join('');
+            const ring = `<circle cx="100" cy="100" r="78" fill="none" stroke="#dbe3ee" stroke-width="2"/>`;
+            return `<svg class="report-pie-svg" viewBox="0 0 200 200" role="img" aria-label="Tortendiagramm">${slices}${ring}</svg>`;
+        }
+
+        function buildReportBarSVG(rows) {
+            const safeRows = rows.length ? rows : [];
+            const width = 720;
+            const rowHeight = 42;
+            const top = 18;
+            const height = Math.max(86, top * 2 + safeRows.length * rowHeight);
+            const labelX = 28, barX = 165, barW = 415, pctX = 650;
+            const items = safeRows.map((row, i) => {
+                const y = top + i * rowHeight;
+                const fillW = Math.max(0, Math.min(100, row.percent)) / 100 * barW;
+                const label = escapeHTML(row.label);
+                return `<g>
+                    <circle cx="${labelX}" cy="${y + 12}" r="6" fill="${row.color}"/>
+                    <text x="${labelX + 18}" y="${y + 16}" font-size="14" font-weight="700" fill="#111827">${label}</text>
+                    <rect x="${barX}" y="${y + 3}" width="${barW}" height="17" rx="8.5" fill="#e8edf4"/>
+                    <rect x="${barX}" y="${y + 3}" width="${fillW.toFixed(1)}" height="17" rx="8.5" fill="${row.color}"/>
+                    <text x="${pctX}" y="${y + 16}" font-size="14" font-weight="800" text-anchor="end" fill="#111827">${row.percent}%</text>
+                </g>`;
+            }).join('');
+            return `<svg class="report-bar-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Balkendiagramm">${items}</svg>`;
+        }
+
         function renderReportVisualHTML() {
             const rows = getReportCategoryRows();
             if (!rows.length) return `<p class="report-meta">Keine visuelle Auswertung für diesen Ticket-Typ vorhanden.</p>`;
@@ -7135,17 +7207,15 @@
             }
 
             if (eduStatsMode === 'pie') {
-                return `<div class="report-visual-box report-visual-grid">
-                    <div class="report-pie" style="background:${buildReportConicGradient(rows)}"></div>
+                return `<div class="report-visual-box report-visual-grid report-pie-report">
+                    <div class="report-pie-holder">${buildReportPieSVG(rows)}</div>
                     <div class="report-legend">
                         ${rows.map(row => `<div class="report-legend-row"><span class="report-dot" style="--dot-color:${row.color}"></span><span>${escapeHTML(row.label)}</span><strong>${row.percent}%</strong></div>`).join('')}
                     </div>
                 </div>`;
             }
 
-            return `<div class="report-visual-box report-stat-summary">
-                ${rows.map(row => `<div class="report-bar-row"><span class="report-dot" style="--dot-color:${row.color}"></span><span>${escapeHTML(row.label)}</span><strong>${row.percent}%</strong><div class="report-bar-track" style="grid-column:2 / 4"><div class="report-bar-fill" style="--bar-width:${row.percent}%; --bar-color:${row.color}"></div></div></div>`).join('')}
-            </div>`;
+            return `<div class="report-visual-box report-bar-report">${buildReportBarSVG(rows)}</div>`;
         }
 
         function renderReportStatsHTML() {
