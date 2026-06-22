@@ -2773,11 +2773,11 @@
     
 
         /* v9: Noto-Emoji in A4-Designfarbe, robustere Live-Layouts, reduzierte Statistik-Toggle */
-        body[data-accent="emerald"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(2.35) hue-rotate(82deg) brightness(.78) contrast(1.08); --edu-stat-accent: #55685f; --edu-stat-accent-soft:#edf3ef; }
-        body[data-accent="sky"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(3.2) hue-rotate(158deg) brightness(.82) contrast(1.08); --edu-stat-accent: #236a92; --edu-stat-accent-soft:#edf6fb; }
-        body[data-accent="violet"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(3.1) hue-rotate(220deg) brightness(.86) contrast(1.05); --edu-stat-accent: #6250a4; --edu-stat-accent-soft:#f3f0fb; }
-        body[data-accent="rose"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(2.75) hue-rotate(298deg) brightness(.86) contrast(1.06); --edu-stat-accent: #a9485d; --edu-stat-accent-soft:#fbf0f3; }
-        body[data-accent="amber"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(2.05) hue-rotate(348deg) brightness(.88) contrast(1.08); --edu-stat-accent: #ad6f24; --edu-stat-accent-soft:#fbf4e8; }
+        body[data-accent="emerald"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(5.2) hue-rotate(82deg) brightness(.62) contrast(1.34); --edu-noto-filter-strong: grayscale(1) sepia(1) saturate(6.2) hue-rotate(82deg) brightness(.54) contrast(1.45); --edu-stat-accent: #55685f; --edu-stat-accent-soft:#edf3ef; }
+        body[data-accent="sky"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(5.8) hue-rotate(158deg) brightness(.58) contrast(1.36); --edu-noto-filter-strong: grayscale(1) sepia(1) saturate(6.8) hue-rotate(158deg) brightness(.52) contrast(1.48); --edu-stat-accent: #236a92; --edu-stat-accent-soft:#edf6fb; }
+        body[data-accent="violet"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(5.6) hue-rotate(220deg) brightness(.62) contrast(1.34); --edu-noto-filter-strong: grayscale(1) sepia(1) saturate(6.6) hue-rotate(220deg) brightness(.56) contrast(1.46); --edu-stat-accent: #6250a4; --edu-stat-accent-soft:#f3f0fb; }
+        body[data-accent="rose"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(5.2) hue-rotate(298deg) brightness(.62) contrast(1.34); --edu-noto-filter-strong: grayscale(1) sepia(1) saturate(6.2) hue-rotate(298deg) brightness(.54) contrast(1.46); --edu-stat-accent: #a9485d; --edu-stat-accent-soft:#fbf0f3; }
+        body[data-accent="amber"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(4.9) hue-rotate(348deg) brightness(.62) contrast(1.35); --edu-noto-filter-strong: grayscale(1) sepia(1) saturate(5.8) hue-rotate(348deg) brightness(.54) contrast(1.46); --edu-stat-accent: #ad6f24; --edu-stat-accent-soft:#fbf4e8; }
 
         .edu-noto-emoji-wrap {
             border-radius: 999px;
@@ -3095,6 +3095,533 @@
             .edu-noto-emoji-img { filter: var(--edu-noto-filter, grayscale(1) sepia(1) saturate(2.9) hue-rotate(158deg) brightness(.84) contrast(1.08)) !important; }
         }
 
+
+
+        /* v10: unclipped preview/live headers + softer statistics */
+        @media screen {
+            .edu-preview-section > .edu-preview-toolbar,
+            #teacher-view main > section.edu-preview-section > div.edu-preview-toolbar {
+                width: min(100%, 38rem) !important;
+                max-width: 38rem !important;
+                margin: 0 auto .85rem auto !important;
+                padding: .05rem 0 .45rem 0 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: .48rem !important;
+                background: transparent !important;
+                border: 0 !important;
+                border-bottom: 0 !important;
+                outline: 0 !important;
+                box-shadow: none !important;
+                overflow: visible !important;
+                min-height: 1.8rem !important;
+                height: auto !important;
+            }
+            .edu-preview-title,
+            #preview-badge,
+            .edu-preview-badge {
+                position: static !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                min-height: 1.35rem !important;
+                height: auto !important;
+                max-height: none !important;
+                line-height: 1.45 !important;
+                overflow: visible !important;
+                white-space: nowrap !important;
+                transform: none !important;
+                clip-path: none !important;
+                background: transparent !important;
+                border: 0 !important;
+                outline: 0 !important;
+                box-shadow: none !important;
+            }
+            .edu-preview-title {
+                color: #1d1d1f !important;
+                font-size: .84rem !important;
+                font-weight: 820 !important;
+                letter-spacing: -.02em !important;
+            }
+            .edu-preview-title::after,
+            #preview-badge::before,
+            #preview-badge::after { content: none !important; display: none !important; }
+            #preview-badge,
+            .edu-preview-badge {
+                padding: .02rem 0 !important;
+                margin: 0 !important;
+                color: #86868b !important;
+                font-family: inherit !important;
+                font-size: .8rem !important;
+                font-weight: 680 !important;
+                letter-spacing: -.015em !important;
+            }
+
+            .edu-pinnwand-head,
+            #dashboard-view .lg\:col-span-8 > .edu-pinnwand-head {
+                display: flex !important;
+                align-items: flex-start !important;
+                justify-content: space-between !important;
+                flex-wrap: wrap !important;
+                gap: .45rem .9rem !important;
+                padding: .15rem .55rem .2rem .55rem !important;
+                min-height: 2rem !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            .edu-pinnwand-title,
+            #dashboard-view .edu-pinnwand-title {
+                display: inline-flex !important;
+                align-items: center !important;
+                gap: .5rem !important;
+                min-width: 0 !important;
+                max-width: 100% !important;
+                min-height: 1.55rem !important;
+                line-height: 1.35 !important;
+                color: #1d1d1f !important;
+                font-size: .74rem !important;
+                font-weight: 800 !important;
+                letter-spacing: .055em !important;
+                overflow: visible !important;
+                white-space: normal !important;
+                text-transform: uppercase !important;
+            }
+            .edu-pinnwand-title [data-lucide] {
+                width: 1rem !important;
+                height: 1rem !important;
+                flex: 0 0 1rem !important;
+                color: #86868b !important;
+                stroke: #86868b !important;
+            }
+            #pinnwand-status {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                min-height: 1.45rem !important;
+                line-height: 1.35 !important;
+                padding: .04rem 0 !important;
+                margin: 0 !important;
+                color: #86868b !important;
+                font-size: .72rem !important;
+                font-style: normal !important;
+                font-weight: 620 !important;
+                white-space: normal !important;
+                overflow: visible !important;
+                text-overflow: clip !important;
+                max-width: 100% !important;
+            }
+            #live-pinnwand {
+                margin-top: .05rem !important;
+                padding: clamp(1rem, 1.9vw, 1.35rem) !important;
+            }
+
+            .edu-live-stats-card {
+                border-radius: 1.45rem !important;
+                background: rgba(255,255,255,.66) !important;
+                border: 1px solid rgba(0,0,0,.055) !important;
+                box-shadow: 0 14px 36px rgba(0,0,0,.045), inset 0 1px 0 rgba(255,255,255,.92) !important;
+                padding: .95rem !important;
+                overflow: visible !important;
+            }
+            .edu-live-stats-head {
+                align-items: center !important;
+                padding: 0 0 .35rem 0 !important;
+                margin: 0 !important;
+                border-bottom: 0 !important;
+            }
+            .edu-stats-kicker {
+                color: #1d1d1f !important;
+                font-size: .72rem !important;
+                line-height: 1.25 !important;
+                font-weight: 780 !important;
+                letter-spacing: -.012em !important;
+                text-transform: none !important;
+            }
+            .edu-stats-count {
+                color: #1d1d1f !important;
+                font-size: 1.65rem !important;
+                line-height: 1 !important;
+                font-weight: 760 !important;
+                letter-spacing: -.045em !important;
+                font-variant-numeric: tabular-nums !important;
+            }
+            .edu-stats-mini { gap: .52rem !important; }
+            .edu-stats-mini-head {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: .6rem !important;
+                color: #1d1d1f !important;
+                font-size: .76rem !important;
+                line-height: 1.3 !important;
+                font-weight: 740 !important;
+                letter-spacing: -.015em !important;
+            }
+            .edu-stats-switch {
+                background: rgba(0,0,0,.038) !important;
+                border: 1px solid rgba(0,0,0,.045) !important;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,.75) !important;
+            }
+            .edu-stats-switch button {
+                font-size: .6rem !important;
+                font-weight: 720 !important;
+                letter-spacing: -.01em !important;
+                padding: .35rem .5rem !important;
+            }
+            .edu-stats-switch button.active {
+                color: #111 !important;
+                background: rgba(255,255,255,.92) !important;
+                box-shadow: 0 1px 2px rgba(0,0,0,.075), inset 0 1px 0 rgba(255,255,255,.95) !important;
+            }
+            .edu-stat-row {
+                display: grid !important;
+                grid-template-columns: minmax(5.1rem, .95fr) minmax(4.5rem, 1.25fr) 2.55rem !important;
+                align-items: center !important;
+                gap: .55rem !important;
+                min-height: 1.48rem !important;
+                padding: .02rem 0 !important;
+            }
+            .edu-stat-label {
+                color: #1d1d1f !important;
+                font-size: .7rem !important;
+                font-weight: 690 !important;
+                letter-spacing: -.012em !important;
+            }
+            .edu-stat-track {
+                height: .28rem !important;
+                background: rgba(0,0,0,.055) !important;
+                border-radius: 999px !important;
+                overflow: hidden !important;
+            }
+            .edu-stat-track > span {
+                border-radius: inherit !important;
+                min-width: 0 !important;
+            }
+            .edu-stat-value {
+                color: #6e6e73 !important;
+                font-size: .68rem !important;
+                font-weight: 720 !important;
+                text-align: right !important;
+                font-variant-numeric: tabular-nums !important;
+                white-space: nowrap !important;
+            }
+            .edu-stats-pie-wrap {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                justify-items: center !important;
+                align-items: center !important;
+                gap: .72rem !important;
+                padding-top: .18rem !important;
+            }
+            .edu-stats-pie-shell {
+                position: relative !important;
+                width: 7.15rem !important;
+                height: 7.15rem !important;
+                margin: .05rem auto .1rem !important;
+                overflow: visible !important;
+                display: block !important;
+            }
+            .edu-stats-pie {
+                position: absolute !important;
+                inset: .68rem !important;
+                width: auto !important;
+                height: auto !important;
+                border-radius: 999px !important;
+                display: block !important;
+                box-shadow: inset 0 0 0 1px rgba(0,0,0,.045), 0 10px 26px rgba(0,0,0,.052) !important;
+            }
+            .edu-stats-pie::after {
+                content: '' !important;
+                position: absolute !important;
+                inset: 27% !important;
+                width: auto !important;
+                height: auto !important;
+                border-radius: 999px !important;
+                background: rgba(255,255,255,.96) !important;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,.95), 0 1px 3px rgba(0,0,0,.035) !important;
+            }
+            .edu-stats-pie-marker {
+                position: absolute !important;
+                left: calc(var(--x) * 1%) !important;
+                top: calc(var(--y) * 1%) !important;
+                transform: translate(-50%, -50%) !important;
+                z-index: 3 !important;
+                display: inline-grid !important;
+                place-items: center !important;
+                width: 1.62rem !important;
+                height: 1.62rem !important;
+                border-radius: 999px !important;
+                background: rgba(255,255,255,.94) !important;
+                border: 1px solid rgba(0,0,0,.06) !important;
+                box-shadow: 0 4px 12px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.94) !important;
+                pointer-events: none !important;
+            }
+            .edu-pie-traffic-dot {
+                width: .72rem !important;
+                height: .72rem !important;
+                border-radius: 999px !important;
+                background: var(--marker-color, #1d1d1f) !important;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,.42) !important;
+            }
+            .edu-stats-pie-marker .edu-noto-emoji-wrap,
+            .edu-stats-pie-marker .edu-stats-pie-emoji {
+                width: 1.28rem !important;
+                height: 1.28rem !important;
+                padding: .05rem !important;
+                background: transparent !important;
+                box-shadow: none !important;
+            }
+            .edu-stats-pie-marker .edu-noto-emoji-img {
+                filter: var(--edu-noto-filter-strong, var(--edu-noto-filter, grayscale(1) sepia(1) saturate(4.3) hue-rotate(158deg) brightness(.72) contrast(1.28))) !important;
+            }
+            .edu-stats-pie-legend {
+                width: 100% !important;
+                display: grid !important;
+                gap: .28rem !important;
+                min-width: 0 !important;
+            }
+            .edu-stats-pie-item {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: .55rem !important;
+                min-width: 0 !important;
+                padding: .28rem .05rem !important;
+                border-top: 1px solid rgba(0,0,0,.045) !important;
+                color: #1d1d1f !important;
+                font-size: .68rem !important;
+                font-weight: 700 !important;
+                letter-spacing: -.012em !important;
+            }
+            .edu-stats-pie-item:first-child { border-top: 0 !important; }
+            .edu-stats-pie-item > span:first-child {
+                min-width: 0 !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+            .edu-stats-pie-item small {
+                color: #6e6e73 !important;
+                font-size: .68rem !important;
+                font-weight: 720 !important;
+                font-variant-numeric: tabular-nums !important;
+            }
+            .edu-stats-pie-item .edu-noto-emoji-wrap { width: 1.08rem !important; height: 1.08rem !important; }
+            .edu-stats-empty {
+                background: rgba(0,0,0,.025) !important;
+                border: 1px solid rgba(0,0,0,.045) !important;
+                border-radius: 1rem !important;
+                padding: .9rem !important;
+                color: #86868b !important;
+                font-size: .74rem !important;
+                line-height: 1.45 !important;
+            }
+            .edu-noto-emoji-img {
+                filter: var(--edu-noto-filter-strong, var(--edu-noto-filter, grayscale(1) sepia(1) saturate(4.4) hue-rotate(158deg) brightness(.72) contrast(1.24))) !important;
+            }
+        }
+
+    
+
+        /* v13: harte Korrektur Vorschau-Leiste + kräftigere Noto-Emoji ohne Box */
+        @media screen {
+            .edu-preview-section {
+                padding-top: .55rem !important;
+            }
+
+            .edu-preview-section > .edu-preview-toolbar,
+            #teacher-view main > section.edu-preview-section > div.edu-preview-toolbar {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 1.05rem auto .38rem auto !important;
+                padding: 0 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: .72rem !important;
+                background: transparent !important;
+                background-color: transparent !important;
+                background-image: none !important;
+                border: 0 !important;
+                box-shadow: none !important;
+                outline: 0 !important;
+                overflow: visible !important;
+                min-height: 2.15rem !important;
+                height: auto !important;
+                line-height: 1 !important;
+                transform: none !important;
+            }
+
+            .edu-preview-title,
+            .edu-preview-badge,
+            #preview-badge {
+                position: static !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                transform: none !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                vertical-align: middle !important;
+                height: 2rem !important;
+                min-height: 2rem !important;
+                max-height: none !important;
+                line-height: 2rem !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                background: transparent !important;
+                background-color: transparent !important;
+                background-image: none !important;
+                border: 0 !important;
+                outline: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                overflow: visible !important;
+                white-space: nowrap !important;
+                text-decoration: none !important;
+                clip: auto !important;
+                clip-path: none !important;
+                -webkit-mask-image: none !important;
+                mask-image: none !important;
+            }
+
+            .edu-preview-title {
+                gap: .48rem !important;
+                font-size: 1.08rem !important;
+                font-weight: 860 !important;
+                letter-spacing: -.035em !important;
+                color: #1d1d1f !important;
+                -webkit-text-fill-color: #1d1d1f !important;
+            }
+
+            .edu-preview-title svg,
+            .edu-preview-title [data-lucide] {
+                width: 1.16rem !important;
+                height: 1.16rem !important;
+                flex: 0 0 1.16rem !important;
+                align-self: center !important;
+                color: #8e8e93 !important;
+                stroke: #8e8e93 !important;
+                margin: 0 !important;
+                transform: none !important;
+            }
+
+            #preview-badge,
+            .edu-preview-badge,
+            body[data-accent] #preview-badge,
+            body[data-accent] .edu-preview-badge {
+                font-family: inherit !important;
+                font-size: 1.06rem !important;
+                font-weight: 760 !important;
+                letter-spacing: -.03em !important;
+                color: #6e6e73 !important;
+                -webkit-text-fill-color: #6e6e73 !important;
+                background: transparent !important;
+                background-color: transparent !important;
+                background-image: none !important;
+                border: 0 !important;
+                outline: 0 !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+
+            .edu-preview-title::before,
+            .edu-preview-title::after,
+            .edu-preview-badge::before,
+            .edu-preview-badge::after,
+            #preview-badge::before,
+            #preview-badge::after {
+                content: none !important;
+                display: none !important;
+                background: transparent !important;
+                border: 0 !important;
+                box-shadow: none !important;
+            }
+
+            .edu-preview-section > .edu-preview-shell,
+            #teacher-view main > section.edu-preview-section > div.edu-preview-shell {
+                margin-top: 0 !important;
+                padding-top: .12rem !important;
+            }
+        }
+
+        /* v13: kräftigere designfarbene Noto-Emoji, keine quadratische Kachel im Druck */
+        body[data-accent="emerald"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(6.6) hue-rotate(82deg) brightness(.68) contrast(1.46); --edu-noto-filter-strong: grayscale(1) sepia(1) saturate(7.4) hue-rotate(82deg) brightness(.58) contrast(1.62); }
+        body[data-accent="sky"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(6.8) hue-rotate(158deg) brightness(.66) contrast(1.48); --edu-noto-filter-strong: grayscale(1) sepia(1) saturate(7.8) hue-rotate(158deg) brightness(.57) contrast(1.64); }
+        body[data-accent="violet"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(6.9) hue-rotate(220deg) brightness(.69) contrast(1.48); --edu-noto-filter-strong: grayscale(1) sepia(1) saturate(7.8) hue-rotate(220deg) brightness(.60) contrast(1.62); }
+        body[data-accent="rose"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(6.5) hue-rotate(298deg) brightness(.68) contrast(1.48); --edu-noto-filter-strong: grayscale(1) sepia(1) saturate(7.5) hue-rotate(298deg) brightness(.58) contrast(1.64); }
+        body[data-accent="amber"] { --edu-noto-filter: grayscale(1) sepia(1) saturate(6.0) hue-rotate(348deg) brightness(.70) contrast(1.50); --edu-noto-filter-strong: grayscale(1) sepia(1) saturate(7.0) hue-rotate(348deg) brightness(.60) contrast(1.66); }
+
+        .edu-noto-emoji-wrap,
+        .emoji-choice .edu-noto-emoji-wrap,
+        .ticket-card .edu-noto-emoji-wrap,
+        .ticket-card .emoji-choice .edu-noto-emoji-wrap,
+        .student-emoji-choice .edu-noto-emoji-wrap,
+        .edu-stats-pie-marker .edu-noto-emoji-wrap,
+        .edu-stats-pie-item .edu-noto-emoji-wrap {
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+            border: 0 !important;
+            outline: 0 !important;
+            box-shadow: none !important;
+            border-radius: 999px !important;
+            padding: 0 !important;
+            margin: 0 auto !important;
+            overflow: visible !important;
+        }
+
+        .edu-noto-emoji-img,
+        .emoji-choice .edu-noto-emoji-img,
+        .ticket-card .edu-noto-emoji-img,
+        .ticket-card .emoji-choice .edu-noto-emoji-img,
+        .student-emoji-choice .edu-noto-emoji-img {
+            filter: var(--edu-noto-filter-strong, var(--edu-noto-filter, grayscale(1) sepia(1) saturate(6.8) hue-rotate(220deg) brightness(.60) contrast(1.6))) !important;
+            opacity: 1 !important;
+            mix-blend-mode: normal !important;
+            transform: translateZ(0) !important;
+        }
+
+        .emoji-choice .edu-noto-emoji-wrap,
+        .ticket-card .emoji-choice .edu-noto-emoji-wrap {
+            width: 1.72rem !important;
+            height: 1.72rem !important;
+        }
+
+        .student-emoji-choice .edu-noto-emoji-wrap {
+            width: 2.05rem !important;
+            height: 2.05rem !important;
+        }
+
+        @media print {
+            .edu-noto-emoji-wrap,
+            .emoji-choice .edu-noto-emoji-wrap,
+            .ticket-card .edu-noto-emoji-wrap,
+            .ticket-card .emoji-choice .edu-noto-emoji-wrap {
+                background: transparent !important;
+                background-color: transparent !important;
+                background-image: none !important;
+                border: 0 !important;
+                outline: 0 !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                overflow: visible !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .edu-noto-emoji-img,
+            .emoji-choice .edu-noto-emoji-img,
+            .ticket-card .edu-noto-emoji-img,
+            .ticket-card .emoji-choice .edu-noto-emoji-img {
+                filter: var(--edu-noto-filter-strong, var(--edu-noto-filter, grayscale(1) sepia(1) saturate(6.8) hue-rotate(220deg) brightness(.60) contrast(1.6))) !important;
+                opacity: 1 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col">
@@ -3359,8 +3886,8 @@
 
             <!-- Rechte Spalte: Die Live-Pinnwand -->
             <div class="lg:col-span-8 flex flex-col gap-3 h-full">
-                <div class="flex items-center justify-between">
-                    <h2 class="font-bold text-sm text-slate-300 tracking-wider uppercase flex items-center gap-2">
+                <div class="edu-pinnwand-head flex items-center justify-between">
+                    <h2 class="edu-pinnwand-title font-bold text-sm text-slate-300 tracking-wider uppercase flex items-center gap-2">
                         <i data-lucide="layout-grid" class="w-4 h-4 text-slate-500"></i> Live-Abgaben der Klasse
                     </h2>
                     <span id="pinnwand-status" class="text-xs text-slate-500 italic">Warte auf Antworten...</span>
@@ -4904,6 +5431,32 @@
             return segments.length ? `conic-gradient(${segments.join(', ')})` : fallback;
         }
 
+
+        function buildPieMarkers(rows, total, kind = 'dot') {
+            if (!total) return '';
+            let cursor = 0;
+            return rows.map(row => {
+                const count = Math.max(0, Number(row.count) || 0);
+                if (!count) return '';
+                const mid = cursor + count / 2;
+                cursor += count;
+                const angle = (mid / total) * Math.PI * 2 - Math.PI / 2;
+                const x = 50 + Math.cos(angle) * 45;
+                const y = 50 + Math.sin(angle) * 45;
+                const marker = kind === 'emoji'
+                    ? renderEduEmojiMark(row.value, 'edu-stats-pie-emoji')
+                    : `<span class="edu-pie-traffic-dot" style="--marker-color:${row.color}"></span>`;
+                return `<span class="edu-stats-pie-marker edu-stats-pie-marker-${kind}" style="--x:${x.toFixed(1)}; --y:${y.toFixed(1)}; --marker-color:${row.color}" title="${row.label}: ${Math.round((count / total) * 100)}%">${marker}</span>`;
+            }).join('');
+        }
+
+        function buildPieShell(rows, total, gradient, kind = 'dot') {
+            return `<div class="edu-stats-pie-shell">
+                <div class="edu-stats-pie" aria-hidden="true" style="background:${gradient}"></div>
+                ${buildPieMarkers(rows, total, kind)}
+            </div>`;
+        }
+
         function renderStats() {
             const total = submissions.length;
             document.getElementById('stats-count').innerText = total;
@@ -4933,12 +5486,12 @@
                         <div class="edu-stats-mini">
                             <div class="edu-stats-mini-head"><span>Ampel-Auswertung</span>${buildStatsToggle()}</div>
                             <div class="edu-stats-pie-wrap">
-                                <div class="edu-stats-pie" data-center="n=${total}" style="background:${gradient}"></div>
+                                ${buildPieShell(rows, total, gradient, 'dot')}
                                 <div class="edu-stats-pie-legend">
                                     ${rows.map(row => `
                                         <div class="edu-stats-pie-item">
                                             <span><i class="edu-stats-pie-dot" style="background:${row.color}"></i>${row.label}</span>
-                                            <small>${row.count} · ${pct(row.count)}%</small>
+                                            <small>${pct(row.count)}%</small>
                                         </div>`).join('')}
                                 </div>
                             </div>
@@ -4951,7 +5504,7 @@
                                 <div class="edu-stat-row">
                                     <div class="edu-stat-label"><span class="edu-stat-dot" style="background:${row.color}"></span>${row.label}</div>
                                     <div class="edu-stat-track"><span style="width:${pct(row.count)}%; background:${row.color} !important"></span></div>
-                                    <div class="edu-stat-value">${row.count} · ${pct(row.count)}%</div>
+                                    <div class="edu-stat-value">${pct(row.count)}%</div>
                                 </div>
                             `).join('')}
                         </div>`;
@@ -4983,14 +5536,14 @@
                     const gradient = buildConicGradient(rows, total);
                     statsBox.innerHTML = `
                         <div class="edu-stats-mini">
-                            <div class="edu-stats-mini-head"><span>Emoji-Auswertung · Ø ${avg}/5</span>${buildStatsToggle()}</div>
+                            <div class="edu-stats-mini-head"><span>Emoji-Auswertung</span>${buildStatsToggle()}</div>
                             <div class="edu-stats-pie-wrap">
-                                <div class="edu-stats-pie" data-center="n=${total}" style="background:${gradient}"></div>
+                                ${buildPieShell(rows, total, gradient, 'emoji')}
                                 <div class="edu-stats-pie-legend">
                                     ${rows.map(row => `
                                         <div class="edu-stats-pie-item">
                                             <span>${renderEduEmojiMark(row.value, 'edu-stats-noto-emoji')} ${row.label}</span>
-                                            <small>${row.count} · ${pct(row.count)}%</small>
+                                            <small>${pct(row.count)}%</small>
                                         </div>`).join('')}
                                 </div>
                             </div>
@@ -4998,12 +5551,12 @@
                 } else {
                     statsBox.innerHTML = `
                         <div class="edu-stats-mini">
-                            <div class="edu-stats-mini-head"><span>Emoji-Auswertung · Ø ${avg}/5</span>${buildStatsToggle()}</div>
+                            <div class="edu-stats-mini-head"><span>Emoji-Auswertung</span>${buildStatsToggle()}</div>
                             ${rows.map(row => `
                                 <div class="edu-stat-row edu-stat-row-emoji">
                                     <div class="edu-stat-label">${renderEduEmojiMark(row.value, 'edu-stats-noto-emoji')}<span>${row.label}</span></div>
                                     <div class="edu-stat-track"><span style="width:${pct(row.count)}%"></span></div>
-                                    <div class="edu-stat-value">${row.count} · ${pct(row.count)}%</div>
+                                    <div class="edu-stat-value">${pct(row.count)}%</div>
                                 </div>
                             `).join('')}
                         </div>`;
