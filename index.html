@@ -4024,6 +4024,324 @@
                 }
             }
         }
+
+
+        /* v19: saubere Druckoptionen, große Visualisierung, QR/Report-Fixes */
+        @media screen {
+            .edu-print-options-card .edu-print-options-grid.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+                margin-top: 0 !important;
+            }
+            .edu-print-options-card .edu-print-options-grid {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+                grid-template-areas:
+                    "color name"
+                    "layout layout"
+                    "palette palette" !important;
+                gap: 1.15rem 1.35rem !important;
+                align-items: start !important;
+            }
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(1) { grid-area: color !important; }
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(2) { grid-area: palette !important; order: 0 !important; grid-column: auto !important; }
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(3) { grid-area: name !important; }
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(4) { grid-area: layout !important; }
+            .edu-print-options-card .edu-print-options-grid > div > span:first-child {
+                height: 1.1rem !important;
+                margin: 0 0 .55rem 0 !important;
+                display: flex !important;
+                align-items: center !important;
+            }
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(1) > .grid,
+            .edu-print-options-card .edu-print-options-grid > div:nth-child(3) > .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+            .edu-print-options-card button:not(.edu-palette-btn) {
+                min-height: 3.25rem !important;
+                padding: .7rem .82rem !important;
+                white-space: nowrap !important;
+            }
+            .edu-print-options-card button:not(.edu-palette-btn) span:not(.edu-mini-paper-dot):not(.w-3) {
+                min-width: 0 !important;
+            }
+            .edu-print-options-card button[id^="btn-layout-"] {
+                min-height: 3.15rem !important;
+                aspect-ratio: auto !important;
+                padding: .55rem .6rem !important;
+                white-space: normal !important;
+            }
+            @media (max-width: 760px) {
+                .edu-print-options-card .edu-print-options-grid {
+                    grid-template-columns: 1fr !important;
+                    grid-template-areas:
+                        "color"
+                        "name"
+                        "layout"
+                        "palette" !important;
+                }
+            }
+
+            #dashboard-qr-holder {
+                min-width: min(58vw, 220px) !important;
+                min-height: min(58vw, 220px) !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            #dashboard-qr-holder canvas,
+            #dashboard-qr-holder img {
+                width: min(58vw, 220px) !important;
+                height: min(58vw, 220px) !important;
+                max-width: 100% !important;
+                image-rendering: pixelated;
+            }
+            #qr-zoom-overlay > div {
+                width: min(96vw, 44rem) !important;
+                max-width: 44rem !important;
+            }
+            #zoomed-qr-holder {
+                width: min(82vmin, 36rem) !important;
+                height: min(82vmin, 36rem) !important;
+                max-width: 100% !important;
+            }
+            #zoomed-qr-holder canvas,
+            #zoomed-qr-holder img {
+                width: min(78vmin, 34rem) !important;
+                height: min(78vmin, 34rem) !important;
+                max-width: 100% !important;
+                image-rendering: pixelated;
+            }
+            .edu-live-stats-card,
+            #wordcloud-wide-panel {
+                cursor: zoom-in;
+            }
+            .edu-stats-switch,
+            .edu-stats-switch * {
+                cursor: pointer;
+            }
+            #visual-zoom-overlay {
+                backdrop-filter: blur(18px);
+            }
+            .edu-visual-zoom-card {
+                width: min(94vw, 68rem);
+                max-height: 88vh;
+                overflow: auto;
+                background: rgba(255,255,255,.94);
+                color: #1d1d1f;
+                border: 1px solid rgba(255,255,255,.78);
+                box-shadow: 0 34px 90px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.9);
+                border-radius: 2rem;
+                padding: clamp(1.15rem, 3vw, 2rem);
+            }
+            .edu-visual-zoom-card .report-visual-box {
+                min-height: 30rem;
+                margin-top: .75rem;
+            }
+            .edu-visual-zoom-card .report-pie {
+                width: min(52vw, 24rem);
+                height: min(52vw, 24rem);
+            }
+            .edu-visual-zoom-card .report-wordcloud {
+                min-height: 34rem;
+            }
+        }
+
+        .report-visual-box {
+            border: 1px solid #dbe3ee;
+            border-radius: 14px;
+            padding: 14px;
+            margin: 8px 0 12px;
+            background: #f8fafc;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+        .report-visual-grid {
+            display: grid;
+            grid-template-columns: minmax(130px, 190px) 1fr;
+            gap: 16px;
+            align-items: center;
+        }
+        .report-pie {
+            width: 170px;
+            height: 170px;
+            border-radius: 999px;
+            border: 1px solid #e2e8f0;
+            box-shadow: inset 0 0 0 9px rgba(255,255,255,.82);
+        }
+        .report-legend { display: grid; gap: 6px; }
+        .report-legend-row,
+        .report-bar-row {
+            display: grid;
+            grid-template-columns: 1.2rem minmax(0, 1fr) 3.5rem;
+            gap: 8px;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .report-dot {
+            width: .78rem;
+            height: .78rem;
+            border-radius: 999px;
+            background: var(--dot-color, #0f766e);
+            box-shadow: 0 0 0 3px rgba(15, 23, 42, .04);
+        }
+        .report-bar-track {
+            height: 10px;
+            border-radius: 999px;
+            background: #e2e8f0;
+            overflow: hidden;
+        }
+        .report-bar-fill {
+            height: 100%;
+            width: var(--bar-width, 0%);
+            background: var(--bar-color, #0f766e);
+            border-radius: inherit;
+        }
+        .report-wordcloud {
+            min-height: 205px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 8px 18px;
+            padding: 10px;
+            overflow: hidden;
+        }
+        .report-cloud-word {
+            font-weight: 900;
+            letter-spacing: -.05em;
+            line-height: .96;
+            color: var(--cloud-color, #1d1d1f);
+            font-size: var(--cloud-size, 18px);
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+        .report-stat-summary {
+            display: grid;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+
+
+        /* v20: stabile Druckoptionen, Export-Visuals und QR/Zoom-Feinschliff */
+        @media screen {
+            .edu-print-options-card .edu-print-options-grid-v20,
+            .edu-print-options-card .edu-print-options-grid-v20.space-y-4 {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+                grid-template-areas:
+                    "color name"
+                    "layout layout"
+                    "palette palette" !important;
+                gap: 1.15rem 1.5rem !important;
+                align-items: start !important;
+            }
+            .edu-print-options-card .edu-print-options-grid-v20 > * {
+                margin-top: 0 !important;
+                min-width: 0 !important;
+            }
+            .edu-option-color { grid-area: color !important; }
+            .edu-option-name { grid-area: name !important; }
+            .edu-option-layout { grid-area: layout !important; max-width: 36rem; }
+            .edu-option-palette { grid-area: palette !important; }
+            .edu-option-group {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: .55rem !important;
+                align-self: start !important;
+            }
+            .edu-option-label {
+                display: flex !important;
+                align-items: center !important;
+                height: 1.25rem !important;
+                margin: 0 !important;
+                color: #5f6066 !important;
+                font-size: .82rem !important;
+                font-weight: 800 !important;
+                letter-spacing: -.01em !important;
+                line-height: 1 !important;
+            }
+            .edu-option-button-row,
+            .edu-two-buttons {
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: .72rem !important;
+                align-items: stretch !important;
+            }
+            .edu-layout-button-row {
+                display: grid !important;
+                grid-template-columns: repeat(4, minmax(4.8rem, 1fr)) !important;
+                gap: .72rem !important;
+                align-items: stretch !important;
+            }
+            .edu-palette-grid-v20 {
+                display: grid !important;
+                grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+                gap: .72rem !important;
+                align-items: stretch !important;
+            }
+            .edu-print-options-card button:not(.edu-palette-btn) {
+                width: 100% !important;
+                min-height: 3.2rem !important;
+                height: auto !important;
+                padding: .66rem .86rem !important;
+                border-radius: 999px !important;
+                white-space: normal !important;
+                line-height: 1.15 !important;
+                text-align: center !important;
+                overflow: visible !important;
+            }
+            .edu-print-options-card #btn-color,
+            .edu-print-options-card #btn-bw,
+            .edu-print-options-card #btn-name-named,
+            .edu-print-options-card #btn-name-anon {
+                min-height: 3.35rem !important;
+                flex-direction: row !important;
+            }
+            .edu-print-options-card #btn-layout-1,
+            .edu-print-options-card #btn-layout-2,
+            .edu-print-options-card #btn-layout-4,
+            .edu-print-options-card #btn-layout-9 {
+                min-width: 0 !important;
+                min-height: 3.45rem !important;
+                aspect-ratio: auto !important;
+                padding: .52rem .45rem !important;
+            }
+            .edu-print-options-card button svg,
+            .edu-print-options-card button i {
+                flex: 0 0 auto !important;
+            }
+            .edu-print-options-card .edu-palette-btn {
+                min-height: 3.65rem !important;
+                height: auto !important;
+                padding: .58rem .65rem !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: .25rem !important;
+                overflow: visible !important;
+                border-radius: 1.25rem !important;
+            }
+            @media (max-width: 900px) {
+                .edu-print-options-card .edu-print-options-grid-v20,
+                .edu-print-options-card .edu-print-options-grid-v20.space-y-4 {
+                    grid-template-columns: 1fr !important;
+                    grid-template-areas:
+                        "color"
+                        "name"
+                        "layout"
+                        "palette" !important;
+                }
+                .edu-option-layout { max-width: none; }
+                .edu-palette-grid-v20 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+            }
+            @media (max-width: 520px) {
+                .edu-layout-button-row { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+                .edu-palette-grid-v20 { grid-template-columns: 1fr !important; }
+            }
+        }
 </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col">
@@ -4139,45 +4457,34 @@
                     <h2 class="font-bold text-slate-900 flex items-center gap-2 border-b pb-3 border-slate-100 text-sm uppercase tracking-wider">
                         <i data-lucide="layout" class="w-4 h-4 text-emerald-600"></i> Layout & Druck-Optionen
                     </h2>
-                    <div class="edu-print-options-grid space-y-4">
-                        <div>
-                            <span class="block text-xs font-bold text-slate-600 mb-2">A4-Farbmodus</span>
-                            <div class="grid grid-cols-2 gap-2">
+                    <div class="edu-print-options-grid edu-print-options-grid-v20">
+                        <div class="edu-option-group edu-option-color">
+                            <span class="edu-option-label">A4-Farbmodus</span>
+                            <div class="edu-option-button-row edu-two-buttons">
                                 <button onclick="updateState('colorMode', 'color')" id="btn-color" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                                    <span class="edu-mini-paper-dot"></span> Designfarbe
+                                    <span class="edu-mini-paper-dot"></span> <span>Designfarbe</span>
                                 </button>
                                 <button onclick="updateState('colorMode', 'bw')" id="btn-bw" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                                    <span class="w-3 h-3 rounded-full bg-white border border-slate-400"></span> S/W
+                                    <span class="w-3 h-3 rounded-full bg-white border border-slate-400"></span> <span>S/W</span>
                                 </button>
                             </div>
                         </div>
 
-                        <div>
-                            <span class="block text-xs font-bold text-slate-600 mb-2">A4-Designfarbe</span>
-                            <div class="grid grid-cols-5 gap-2 edu-palette-grid" aria-label="A4-Designfarbe wählen">
-                                <button onclick="updateState('accentColor', 'emerald')" id="btn-accent-emerald" class="edu-palette-btn" title="Sage"><span class="edu-swatch" style="background:linear-gradient(135deg,#55685f,#dfe7e2)"></span><span>Sage</span></button>
-                                <button onclick="updateState('accentColor', 'sky')" id="btn-accent-sky" class="edu-palette-btn" title="Ocean"><span class="edu-swatch" style="background:linear-gradient(135deg,#236a92,#dbeaf4)"></span><span>Ocean</span></button>
-                                <button onclick="updateState('accentColor', 'violet')" id="btn-accent-violet" class="edu-palette-btn" title="Iris"><span class="edu-swatch" style="background:linear-gradient(135deg,#6250a4,#e8e3f6)"></span><span>Iris</span></button>
-                                <button onclick="updateState('accentColor', 'rose')" id="btn-accent-rose" class="edu-palette-btn" title="Berry"><span class="edu-swatch" style="background:linear-gradient(135deg,#a9485d,#f4dfe5)"></span><span>Berry</span></button>
-                                <button onclick="updateState('accentColor', 'amber')" id="btn-accent-amber" class="edu-palette-btn" title="Sand"><span class="edu-swatch" style="background:linear-gradient(135deg,#ad6f24,#f4e6cc)"></span><span>Sand</span></button>
-                            </div>
-                        </div>
-
-                        <div>
-                            <span class="block text-xs font-bold text-slate-600 mb-2">Namensfeld</span>
-                            <div class="grid grid-cols-2 gap-2">
+                        <div class="edu-option-group edu-option-name">
+                            <span class="edu-option-label">Namensfeld</span>
+                            <div class="edu-option-button-row edu-two-buttons">
                                 <button onclick="updateState('nameOption', 'named')" id="btn-name-named" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                                    <i data-lucide="user" class="w-4 h-4"></i> Name/Datum
+                                    <i data-lucide="user" class="w-4 h-4"></i> <span>Name/Datum</span>
                                 </button>
                                 <button onclick="updateState('nameOption', 'anonymous')" id="btn-name-anon" class="px-3 py-2 border rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
-                                    <i data-lucide="user-x" class="w-4 h-4"></i> Anonym
+                                    <i data-lucide="user-x" class="w-4 h-4"></i> <span>Anonym</span>
                                 </button>
                             </div>
                         </div>
 
-                        <div>
-                            <span class="block text-xs font-bold text-slate-600 mb-2">Tickets auf A4-Seite</span>
-                            <div class="grid grid-cols-4 gap-2">
+                        <div class="edu-option-group edu-option-layout">
+                            <span class="edu-option-label">Tickets auf A4-Seite</span>
+                            <div class="edu-layout-button-row">
                                 <button onclick="updateState('layout', '1')" id="btn-layout-1" class="px-3 py-2 border rounded-xl text-xs font-bold flex flex-col items-center gap-1 transition-all">
                                     <span class="text-base">1x</span>
                                     <span class="text-[9px] text-slate-500 font-normal">Ganz</span>
@@ -4194,6 +4501,17 @@
                                     <span class="text-base">9x</span>
                                     <span class="text-[9px] text-slate-500 font-normal">Kompakt</span>
                                 </button>
+                            </div>
+                        </div>
+
+                        <div class="edu-option-group edu-option-palette">
+                            <span class="edu-option-label">A4-Designfarbe</span>
+                            <div class="edu-palette-grid-v20" aria-label="A4-Designfarbe wählen">
+                                <button onclick="updateState('accentColor', 'emerald')" id="btn-accent-emerald" class="edu-palette-btn" title="Sage"><span class="edu-swatch" style="background:linear-gradient(135deg,#55685f,#dfe7e2)"></span><span>Sage</span></button>
+                                <button onclick="updateState('accentColor', 'sky')" id="btn-accent-sky" class="edu-palette-btn" title="Ocean"><span class="edu-swatch" style="background:linear-gradient(135deg,#236a92,#dbeaf4)"></span><span>Ocean</span></button>
+                                <button onclick="updateState('accentColor', 'violet')" id="btn-accent-violet" class="edu-palette-btn" title="Iris"><span class="edu-swatch" style="background:linear-gradient(135deg,#6250a4,#e8e3f6)"></span><span>Iris</span></button>
+                                <button onclick="updateState('accentColor', 'rose')" id="btn-accent-rose" class="edu-palette-btn" title="Berry"><span class="edu-swatch" style="background:linear-gradient(135deg,#a9485d,#f4dfe5)"></span><span>Berry</span></button>
+                                <button onclick="updateState('accentColor', 'amber')" id="btn-accent-amber" class="edu-palette-btn" title="Sand"><span class="edu-swatch" style="background:linear-gradient(135deg,#ad6f24,#f4e6cc)"></span><span>Sand</span></button>
                             </div>
                         </div>
                     </div>
@@ -4262,7 +4580,7 @@
                 <div class="bg-white p-6 rounded-2xl shadow-2xl flex flex-col items-center justify-center border-2 border-indigo-400 cursor-zoom-in hover:scale-[1.02] transition-transform duration-200" onclick="toggleZoomedQr()">
                     <div id="dashboard-qr-holder"></div>
                     <span class="text-[9px] text-indigo-600 font-bold mt-3 uppercase tracking-wider flex items-center gap-1">
-                        <i data-lucide="maximize-2" class="w-3 h-3"></i> Für Beamer vergrößern
+                        <i data-lucide="maximize-2" class="w-3 h-3"></i> QR groß anzeigen
                     </span>
                 </div>
 
@@ -4277,7 +4595,7 @@
                 </div>
 
                 <!-- Echtzeit-Auswertung -->
-                <div class="edu-live-stats-card w-full bg-white border border-slate-200 p-4 rounded-2xl space-y-4">
+                <div class="edu-live-stats-card w-full bg-white border border-slate-200 p-4 rounded-2xl space-y-4" onclick="openVisualZoom(event)">
                     <div class="edu-live-stats-head flex justify-between items-end gap-3">
                         <span class="edu-stats-kicker text-[10px] text-slate-500 uppercase tracking-[0.18em] font-bold">Abgaben</span>
                         <span id="stats-count" class="edu-stats-count text-3xl font-semibold text-slate-950 tracking-tight">0</span>
@@ -4297,7 +4615,7 @@
                     <span id="pinnwand-status" class="text-xs text-slate-500 italic">Warte auf Antworten...</span>
                 </div>
 
-                <div id="wordcloud-wide-panel" class="edu-wordcloud-wide hidden"></div>
+                <div id="wordcloud-wide-panel" class="edu-wordcloud-wide hidden" onclick="openVisualZoom(event)" title="Wortwolke vergrößern"></div>
 
                 <div id="live-pinnwand" class="flex-1 bg-slate-950 border border-slate-800 rounded-2xl p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[72vh]">
                     <!-- Schüler-Antworten fliegen hier live ein -->
@@ -4386,6 +4704,23 @@
                 ---
             </div>
             <button onclick="toggleZoomedQr()" class="text-xs font-bold text-slate-400 hover:text-slate-600 uppercase tracking-wider pt-2">Schließen</button>
+        </div>
+    </div>
+
+
+    <!-- VERGRÖSSERTE LIVE-AUSWERTUNG -->
+    <div id="visual-zoom-overlay" class="hidden fixed inset-0 bg-slate-950/70 z-50 flex items-center justify-center p-6 no-print" onclick="closeVisualZoom()">
+        <div class="edu-visual-zoom-card" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between gap-4 mb-4">
+                <div>
+                    <p class="text-[10px] uppercase tracking-[0.2em] font-extrabold text-slate-500">Live-Auswertung</p>
+                    <h3 id="visual-zoom-title" class="text-2xl font-extrabold tracking-tight text-slate-950">Verteilung</h3>
+                </div>
+                <button onclick="closeVisualZoom()" class="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-extrabold text-slate-700 hover:bg-slate-50 flex items-center gap-2">
+                    <i data-lucide="x" class="w-4 h-4"></i> Schließen
+                </button>
+            </div>
+            <div id="visual-zoom-content"></div>
         </div>
     </div>
 
@@ -5115,23 +5450,44 @@
             showToast('QR erst nach Veröffentlichung nutzbar: index.html z. B. über GitHub Pages, EdgeOne oder Firebase Hosting öffnen.', 'alert-triangle');
         }
 
-        function renderQrCode(targetId, text, size) {
+        function renderQrCode(targetId, text, size, attempt = 0) {
             const target = document.getElementById(targetId);
-            if (!target) return;
+            if (!target || !text) return;
             target.innerHTML = '';
-            new QRCode(target, {
-                text,
-                width: size,
-                height: size,
-                colorDark: '#020617',
-                colorLight: '#ffffff',
-                correctLevel: QRCode.CorrectLevel.M
-            });
-            const rendered = target.querySelector('canvas, img');
-            if (rendered) {
-                rendered.style.width = `${size}px`;
-                rendered.style.height = `${size}px`;
+            target.style.width = `${size}px`;
+            target.style.height = `${size}px`;
+            target.style.maxWidth = '100%';
+            target.style.display = 'flex';
+            target.style.alignItems = 'center';
+            target.style.justifyContent = 'center';
+            if (typeof QRCode === 'undefined') {
+                if (attempt < 20) setTimeout(() => renderQrCode(targetId, text, size, attempt + 1), 120);
+                return;
             }
+            try {
+                new QRCode(target, {
+                    text,
+                    width: size,
+                    height: size,
+                    colorDark: '#020617',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            } catch (err) {
+                if (attempt < 8) setTimeout(() => renderQrCode(targetId, text, size, attempt + 1), 160);
+                return;
+            }
+            const fitRenderedQr = () => {
+                target.querySelectorAll('canvas, img').forEach(rendered => {
+                    rendered.style.width = `${size}px`;
+                    rendered.style.height = `${size}px`;
+                    rendered.style.maxWidth = '100%';
+                    rendered.style.display = 'block';
+                    rendered.style.imageRendering = 'pixelated';
+                });
+            };
+            fitRenderedQr();
+            requestAnimationFrame(fitRenderedQr);
         }
 
         // AUTHENTIFIZIERUNG VOR KOOPERATIONEN (Regel 3)
@@ -5772,8 +6128,13 @@
                 document.getElementById('join-url-box').innerText = joinUrl;
                 document.getElementById('zoomed-url-text').innerText = joinUrl;
 
-                renderQrCode('dashboard-qr-holder', joinUrl, 240);
-                renderQrCode('zoomed-qr-holder', joinUrl, 420);
+                const refreshQrs = () => {
+                    renderQrCode('dashboard-qr-holder', joinUrl, 220);
+                    renderQrCode('zoomed-qr-holder', joinUrl, 640);
+                };
+                refreshQrs();
+                requestAnimationFrame(refreshQrs);
+                setTimeout(refreshQrs, 250);
 
                 const subRef = collection(db, 'artifacts', appId, 'public', 'data', 'sessions', activeRoom, 'submissions');
                 unsubscribeSubmissions = onSnapshot(subRef, (snapshot) => {
@@ -5836,8 +6197,8 @@
         function buildStatsToggle() {
             return `
                 <div class="edu-stats-switch" role="group" aria-label="Statistikdarstellung wählen">
-                    <button type="button" onclick="window.setEduStatsMode('bars')" class="${eduStatsMode === 'bars' ? 'active' : ''}">Balken</button>
-                    <button type="button" onclick="window.setEduStatsMode('pie')" class="${eduStatsMode === 'pie' ? 'active' : ''}">Torte</button>
+                    <button type="button" onclick="event.stopPropagation(); window.setEduStatsMode('bars')" class="${eduStatsMode === 'bars' ? 'active' : ''}">Balken</button>
+                    <button type="button" onclick="event.stopPropagation(); window.setEduStatsMode('pie')" class="${eduStatsMode === 'pie' ? 'active' : ''}">Torte</button>
                 </div>`;
         }
 
@@ -6707,26 +7068,84 @@
                     else if (value === 'rot') counts.rot++;
                 });
                 return [
-                    ['Verstanden / grün', counts.gruen, pct(counts.gruen)],
-                    ['Teils / gelb', counts.gelb, pct(counts.gelb)],
-                    ['Unklar / rot', counts.rot, pct(counts.rot)]
+                    { label: 'Klar', count: counts.gruen, percent: pct(counts.gruen), color: '#34c759', value: 'gruen' },
+                    { label: 'Teils', count: counts.gelb, percent: pct(counts.gelb), color: '#ffcc00', value: 'gelb' },
+                    { label: 'Hilfe nötig', count: counts.rot, percent: pct(counts.rot), color: '#ff3b30', value: 'rot' }
                 ];
             }
             if (isEmojiScaleTicket()) {
-                const labels = ['😵 unklar', '😕 wackelig', '😐 teils', '🙂 sicher', '🤩 sehr klar'];
+                const labels = [
+                    { value: 1, label: 'unklar', color: '#7c3aed' },
+                    { value: 2, label: 'wackelig', color: '#8b5cf6' },
+                    { value: 3, label: 'teils', color: '#64748b' },
+                    { value: 4, label: 'sicher', color: '#0f766e' },
+                    { value: 5, label: 'sehr klar', color: '#0369a1' }
+                ];
                 const counts = [0, 0, 0, 0, 0];
                 submissions.forEach(s => {
                     const raw = parseInt(s.answers?.[0], 10);
                     if (!Number.isNaN(raw) && raw >= 1 && raw <= 5) counts[raw - 1]++;
                 });
-                return labels.map((label, i) => [label, counts[i], pct(counts[i])]);
+                return labels.map((row, i) => ({ ...row, count: counts[i], percent: pct(counts[i]) }));
             }
             if (window.state.ticketType === 'wortwolke') {
-                const rows = getWordCloudRows(10);
+                const rows = getWordCloudRows(18);
                 const totalTerms = rows.reduce((sum, row) => sum + row.count, 0);
-                return rows.map(row => [row.label, row.count, totalTerms ? Math.round((row.count / totalTerms) * 100) : 0]);
+                return rows.map((row, i) => ({
+                    label: row.label,
+                    count: row.count,
+                    percent: totalTerms ? Math.round((row.count / totalTerms) * 100) : 0,
+                    color: ['#1d1d1f', '#55685f', '#236a92', '#6250a4', '#a9485d', '#ad6f24', '#475569'][i % 7]
+                }));
             }
             return [];
+        }
+
+        function buildReportConicGradient(rows) {
+            const total = rows.reduce((sum, row) => sum + row.count, 0);
+            if (!total) return '#e5e7eb';
+            let cursor = 0;
+            const segments = [];
+            rows.forEach(row => {
+                const start = (cursor / total) * 100;
+                cursor += row.count;
+                const end = (cursor / total) * 100;
+                if (row.count > 0) segments.push(`${row.color} ${start}% ${end}%`);
+            });
+            if (cursor < total || !segments.length) segments.push(`#e5e7eb 0% 100%`);
+            return `conic-gradient(${segments.join(', ')})`;
+        }
+
+        function renderReportVisualHTML() {
+            const rows = getReportCategoryRows();
+            if (!rows.length) return `<p class="report-meta">Keine visuelle Auswertung für diesen Ticket-Typ vorhanden.</p>`;
+
+            if (window.state.ticketType === 'wortwolke') {
+                const wordRows = getWordCloudRows(36);
+                const maxCount = wordRows.reduce((max, row) => Math.max(max, row.count), 1);
+                if (!wordRows.length) return `<div class="report-visual-box"><p class="report-meta">Noch keine Wörter vorhanden.</p></div>`;
+                const palette = ['#1d1d1f', '#55685f', '#236a92', '#6250a4', '#a9485d', '#ad6f24', '#475569'];
+                return `<div class="report-visual-box report-wordcloud">
+                    ${wordRows.map((row, index) => {
+                        const weight = row.count / maxCount;
+                        const size = Math.round(15 + weight * 28 - Math.min(index, 16) * .55);
+                        return `<span class="report-cloud-word" style="--cloud-size:${Math.max(11, size)}px; --cloud-color:${palette[index % palette.length]}" title="${escapeHTML(row.label)} · ${row.count}×">${escapeHTML(row.label)}</span>`;
+                    }).join('')}
+                </div>`;
+            }
+
+            if (eduStatsMode === 'pie') {
+                return `<div class="report-visual-box report-visual-grid">
+                    <div class="report-pie" style="background:${buildReportConicGradient(rows)}"></div>
+                    <div class="report-legend">
+                        ${rows.map(row => `<div class="report-legend-row"><span class="report-dot" style="--dot-color:${row.color}"></span><span>${escapeHTML(row.label)}</span><strong>${row.percent}%</strong></div>`).join('')}
+                    </div>
+                </div>`;
+            }
+
+            return `<div class="report-visual-box report-stat-summary">
+                ${rows.map(row => `<div class="report-bar-row"><span class="report-dot" style="--dot-color:${row.color}"></span><span>${escapeHTML(row.label)}</span><strong>${row.percent}%</strong><div class="report-bar-track" style="grid-column:2 / 4"><div class="report-bar-fill" style="--bar-width:${row.percent}%; --bar-color:${row.color}"></div></div></div>`).join('')}
+            </div>`;
         }
 
         function renderReportStatsHTML() {
@@ -6734,12 +7153,14 @@
             if (!rows.length) {
                 return `<p class="report-meta">Für diesen Ticket-Typ gibt es keine geschlossene Skala. Die Auswertung besteht aus den Einzelantworten.</p>`;
             }
-            return rows.map(([label, count, percent]) => `
-                <div class="report-stat-row">
-                    <div class="report-stat-top"><span>${escapeHTML(label)}</span><span>${count}× · ${percent}%</span></div>
-                    <div class="report-stat-track"><div class="report-stat-fill" style="width:${percent}%"></div></div>
-                </div>
-            `).join('');
+            return `<div class="report-stat-summary">
+                ${rows.map(row => `
+                    <div class="report-stat-row">
+                        <div class="report-stat-top"><span>${escapeHTML(row.label)}</span><span>${row.count}× · ${row.percent}%</span></div>
+                        <div class="report-stat-track"><div class="report-stat-fill" style="width:${row.percent}%; background:${row.color}"></div></div>
+                    </div>
+                `).join('')}
+            </div>`;
         }
 
         function formatReportAnswers(sub) {
@@ -6754,6 +7175,10 @@
                 const labelMap = { 1: '😵 unklar', 2: '😕 wackelig', 3: '😐 teils', 4: '🙂 sicher', 5: '🤩 sehr klar' };
                 const followUps = answers.slice(1).map((answer, index) => isPromptHidden(window.state.ticketType, index + 1) ? '' : `<br><strong>${escapeHTML(getGenericLabel(window.state.ticketType, index + 1))}:</strong> ${escapeHTML(answer || '-')}`).join('');
                 return `<strong>Auswahl:</strong> ${escapeHTML(labelMap[answers[0]] || answers[0] || '-')}${followUps}`;
+            }
+            if (window.state.ticketType === 'wortwolke') {
+                const words = splitWordCloudAnswer(answers[0]).join(', ');
+                return `<strong>Begriffe:</strong> ${escapeHTML(words || answers[0] || '-')}`;
             }
             if (window.state.ticketType === 'wahrheit') {
                 return [0, 1, 2].map(i => `<strong>Aussage ${i + 1}${String(sub.lieIndex) === String(i) ? ' (Lüge)' : ''}:</strong> ${escapeHTML(answers[i] || '-')}`).join('<br>');
@@ -6794,13 +7219,39 @@
                         </div>
                         <div class="report-meta" style="text-align:right; font-weight:700;">${submissions.length}<br>Abgaben</div>
                     </div>
-                    <div class="report-section-title">Auswertung</div>
+                    <div class="report-section-title">Visuelle Auswertung</div>
+                    ${renderReportVisualHTML()}
+                    <div class="report-section-title">Statistik</div>
                     ${renderReportStatsHTML()}
                     <div class="report-section-title">Einzelantworten</div>
                     ${answersHTML || '<p class="report-meta">Noch keine Antworten vorhanden.</p>'}
                 </div>
             `;
         }
+
+        function renderVisualZoomHTML() {
+            const visual = renderReportVisualHTML();
+            const stats = renderReportStatsHTML();
+            return `<div class="space-y-4">${visual}<div class="report-section-title">Statistik</div>${stats}</div>`;
+        }
+
+        window.openVisualZoom = function(event) {
+            if (event && event.target && event.target.closest && event.target.closest('.edu-stats-switch')) return;
+            if (!activeRoom) return;
+            const overlay = document.getElementById('visual-zoom-overlay');
+            const content = document.getElementById('visual-zoom-content');
+            const title = document.getElementById('visual-zoom-title');
+            if (!overlay || !content) return;
+            if (title) title.innerText = window.state.ticketType === 'wortwolke' ? 'Wortwolke' : (eduStatsMode === 'pie' ? 'Kuchendiagramm' : 'Balkendiagramm');
+            content.innerHTML = renderVisualZoomHTML();
+            overlay.classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
+        };
+
+        window.closeVisualZoom = function() {
+            const overlay = document.getElementById('visual-zoom-overlay');
+            if (overlay) overlay.classList.add('hidden');
+        };
 
         window.exportLiveReportPDF = function() {
             if (!activeRoom) {
