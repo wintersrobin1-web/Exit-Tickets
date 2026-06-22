@@ -4435,6 +4435,93 @@
                 grid-template-columns: 7.8rem minmax(5rem, 1fr) 2.5rem !important;
             }
         }
+
+
+        /* v24: Wortwolke/PDF/PNG + Live-Balken-Fixes */
+        @media screen {
+            #dashboard-view main {
+                overflow: auto !important;
+            }
+            .edu-live-stats-card,
+            .edu-stats-container,
+            .edu-stats-mini {
+                overflow: visible !important;
+            }
+            .edu-stats-mini-head {
+                align-items: center !important;
+                gap: .6rem !important;
+            }
+            .edu-stats-actions {
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: flex-end !important;
+                gap: .45rem !important;
+                flex-wrap: nowrap !important;
+            }
+            .edu-visual-download-btn {
+                border: 1px solid rgba(0,0,0,.075) !important;
+                background: rgba(255,255,255,.92) !important;
+                color: #1d1d1f !important;
+                border-radius: 999px !important;
+                padding: .35rem .55rem !important;
+                font-size: .6rem !important;
+                line-height: 1 !important;
+                font-weight: 820 !important;
+                letter-spacing: -.01em !important;
+                box-shadow: 0 1px 2px rgba(0,0,0,.055), inset 0 1px 0 rgba(255,255,255,.95) !important;
+            }
+            .edu-word-cloud-actions {
+                display: inline-flex !important;
+                align-items: center !important;
+                gap: .55rem !important;
+            }
+            #dashboard-view .edu-stat-row {
+                grid-template-columns: minmax(6.7rem, 7.4rem) minmax(0, 1fr) 2.8rem !important;
+                width: 100% !important;
+                min-height: 2.05rem !important;
+                gap: .58rem !important;
+                overflow: visible !important;
+            }
+            #dashboard-view .edu-stat-row-emoji .edu-stat-label {
+                display: grid !important;
+                grid-template-columns: 1.4rem minmax(0, 1fr) !important;
+                column-gap: .5rem !important;
+                width: 100% !important;
+                overflow: visible !important;
+            }
+            #dashboard-view .edu-stat-label {
+                overflow: visible !important;
+                white-space: nowrap !important;
+            }
+            #dashboard-view .edu-stat-track {
+                min-width: 0 !important;
+                overflow: hidden !important;
+            }
+            #dashboard-view .edu-stat-value {
+                min-width: 2.6rem !important;
+            }
+            @media (max-width: 1100px) {
+                #dashboard-view .edu-stat-row {
+                    grid-template-columns: minmax(6.2rem, 7rem) minmax(0, 1fr) 2.65rem !important;
+                }
+                .edu-stats-actions {
+                    flex-wrap: wrap !important;
+                }
+            }
+        }
+        .report-wordcloud {
+            min-height: 460px !important;
+            height: 460px !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+            background: #f8fafc !important;
+        }
+        .report-wordcloud .report-cloud-word {
+            font-size: var(--cloud-size, 22px) !important;
+            line-height: .92 !important;
+            max-width: 30ch !important;
+        }
+
 </style>
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 font-sans flex flex-col">
@@ -4809,9 +4896,14 @@
                     <p class="text-[10px] uppercase tracking-[0.2em] font-extrabold text-slate-500">Live-Auswertung</p>
                     <h3 id="visual-zoom-title" class="text-2xl font-extrabold tracking-tight text-slate-950">Verteilung</h3>
                 </div>
-                <button onclick="closeVisualZoom()" class="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-extrabold text-slate-700 hover:bg-slate-50 flex items-center gap-2">
-                    <i data-lucide="x" class="w-4 h-4"></i> Schließen
-                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="downloadVisualPNG(event)" class="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-extrabold text-slate-700 hover:bg-slate-50 flex items-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> PNG
+                    </button>
+                    <button onclick="closeVisualZoom()" class="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-extrabold text-slate-700 hover:bg-slate-50 flex items-center gap-2">
+                        <i data-lucide="x" class="w-4 h-4"></i> Schließen
+                    </button>
+                </div>
             </div>
             <div id="visual-zoom-content"></div>
         </div>
@@ -6334,6 +6426,14 @@
                 </div>`;
         }
 
+        function buildStatsDownloadButton(label = 'PNG') {
+            return `<button type="button" class="edu-visual-download-btn" onclick="window.downloadVisualPNG(event)" title="Visualisierung als PNG speichern">${label}</button>`;
+        }
+
+        function buildStatsHead(title) {
+            return `<div class="edu-stats-mini-head"><span>${title}</span><div class="edu-stats-actions">${buildStatsToggle()}${buildStatsDownloadButton()}</div></div>`;
+        }
+
         const EDU_DESIGN_CHART_PALETTE = ['#55685f', '#236a92', '#6250a4', '#a9485d', '#ad6f24'];
         function getDesignChartColor(index) {
             return EDU_DESIGN_CHART_PALETTE[Math.abs(Number(index) || 0) % EDU_DESIGN_CHART_PALETTE.length];
@@ -6517,15 +6617,44 @@
             return slots[Math.abs(Number(index) || 0) % slots.length];
         }
 
+
+        function getReportWordCloudSlot(index) {
+            const slots = [
+                { x: 50, y: 50 },
+                { x: 28, y: 62 },
+                { x: 72, y: 61 },
+                { x: 24, y: 37 },
+                { x: 77, y: 38 },
+                { x: 38, y: 75 },
+                { x: 62, y: 75 },
+                { x: 16, y: 54 },
+                { x: 86, y: 55 },
+                { x: 50, y: 27 },
+                { x: 22, y: 78 },
+                { x: 80, y: 78 },
+                { x: 14, y: 25 },
+                { x: 88, y: 25 },
+                { x: 34, y: 22 },
+                { x: 66, y: 22 },
+                { x: 50, y: 86 },
+                { x: 10, y: 70 },
+                { x: 90, y: 70 },
+                { x: 10, y: 42 },
+                { x: 91, y: 42 }
+            ];
+            return slots[Math.abs(Number(index) || 0) % slots.length];
+        }
+
         function buildWordCloudSpans(rows, isWide = false, isReport = false) {
             const maxCount = rows.reduce((max, row) => Math.max(max, row.count), 1);
             return rows.map((row, index) => {
                 const weight = row.count / maxCount;
-                const slot = getWordCloudSlot(index);
+                const slot = isReport ? getReportWordCloudSlot(index) : getWordCloudSlot(index);
                 const color = getDesignChartColor(index);
                 const taper = Math.min(index, isWide ? 18 : 12);
+                const rankLift = Math.max(0, 8 - index);
                 const sizeValue = isReport
-                    ? Math.max(13, Math.round(18 + weight * 58 - taper * .95))
+                    ? Math.max(16, Math.round(15 + weight * 24 + rankLift * 2.2 - taper * .55))
                     : (isWide
                         ? Math.max(.92, 1.15 + weight * 3.05 - taper * .045).toFixed(2)
                         : Math.max(.78, .92 + weight * 1.55 - taper * .04).toFixed(2));
@@ -6548,7 +6677,7 @@
             }
 
             return `<div class="edu-word-cloud-panel${scopeClass}">
-                <div class="edu-word-cloud-head"><span>Wortwolke</span><span>${totalTerms} Begriffe</span></div>
+                <div class="edu-word-cloud-head"><span>Wortwolke</span><span class="edu-word-cloud-actions"><span>${totalTerms} Begriffe</span>${buildStatsDownloadButton()}</span></div>
                 <div class="edu-word-cloud" aria-label="Live-Wortwolke">
                     ${buildWordCloudSpans(rows, isWide, false)}
                 </div>
@@ -6593,7 +6722,7 @@
                     const gradient = buildConicGradient(pieRows, total);
                     statsBox.innerHTML = `
                         <div class="edu-stats-mini">
-                            <div class="edu-stats-mini-head"><span>Ampel-Auswertung</span>${buildStatsToggle()}</div>
+                            ${buildStatsHead('Ampel-Auswertung')}
                             <div class="edu-stats-pie-wrap">
                                 ${buildPieShell(pieRows, total, gradient, 'dot')}
                                 <div class="edu-stats-pie-legend">
@@ -6608,7 +6737,7 @@
                 } else {
                     statsBox.innerHTML = `
                         <div class="edu-stats-mini">
-                            <div class="edu-stats-mini-head"><span>Ampel-Auswertung</span>${buildStatsToggle()}</div>
+                            ${buildStatsHead('Ampel-Auswertung')}
                             ${rows.map(row => `
                                 <div class="edu-stat-row">
                                     <div class="edu-stat-label"><span class="edu-stat-dot" style="background:${row.color}"></span>${row.label}</div>
@@ -6645,7 +6774,7 @@
                     const gradient = buildConicGradient(rows, total);
                     statsBox.innerHTML = `
                         <div class="edu-stats-mini">
-                            <div class="edu-stats-mini-head"><span>Emoji-Auswertung</span>${buildStatsToggle()}</div>
+                            ${buildStatsHead('Emoji-Auswertung')}
                             <div class="edu-stats-pie-wrap">
                                 ${buildPieShell(rows, total, gradient, 'emoji')}
                                 <div class="edu-stats-pie-legend">
@@ -6660,7 +6789,7 @@
                 } else {
                     statsBox.innerHTML = `
                         <div class="edu-stats-mini">
-                            <div class="edu-stats-mini-head"><span>Emoji-Auswertung</span>${buildStatsToggle()}</div>
+                            ${buildStatsHead('Emoji-Auswertung')}
                             ${rows.map(row => `
                                 <div class="edu-stat-row edu-stat-row-emoji">
                                     <div class="edu-stat-label">${renderEduEmojiMark(row.value, 'edu-stats-noto-emoji')}<span>${row.label}</span></div>
@@ -7103,9 +7232,9 @@
                     <div class="space-y-3">
                         ${active(0) ? `<label class="block text-xs text-slate-300 font-bold text-center leading-snug">${q[0]}</label>` : ''}
                         <div class="edu-wordcloud-student-grid">
-                            <input id="ans-0" type="text" maxlength="24" placeholder="Protein" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white font-semibold focus:outline-none focus:ring-1 focus:ring-emerald-500" required>
-                            <input id="ans-1" type="text" maxlength="24" placeholder="Bewegung" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white font-semibold focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                            <input id="ans-2" type="text" maxlength="24" placeholder="Muskulatur" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white font-semibold focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                            <input id="ans-0" type="text" maxlength="24" placeholder="Wort 1" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white font-semibold focus:outline-none focus:ring-1 focus:ring-emerald-500" required>
+                            <input id="ans-1" type="text" maxlength="24" placeholder="Wort 2" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white font-semibold focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                            <input id="ans-2" type="text" maxlength="24" placeholder="Wort 3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-sm text-white font-semibold focus:outline-none focus:ring-1 focus:ring-emerald-500">
                         </div>
                         <p class="text-[10px] text-slate-500 text-center leading-snug">Trage ein bis drei Begriffe ein. Ähnliche Schreibweisen werden in der Live-Wortwolke zusammengeführt.</p>
                     </div>`;
@@ -7475,6 +7604,117 @@
             const visual = renderReportVisualHTML();
             return `<div class="space-y-4">${visual}<div class="report-section-title">Statistik</div>${stats}</div>`;
         }
+
+
+        function escapeSVGText(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function buildWordCloudDownloadSVG() {
+            const rows = getWordCloudRows(36);
+            const width = 1400;
+            const height = 850;
+            const maxCount = rows.reduce((max, row) => Math.max(max, row.count), 1);
+            const words = rows.map((row, index) => {
+                const slot = getReportWordCloudSlot(index);
+                const weight = row.count / maxCount;
+                const rankLift = Math.max(0, 8 - index);
+                const size = Math.max(28, Math.round(34 + weight * 54 + rankLift * 5.2 - Math.min(index, 18) * 1.6));
+                return `<text x="${(slot.x / 100 * width).toFixed(1)}" y="${(slot.y / 100 * height).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="${size}" font-weight="850" fill="${getDesignChartColor(index)}">${escapeSVGText(row.label)}</text>`;
+            }).join('');
+            const empty = rows.length ? '' : `<text x="700" y="425" text-anchor="middle" dominant-baseline="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="38" font-weight="800" fill="#8a8f98">Noch keine Wörter vorhanden</text>`;
+            return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><rect width="100%" height="100%" rx="42" fill="#ffffff"/><rect x="22" y="22" width="${width-44}" height="${height-44}" rx="34" fill="#f8fafc" stroke="#dde6f2" stroke-width="2"/>${words}${empty}</svg>`;
+        }
+
+        function buildBarDownloadSVG(rows) {
+            const safeRows = rows.length ? rows : [];
+            const width = 1200;
+            const rowHeight = 86;
+            const top = 110;
+            const height = Math.max(360, top + 70 + safeRows.length * rowHeight);
+            const labelX = 110, barX = 390, barW = 560, pctX = 1060;
+            const title = window.state.ticketType === 'wortwolke' ? 'Wortwolke' : 'Verteilung';
+            const items = safeRows.map((row, i) => {
+                const y = top + i * rowHeight;
+                const fillW = Math.max(0, Math.min(100, row.percent)) / 100 * barW;
+                return `<g><circle cx="${labelX}" cy="${y+12}" r="11" fill="${row.color}"/><text x="${labelX+28}" y="${y+20}" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="800" fill="#1d1d1f">${escapeSVGText(row.label)}</text><rect x="${barX}" y="${y-6}" width="${barW}" height="34" rx="17" fill="#edf1f7"/><rect x="${barX}" y="${y-6}" width="${fillW.toFixed(1)}" height="34" rx="17" fill="${row.color}"/><text x="${pctX}" y="${y+20}" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="850" fill="#1d1d1f">${row.percent}%</text></g>`;
+            }).join('');
+            return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><rect width="100%" height="100%" rx="42" fill="#ffffff"/><text x="64" y="64" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="30" font-weight="900" fill="#1d1d1f">${escapeSVGText(title)}</text>${items}</svg>`;
+        }
+
+        function buildPieDownloadSVG(rows) {
+            const width = 1100, height = 850;
+            const total = rows.reduce((sum, row) => sum + row.count, 0);
+            const cx = 370, cy = 430, r = 250;
+            let cursor = 0;
+            const slices = total ? rows.filter(row => row.count > 0).map(row => {
+                const start = (cursor / total) * 360;
+                cursor += row.count;
+                const end = (cursor / total) * 360;
+                if (end - start >= 359.9) return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${row.color}"/>`;
+                return `<path d="${buildSvgPieSlice(cx, cy, r, start, end)}" fill="${row.color}" stroke="#ffffff" stroke-width="7"/>`;
+            }).join('') : `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#f8fafc" stroke="#dbe3ee" stroke-width="4"/>`;
+            const legend = rows.map((row, i) => `<g transform="translate(720 ${260 + i*78})"><circle cx="0" cy="0" r="12" fill="${row.color}"/><text x="28" y="8" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="800" fill="#1d1d1f">${escapeSVGText(row.label)}</text><text x="300" y="8" text-anchor="end" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="850" fill="#6e6e73">${row.percent}%</text></g>`).join('');
+            return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><rect width="100%" height="100%" rx="42" fill="#ffffff"/><text x="64" y="76" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34" font-weight="900" fill="#1d1d1f">Kuchendiagramm</text>${slices}<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#dbe3ee" stroke-width="3"/>${legend}</svg>`;
+        }
+
+        function buildDownloadVisualSVG() {
+            if (window.state.ticketType === 'wortwolke') return buildWordCloudDownloadSVG();
+            const rows = getReportCategoryRows();
+            if (eduStatsMode === 'pie') return buildPieDownloadSVG(rows);
+            return buildBarDownloadSVG(rows);
+        }
+
+        window.downloadVisualPNG = function(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            const svgString = buildDownloadVisualSVG();
+            const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const scale = 2;
+                const width = img.naturalWidth || 1400;
+                const height = img.naturalHeight || 850;
+                canvas.width = width * scale;
+                canvas.height = height * scale;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                URL.revokeObjectURL(url);
+                canvas.toBlob((pngBlob) => {
+                    if (!pngBlob) {
+                        showToast('PNG konnte nicht erstellt werden.', 'alert-triangle');
+                        return;
+                    }
+                    const pngUrl = URL.createObjectURL(pngBlob);
+                    const a = document.createElement('a');
+                    const kind = window.state.ticketType === 'wortwolke' ? 'wortwolke' : (eduStatsMode === 'pie' ? 'kuchendiagramm' : 'balkendiagramm');
+                    const room = activeRoom || 'edutix';
+                    a.href = pngUrl;
+                    a.download = `EduTix_${kind}_${room}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    setTimeout(() => URL.revokeObjectURL(pngUrl), 2000);
+                    showToast('PNG gespeichert.', 'download');
+                }, 'image/png');
+            };
+            img.onerror = () => {
+                URL.revokeObjectURL(url);
+                showToast('PNG konnte nicht erstellt werden.', 'alert-triangle');
+            };
+            img.src = url;
+        };
 
         window.openVisualZoom = function(event) {
             if (event && event.target && event.target.closest && event.target.closest('.edu-stats-switch')) return;
